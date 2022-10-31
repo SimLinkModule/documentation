@@ -1,0 +1,21 @@
+%!TEX root = ../Studienarbeit.tex
+
+\pagestyle{empty}
+
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\newenvironment{abstractsection}[1]
+  {\bigskip
+   \begin{center}\bfseries#1\end{center}}
+  {\par\bigskip}
+
+\begin{abstractpage}
+    \begin{abstractsection}{Kurzfassung}
+        \lipsum[1]
+    \end{abstractsection}
+
+    \begin{abstractsection}{Abstract}
+        \lipsum[1]
+    \end{abstractsection}
+\end{abstractpage}

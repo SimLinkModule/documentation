@@ -4,7 +4,7 @@
 - LTeX
 - LaTeX Workshop
 
-## Verwendetes Ubuntu Paket:
+## Verwendete Ubuntu Pakete:
 - texlive-latex-extra
 - latexmk
 - biber

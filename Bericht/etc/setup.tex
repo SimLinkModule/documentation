@@ -21,14 +21,17 @@
 \input{etc/Meta}
 \input{etc/packages}
 
+\addbibresource{quellen.bib}
+
 % (Farb-)einstellungen für die Links im PDF
+\definecolor{LinkColor}{HTML}{00007A}
 \hypersetup{%
 	colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
-	linkcolor={HTML}{00007A}, 	% Farbe festlegen
-	citecolor={HTML}{00007A},
-	filecolor={HTML}{00007A},
-	menucolor={HTML}{00007A},
-	urlcolor={HTML}{00007A},
+	linkcolor=LinkColor, 	% Farbe festlegen
+	citecolor=LinkColor,
+	filecolor=LinkColor,
+	menucolor=LinkColor,
+	urlcolor=LinkColor,
 	linktocpage=true, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
 	bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
 }
@@ -45,3 +48,7 @@
 
 % Bildpfad
 \graphicspath{{Bilder/}}
+
+%für das Quellcodeverzeichnis
+\renewcommand\lstlistingname{Quellcode}
+\renewcommand\lstlistlistingname{Quellcodeverzeichnis}
