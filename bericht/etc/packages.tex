@@ -1,0 +1,61 @@
+%!TEX root = arbeit.tex
+
+\usepackage{xstring}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{longtable}
+
+%bezeichnungen auf deutsch anpassen
+\usepackage[english,ngerman]{babel}
+
+\usepackage{makeidx}
+\usepackage[margin=2.5cm,foot=1cm]{geometry}	% Seitenränder und Abstände
+\usepackage[activate]{microtype} %Zeilenumbruch und mehr
+%\usepackage[onehalfspacing]{setspace}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{longtable}
+\usepackage{enumitem}	% mehr Optionen bei Aufzählungen
+\usepackage{graphicx}
+\usepackage{pdfpages}   % zum Einbinden von PDFs
+\usepackage{xcolor} 	% für HTML-Notation
+\usepackage{float}
+\usepackage{array}
+\usepackage{calc}		% zum Rechnen (Bildtabelle in Deckblatt)
+\usepackage[right]{eurosym}
+\usepackage{wrapfig}
+\usepackage{pgffor} % für automatische Kapiteldateieinbindung
+\usepackage[perpage, hang, multiple, stable]{footmisc} % Fussnoten
+\usepackage[printonlyused]{acronym} % falls gewünscht kann die Option footnote eingefügt werden, dann wird die Erklärung nicht inline sondern in einer Fußnote dargestellt
+\usepackage{listings}
+
+% Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}. 
+\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black]{todonotes}
+% Alle Notizen ausblenden mit der Option "final" in \documentclass[...] oder durch das auskommentieren folgender Zeile
+% \usepackage[disable]{todonotes}
+
+% Literaturverweise
+\usepackage[
+	backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+	bibwarn=true,
+	bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+	sortlocale=de_DE,
+	style=numeric,
+]{biblatex}
+
+% PDF Einstellungen
+\usepackage[%
+	pdftitle={\titel},
+	pdfauthor={\autor},
+	pdfsubject={\art},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
+	pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
+	pdflang={de}, 			% Sprache des Dokuments.
+]{hyperref}
+
+% Workaround um Fehler in Hyperref, muss hier stehen bleiben
+\usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
+
+%schriftart
+\usepackage{lmodern}
