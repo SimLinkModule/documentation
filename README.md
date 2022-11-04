@@ -9,6 +9,7 @@
 - latexmk
 - biber
 - texlive-lang-german
+- texlive-fonts-extra
 
 ## Text Live Paket installieren:
 `tlmgr install <packagename>`
