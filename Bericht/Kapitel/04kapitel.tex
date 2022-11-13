@@ -75,4 +75,22 @@ Attribut-Handles haben eine Länge von 16~Bit und können durch weitere speziell
 Die hinterlegten Werte eines Attributs bestehen aus einem Oktett-Array mit einer fixen oder variablen Länge \cite[S.~1413]{bluetoothCore}.
 
 \subsubsection{\acf{GATT}}
+\ac{GATT} baut auf \ac{ATT} auf und stellt ein Framework für die Daten, welche in \ac{ATT} gespeichert werden, bereit. \ac{GATT} stellt wie \ac{ATT} zwei Rollen -- den Server und den Client -- bereit. Ebenso definiert \ac{GATT} das Format der Daten, welche auf dem \ac{GATT}-Server gespeichert werden dürfen, in sogenannten Profilen. Attribute werden hierfür in Profile, Dienste und Merkmale untergliedert, wie in Abbildung \todo{Referenz hinzufügen} zu sehen ist. Ein Applikationsprofil besteht aus einen oder mehreren Diensten, um bestimmte, definierte Use-Cases abzudecken und definiert darüber hinaus die benötigten Dienste, Merkmale und Attribute \cite[S.~207]{bluetoothCore}. Ein Dienst enthält eine Ansammlung von Merkmalen und kann andere Dienste inkludieren. Ein Merkmal enthält ein Wert, sowie eine Menge von Deskriptoren. Durch diesen Aufbau ist es einen Client möglich die Daten eines bestimmten Profils auszulesen ohne davor den Aufbau der Attribute des Servers kennen zu müssen. \cite[S.~280, S.~1480]{bluetoothCore}
 
+Anzumerken ist, dass jedes Attribut, welches in \ac{ATT} vorhanden ist, entweder in einer Dienstdeklarierung oder in einer Dienstdefinition enthalten sein soll. \cite[S.~1483]{bluetoothCore}
+
+\todo[inline]{Bild hinzufügen}
+
+Das \ac{GATT}-Profil soll von anderen Profilen als Grundstruktur verwendet werden, damit eine reibungslose Kommunikation zwischen einen Client und Server sichergestellt werden kann, wie in Abbildung \todo{Referenz hinzufügen} zu sehen ist. \cite[S.~1470]{bluetoothCore}
+
+\todo[inline]{Bild hinzufügen}
+
+Ein Dienst stellt unter \ac{GATT} eine Ansammlung von Daten dar, um ein bestimmtes Verhalten durch das vorhandene Gerät darzustellen. Ein Dienst kann zur Vereinfachung der Verhaltensdarstellung weitere Dienste inkludieren. Dienste können in zwei Gruppen eingeteilt werden. Zunächst einmal in die primären Dienste. Primäre Dienste bieten alleinstehende Funktionalitäten an. Im Gegensatz dazu gibt es sekundäre Dienste, welche optionale Funktionalitäten enthalten und von mindestens einen primären Dienst inkludiert werden müssen. \cite[S.~281]{bluetoothCore}
+
+Die Definition eines Dienstes umfasst die inkludierten Dienste sowie die benötigten und optionalen Merkmale \cite[S.~1481]{bluetoothCore}.
+
+Der Start eines Dienstes in der Liste der \ac{ATT}-Attribute wird durch ein spezielles Attribut festgelegt, mit dem Attribut-Typ \textit{primärer Dienst} oder \textit{sekundärer Dienst}. Das Ende eines Dienstes wird durch eine Folgedeklaration eines neuen Dienstes festgelegt. \cite[S.~1483]{bluetoothCore}
+
+Merkmale sind Werte eines Dienstes welche aus mehreren \ac{ATT}-Attributen besteht. Ein Merkmal besteht aus drei Komponenten. Der Deklaration, den Eigenschaften des Merkmals und dem dazugehörigen Wert. Zusätzlich können noch Deskriptoren in einem Merkmal enthalten sein, um die Berechtigungen des Merkmals zu setzen. \cite[S.~281]{bluetoothCore}
+
+Der Start eines Merkmals in der Liste der \ac{ATT}-Attribute wird durch ein spezielles Attribut festgelegt, welche den Attribut-Typ \textit{Merkmal} enthält. Das Ende eines Merkmals stellt eine neue Merkmaldeklaration oder eine neue Dienstdeklaration dar. \cite[S.~1484ff.]{bluetoothCore}
