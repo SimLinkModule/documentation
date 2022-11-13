@@ -52,4 +52,9 @@
 %für das Quellcodeverzeichnis
 \renewcommand\lstlistingname{Quellcode}
 \renewcommand\lstlistlistingname{Quellcodeverzeichnis}
+
+%für die zählung von bildern
 \counterwithout{figure}{chapter}
+
+%eine weitere ebene für titel
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
