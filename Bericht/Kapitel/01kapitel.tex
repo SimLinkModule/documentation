@@ -1,18 +1,35 @@
 %!TEX root = ../Studienarbeit.tex
 
 \chapter{Einleitung}
-Enthält Problemstellung, Ziel und Vorgehensweise der Arbeit (Gegenstand und Ziele der Arbeit/Aufgabenbeschreibung,
-geplante Vorgehensweise, Einführung in Thema, Motivation der Aufgabenstellung/Vorausblick)
 
-Grundlagen (z.B. Stand der Technik/Forschung)
+Zwei arten von Drohnen. Freestyle/Renndrohen ... und Consumerdrohnen welche viele Sensoren haben und einfach zu fliegen sind.
+Renndrohnen sind im Acro-Modus komplex zu fliegen, da dort viel gesteuert werden muss.
+Es wird Training benötigt. Entweder im Freien oder in Simulatoren, um weniger zu zerstören.
 
-Hauptteil (Anforderungsdefinition, Anforderungsanalyse, Lösungsgenerierung, Lösungsbewertung, Umsetzung),
-ggf. in mehreren sinnvollen Gliederungspunkten
+Neben dem eigentlichen Multicopterfliegen stellt für Renn- und Freestyle-Multicopterpiloten das Training einen wichtigen Bestandteil dar. Dieses kann in zwei Varianten durchgeführt werden. Der
+Multicopterpilot trainiert entweder am Flugplatz. Hier können aber durch Abstürze hohe Reparaturkosten und lange Reparaturzeiten entstehen. Oder der Multicoperpilot trainiert im Simulator am Rechner.
+Damit die gewohnte Fernbedienung ebenfalls am Rechner verwendet werden kann, bieten einige Hersteller die Möglichkeit an, die Fernbedienung als USB-HID-Joystick zu verwenden.
+Durch die immer leistungsfähiger werdenden Smartphones und Tablets wäre es wünschenswert, auf mobilen Geräten Simulatoren für das Training zu verwenden. Das Problem hierbei ist jedoch, dass die
+Verbindung der Multicopterfernbedienung mit dem mobilen Gerät über USB nur eingeschränkt beziehungsweise unmöglich ist. Beseitigt werden kann dieses Problem bei einigen Fernbedienungen mit
+Modulschächten, mit Hilfe derer die Tasten- und Joysticksignale über andere Funkstandards übertragen werden können.
+Ziel der Arbeit ist es, ein Hardware-Erweiterungsmodul für Multicopterfernbedienungen zu entwickeln. Vorausgesetzt wird im Rahmen dieser Arbeit, dass die Fernbedienungen einen Modulschacht aufweisen
+und die Firmware OpenTX beziehungsweise eine Abspaltung davon verfügbar ist. Das Erweiterungsmodul soll sich dabei durch BLE als HID-Gerät an Endgeräten authentifizieren, wodurch die
+Multicopterfernbedienung als kabelloser Joystick an Endgeräten verwendet werden kann.
+Weitere zusätzliche Optionen -- sofern zeitlich machbar -- sind zum einen, ein kleines LED-Display einzubauen, womit die Bedienung des Moduls erleichtert werden kann. Zum anderen eine GUI zu entwickeln,
+um den Updateprozess für das BLE-HID-Modul zu vereinfachen. Die GUI kann dafür mit dem Framework Electron für eine systemunabhängige Verwendung entwickelt werden.
 
-Kritische Reflexion und Ausblick
+\section{Motivation}
 
-Aufteilung in T2000: Einleitung, Stand zu Beginn der Arbeit, Aufgabenstellung (mit den einzelnen Bestandteilen), Stand der Technik, Technische Grundlagen, Umsetzung, Rekapitulation und Ausblick
+In den letzten Jahren ist die Leistungsfähigkeit von Tablets gestiegen. Jedoch ist es schwer mittels USB eine Verbindung aufzubauen. Dafür muss auf ein Funkstandard ausgewichen werden --> Bluetooth.
+Es wird dann genau BLE verwendet, da dieses unter Apple ohne Einschränkungen verwendet werden kann.
+Dadurch findet eine Ausweitung für Simulatoren auf mobile Geräte statt, da es zurzeit die Kommunikation mit Tablets schwer ist.
+--> Schreiben, dass es mittels einem Modul an Controllern gelöst werden soll.
 
-\todo[inline]{Gliederung einmal aufstellen}
+\section{Stand der Technik}
+
+Gibt im Umfeld nur wenig bis keine BLE HID Geräte zum Verbinden mit Smartphone. Eine Möglichkeit via USB und via Betaflight-Flightcontroller.
+
+Schreiben, was es für andere Module statt ESP gibt. Der Modulschacht wird zurzeit nur für andere Übertragungsstandards für Drohnen verwendet.
+
 \todo[inline]{Bilder bis jetzt erstellen}
 \todo[inline]{Alles bis technische Grundlagen einmal schreiben}
