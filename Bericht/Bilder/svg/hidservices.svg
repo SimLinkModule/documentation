@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="hidservices.svg"
+   inkscape:export-filename="/home/faku/Documents/GitHub/documentation/Bericht/Bilder/hidservices.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.57575436"
+     inkscape:cx="209.29064"
+     inkscape:cy="243.15925"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#76d6bf;fill-opacity:1;stroke:#000000;stroke-width:0.3"
+       id="rect846"
+       width="151.13754"
+       height="99.54969"
+       x="29.482061"
+       y="54.511627" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="84.591492"
+       y="66.013374"
+       id="text3116"><tspan
+         sodipodi:role="line"
+         id="tspan3114"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.264583"
+         x="84.591492"
+         y="66.013374">HID-Gerät</tspan></text>
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0"
+       id="rect9504"
+       width="45.967434"
+       height="20.307631"
+       x="45.665539"
+       y="80.711769" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0"
+       id="rect9504-3"
+       width="45.967434"
+       height="20.307631"
+       x="42.260605"
+       y="78.218819" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.323578;stroke-miterlimit:4;stroke-dasharray:2.58862, 2.58862;stroke-dashoffset:0"
+       id="rect9504-3-9"
+       width="53.476871"
+       height="20.307631"
+       x="120.732"
+       y="104.77146" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="123.95191"
+       y="113.44508"
+       id="text27276-3"><tspan
+         sodipodi:role="line"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="123.95191"
+         y="113.44508"
+         id="tspan50724">Scan Parameters</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="123.95191"
+         y="120.50063"
+         id="tspan50726">Dienst</tspan></text>
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.323578;stroke-miterlimit:4;stroke-dasharray:2.58862, 2.58862;stroke-dashoffset:0"
+       id="rect9504-3-9-1"
+       width="53.476871"
+       height="20.307631"
+       x="120.33462"
+       y="129.50656" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect9504-3-6"
+       width="45.967434"
+       height="20.307631"
+       x="38.041172"
+       y="75.531288" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect9504-3-6-2"
+       width="53.653889"
+       height="26.875996"
+       x="120.80079"
+       y="74.442993" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="41.392902"
+       y="88.179382"
+       id="text11248"><tspan
+         sodipodi:role="line"
+         id="tspan11246"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="41.392902"
+         y="88.179382">HID Dienst</tspan></text>
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0"
+       id="rect9504-7"
+       width="56.668884"
+       height="20.281433"
+       x="49.537083"
+       y="123.79001" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:2.4, 2.4;stroke-dashoffset:0"
+       id="rect9504-3-5"
+       width="56.668884"
+       height="20.281433"
+       x="45.339458"
+       y="121.30027" />
+    <rect
+       style="fill:#ffc852;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect9504-3-6-3"
+       width="56.668884"
+       height="20.281433"
+       x="40.137726"
+       y="118.61621" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="42.936867"
+       y="131.50641"
+       id="text11248-5"><tspan
+         sodipodi:role="line"
+         id="tspan11246-6"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="42.936867"
+         y="131.50641">Batteriedienst</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="123.76118"
+       y="81.52298"
+       id="text27276"><tspan
+         sodipodi:role="line"
+         id="tspan27274"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="123.76118"
+         y="81.52298">Geräte-</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="123.76118"
+         y="90.34243"
+         id="tspan38030">informations-</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="123.76118"
+         y="99.16188"
+         id="tspan39346">dienst</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="122.6098"
+       y="138.42793"
+       id="text27276-2"><tspan
+         sodipodi:role="line"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="122.6098"
+         y="138.42793"
+         id="tspan39346-9">Weitere</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="122.6098"
+         y="145.48349"
+         id="tspan44402">optionale Dienste</tspan></text>
+  </g>
+</svg>

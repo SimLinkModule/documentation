@@ -19,7 +19,7 @@ Die Übertragungsfrequenz von \ac{BLE} ist im lizenzfreien 2.4~GHz \acf{ISM}-Ban
 \begin{figure}[h]
 \centering
 \includegraphics[height=.3\textwidth]{frequenzband}
-\caption{Frequenzband mit Kanälen von \ac{BLE}; Abgewandelt von \cite[S.~4]{siliconBLE}}
+\caption{Frequenzband mit Kanälen von \ac{BLE}; abgewandelt von \cite[S.~4]{siliconBLE}}
 \label{fig:frequenzbandBLE}
 \end{figure}
 
@@ -34,7 +34,7 @@ Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen damit es laut Bl
 \begin{figure}[h]
     \centering
     \includegraphics[width=.25\paperheight]{blestack}
-    \caption{Benötigte Komponenten eines \acs{BLE}-Geräts; Abgewandelt von \cite[S.~203, S.~1245]{bluetoothCore}}
+    \caption{Benötigte Komponenten eines \acs{BLE}-Geräts; abgewandelt von \cite[S.~203, S.~1245]{bluetoothCore}}
     \label{fig:blestack}
 \end{figure}
 
@@ -85,15 +85,25 @@ Attribut-Handles haben eine Länge von 16~Bit und können durch weitere speziell
 Die hinterlegten Werte eines Attributs bestehen aus einem Oktett-Array mit einer fixen oder variablen Länge \cite[S.~1413]{bluetoothCore}.
 
 \subsubsection{\acf{GATT}}
-\ac{GATT} baut auf \ac{ATT} auf und stellt ein Framework für die Daten, welche in \ac{ATT} gespeichert werden, bereit. \ac{GATT} stellt wie \ac{ATT} zwei Rollen -- den Server und den Client -- bereit. Ebenso definiert \ac{GATT} das Format der Daten, welche auf dem \ac{GATT}-Server gespeichert werden dürfen, in sogenannten Profilen. Attribute werden hierfür in Profile, Dienste und Merkmale untergliedert, wie in Abbildung \todo{Referenz hinzufügen} zu sehen ist. Ein Applikationsprofil besteht aus einen oder mehreren Diensten, um bestimmte, definierte Use-Cases abzudecken und definiert darüber hinaus die benötigten Dienste, Merkmale und Attribute \cite[S.~207]{bluetoothCore}. Ein Dienst enthält eine Ansammlung von Merkmalen und kann andere Dienste inkludieren. Ein Merkmal enthält ein Wert, sowie eine Menge von Deskriptoren. Durch diesen Aufbau ist es einen Client möglich die Daten eines bestimmten Profils auszulesen ohne davor den Aufbau der Attribute des Servers kennen zu müssen. \cite[S.~280, S.~1480]{bluetoothCore}
+\ac{GATT} baut auf \ac{ATT} auf und stellt ein Framework für die Daten, welche in \ac{ATT} gespeichert werden, bereit. \ac{GATT} stellt wie \ac{ATT} zwei Rollen -- den Server und den Client -- bereit. Ebenso definiert \ac{GATT} das Format der Daten, welche auf dem \ac{GATT}-Server gespeichert werden dürfen, in sogenannten Profilen. Attribute werden hierfür in Profile, Dienste und Merkmale untergliedert, wie in Abbildung \ref{fig:gattstructure} zu sehen ist. Ein Applikationsprofil besteht aus einen oder mehreren Diensten, um bestimmte, definierte Use-Cases abzudecken und definiert darüber hinaus die benötigten Dienste, Merkmale und Attribute \cite[S.~207]{bluetoothCore}. Ein Dienst enthält eine Ansammlung von Merkmalen und kann andere Dienste inkludieren. Ein Merkmal enthält ein Wert, sowie eine Menge von Deskriptoren. Durch diesen Aufbau ist es einen Client möglich die Daten eines bestimmten Profils auszulesen ohne davor den Aufbau der Attribute des Servers kennen zu müssen. \cite[S.~280, S.~1480]{bluetoothCore}
 
 Anzumerken ist, dass jedes Attribut, welches in \ac{ATT} vorhanden ist, entweder in einer Dienstdeklarierung oder in einer Dienstdefinition enthalten sein soll. \cite[S.~1483]{bluetoothCore}
 
-\todo[inline]{Bild hinzufügen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.20\paperheight]{gattstructure}
+    \caption{\acs{GATT} Hierarchie; abgewandelt von \cite[S.~281]{bluetoothCore}}
+    \label{fig:gattstructure}
+\end{figure}
 
-Das \ac{GATT}-Profil soll von anderen Profilen als Grundstruktur verwendet werden, damit eine reibungslose Kommunikation zwischen einen Client und Server sichergestellt werden kann, wie in Abbildung \todo{Referenz hinzufügen} zu sehen ist. \cite[S.~1470]{bluetoothCore}
+Das \ac{GATT}-Profil soll von anderen Profilen als Grundstruktur verwendet werden, damit eine reibungslose Kommunikation zwischen einen Client und Server sichergestellt werden kann, wie in Abbildung \ref{fig:profilhierarchie} zu sehen ist. \cite[S.~1470]{bluetoothCore}
 
-\todo[inline]{Bild hinzufügen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{profilhierarchie}
+    \caption{Hierarchische Verwendung von Profilen; abgewandelt von \cite[S.~1468]{bluetoothCore}}
+    \label{fig:profilhierarchie}
+\end{figure}
 
 Ein Dienst stellt unter \ac{GATT} eine Ansammlung von Daten dar, um ein bestimmtes Verhalten durch das vorhandene Gerät darzustellen. Ein Dienst kann zur Vereinfachung der Verhaltensdarstellung weitere Dienste inkludieren. Dienste können in zwei Gruppen eingeteilt werden. Zunächst einmal in die primären Dienste. Primäre Dienste bieten alleinstehende Funktionalitäten an. Im Gegensatz dazu gibt es sekundäre Dienste, welche optionale Funktionalitäten enthalten und von mindestens einen primären Dienst inkludiert werden müssen. \cite[S.~281]{bluetoothCore}
 
@@ -106,52 +116,57 @@ Merkmale sind Werte eines Dienstes welche aus mehreren \ac{ATT}-Attributen beste
 Der Start eines Merkmals in der Liste der \ac{ATT}-Attribute wird durch ein spezielles Attribut festgelegt, welche den Attribut-Typ \textit{Merkmal} enthält. Das Ende eines Merkmals stellt eine neue Merkmaldeklaration oder eine neue Dienstdeklaration dar. \cite[S.~1484ff.]{bluetoothCore}
 
 \subsection{Sollanforderungen durch Apple}
-Im Apple Ökosystem muss Zubehör welches \ac{MFi} lizensierte Technologie, zum Verbindung zu Apple Geräte, verwendet -- beispielsweise \ac{MFi} Game Controller -- von Apple geprüft werden. Eine Ausnahme stellen dabei \ac{BLE}-Geräte dar. \cite{appleMfiProgram} Jedoch müssen diese Geräte einige Sollanforderungen im Bezug auf \ac{BLE} erfüllen. Eine Anforder ist, dass alle drei Advertising-Kanäle bei jeden Advertising Event verwendet werden sollen \cite[S.~186]{appleDesignGuide}. Dabei muss ein Advertising-Paket mindestens folgende Daten enthalten: TX Power Level, lokaler Name (ohne \textit{:} und \textit{;}), Flags und der primäre Dienst des Geräts \cite[S.~186f.]{appleDesignGuide}. Eine weitere Anforderung ist, dass die Advertising-Intervalle zunächst 20~ms für die ersten 30~Sekunden lang ist und danach auf andere Intervalle umgeschalten werden soll, welche in der Tabelle \cite[S.~187]{appleDesignGuide} stehen. Eine weitere Anforderung ist, dass keine speziellen Berechtigungen benötigt werden, um Dienste und Merkmale eines Gerätes zu endecken \cite[S.~190]{appleDesignGuide}. Auch soll auf den \ac{BLE}-Geräten der Geräteinformationsdienst implementiert sein, damit der Herstellername, die Modellnummer, die Firmwareversion und die Softwareversion ausgelsen werden kann \cite[S.~191]{appleDesignGuide}. Ebenso sollte Zubehör im \ac{GATT}-Profil das Merkmal mit dem Namen \textit{Gerätename} implementiert haben und durch das Apple-Gerät beschreibbar sein \cite[S.~190]{appleDesignGuide}. Als weitere Anforderung ist zu nennen, dass die Datenpacketlängenerweiterung vorhanden sein sollte, damit der Datenteil eines Pakets statt 27~Byte 251~Byte lang sein kann \cite[S.~189]{appleDesignGuide}. Die letzte Anforderung ist, dass auflösbare private Geräteadressen verwendet werden sollen \cite[S.~189]{appleDesignGuide}.
+Im Apple Ökosystem muss Zubehör welches \ac{MFi} lizenzierte Technologie, zur Verbindung zu Apple Geräte, verwendet -- beispielsweise \ac{MFi} Game Controller -- von Apple geprüft werden. Eine Ausnahme stellen dabei \ac{BLE}-Geräte dar. \cite{appleMfiProgram} Jedoch müssen diese Geräte einige Sollanforderungen in Bezug auf \ac{BLE} erfüllen. Eine Anforderung ist, dass alle drei Advertising-Kanäle bei jeden Advertising-Event verwendet werden sollen \cite[S.~186]{appleDesignGuide}. Dabei muss ein Advertising-Paket mindestens folgende Daten enthalten: TX Power Level, lokaler Name (ohne \textit{:} und \textit{;}), Flags und der primäre Dienst des Geräts \cite[S.~186f.]{appleDesignGuide}. Eine weitere Anforderung ist, dass die Advertising-Intervalle zunächst 20~ms für die ersten 30~Sekunden lang ist und danach auf andere Intervalle umgeschalten werden soll, welche in der Tabelle \cite[S.~187]{appleDesignGuide} stehen. Eine weitere Anforderung ist, dass keine speziellen Berechtigungen benötigt werden, um Dienste und Merkmale eines Gerätes zu entdecken \cite[S.~190]{appleDesignGuide}. Auch soll auf den \ac{BLE}-Geräten der Geräteinformationsdienst implementiert sein, damit der Herstellername, die Modellnummer, die Firmwareversion und die Softwareversion ausgelesen werden kann \cite[S.~191]{appleDesignGuide}. Ebenso sollte Zubehör im \ac{GATT}-Profil das Merkmal mit dem Namen \textit{Gerätename} implementiert haben und durch das Apple-Gerät beschreibbar sein \cite[S.~190]{appleDesignGuide}. Als weitere Anforderung ist zu nennen, dass die Datenpacketlängenerweiterung vorhanden sein sollte, damit der Datenteil eines Pakets statt 27~Byte 251~Byte lang sein kann \cite[S.~189]{appleDesignGuide}. Die letzte Anforderung ist, dass auflösbare private Geräteadressen verwendet werden sollen \cite[S.~189]{appleDesignGuide}.
 
-Auch geben Apple-Geräte nicht alle Dienste an Drittanbieter-Apps weiter, sondern verarbeitern diese intern und geben daraufhin die verarbeiteten Daten an die Drittanbieter-Apps weiter. Die herausgefilteren Dienste sind: \ac{GAP}, \ac{GATT} sowie \ac{BLE} \ac{HID}. \cite[S.~192]{appleDesignGuide}
+Auch geben Apple-Geräte nicht alle Dienste an Drittanbieter-Apps weiter, sondern verarbeiten diese intern und geben daraufhin die verarbeiteten Daten an die Drittanbieter-Apps weiter. Die heraus gefilteren Dienste sind: \ac{GAP}, \ac{GATT} sowie \ac{BLE} \ac{HID}. \cite[S.~192]{appleDesignGuide}
 
 \subsection{\acf{HOGP}}
 In diesen Abschnitt der Arbeit, wird nur auf die Anforderungen eines \acs{HID}-Geräts -- stellt einen \acs{GATT}-Server bereit \cite[S.~9]{bluetoothHOGP} -- und nicht eines \acs{HID}-Hosts -- stellt einen \acs{GATT}-Client bereit \cite[S.~9]{bluetoothHOGP} --, da eine Implementierung des \acs{HID}-Hosts nicht in diesem Projekt benötigt werden.
 
-Mittels dem \acl{HOGP} werden Prozeduren und Fähigkeiten definiert, welches ein \acs{BLE}-\acs{HID} fähiges Gerät benötigt, um als \acs{HID}-Gerät von \acs{HID}-Host wargenommen zu werden. Das Profil ist passt dafür die USB \acs{HID} Spezifikation für \ac{BLE} an. \cite[S.~9]{bluetoothHOGP}
+Mittels dem \acl{HOGP} werden Prozeduren und Fähigkeiten definiert, welches ein \acs{BLE}-\acs{HID} fähiges Gerät benötigt, um als \acs{HID}-Gerät von \acs{HID}-Host wahrgenommen zu werden. Das Profil ist, passt dafür die USB \acs{HID} Spezifikation für \ac{BLE} an. \cite[S.~9]{bluetoothHOGP}
 
-Als Abhängigkeiten hat das \acf{HOGP} weiter Profile und Dienste, welche auf einen \acs{HID}-Gerät implementiert sein müssen. Dazu zählen das \acs{GATT}, der Batteriedienst, der Geräteinformationsdiesnt, das Scan Parameters Profil und der \acs{HID} Dienst. Dabei ist zu beachten, dass auf einen \acs{HID}-Gerät ein oder mehrere Instanzen des \acs{HID}-Dienstes, ein oder mehrere Instanzen des Batteriedienstes, sowie nur eine Instanz des Gerätinformationsdienstes und optional eine Instanz des Scan Parameters Dienstes laufen darf. \cite[S.~9, S.~11]{bluetoothHOGP} In Abbildung \todo{referenz einfügen} sind alle benötgiten und optionalen Dienste grafisch dargestellt. Optionale Dienste werden dabei durch eine gestrichelte Linie angedeutet.
+Als Abhängigkeiten hat das \acf{HOGP} weiter Profile und Dienste, welche auf einem \acs{HID}-Gerät implementiert sein müssen. Dazu zählen das \acs{GATT}, der Batteriedienst, der Geräteinformationsdienst, das Scan Parameters Profil und der \acs{HID} Dienst. Dabei ist zu beachten, dass auf einem \acs{HID}-Gerät ein oder mehrere Instanzen des \acs{HID}-Dienstes, ein oder mehrere Instanzen des Batteriedienstes, sowie nur eine Instanz des Gerätinformationsdienstes und optional eine Instanz des Scan Parameters Dienstes laufen darf. \cite[S.~9, S.~11]{bluetoothHOGP} In Abbildung \ref{fig:hidservices} sind alle benötigten und optionalen Dienste grafisch dargestellt. Optionale Dienste werden dabei durch eine gestrichelte Linie angedeutet.
 
-\todo[inline]{Bild einfügen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{hidservices}
+    \caption{Benötigte Dienste eines \acs{HID}-Geräts; abgewandelt von \cite[S.~11]{bluetoothHOGP}}
+    \label{fig:hidservices}
+\end{figure}
 
 Auch werden im \acl{HOGP} für alle benötigten Dienste und Profile zusätzliche Bedingungen gesetzt. Diese werden in folgenden Unterkapiteln bei dem jeweiligen Dienst beziehungsweise Profil dargelegt.
 
 \subsubsection{\ac{HID}-Dienst}
 
-Der \acs{HID}-Dienst ist auf \acs{HID}-Geräten zuständig, um alle benötigten Daten für einen \acs{HID}-Host bereitszustellen. Dabei ist zu beachten, dass alle gespeicherten Merkmale des \acs{GATT}-Servers mit dem niederwertigsten Oktett zuerst übertragen werden müssen. Auch muss der Dienst für den standardkonformen Betrieb mindestens die Merkmale \textit{Report Map}, \textit{HID Information} und \textit{HID Control Point} implementiert haben. \cite[S.~8ff.]{bluetoothHIDS}
+Der \acs{HID}-Dienst ist auf \acs{HID}-Geräten zuständig, um alle benötigten Daten für einen \acs{HID}-Host bereitzustellen. Dabei ist zu beachten, dass alle gespeicherten Merkmale des \acs{GATT}-Servers mit dem niederwertigsten Oktett zuerst übertragen werden müssen. Auch muss der Dienst für den standardkonformen Betrieb mindestens die Merkmale \textit{Report Map}, \textit{HID Information} und \textit{HID Control Point} implementiert haben. \cite[S.~8ff.]{bluetoothHIDS}
 
 \subsubsubsection{Report Merkmal}
-Das Merkmal \textit{Report} ist optional. Dieses stellt jedoch ein wichtiges Merkmal dar, da der Datentransfer zwischen \acs{HID}-Gerät und \acs{HID}-Host hauptsächlich über dieses Merkmal stattfindent. Das Merkmal \textit{Report}, kann dabei einen von drei Typen annehmen, nämlich Eingabe, Ausgabe oder Feature. Diese Typen finden sich ebenso in der USB \acs{HID} Sepifikation wieder. \cite[S.~11f.]{bluetoothHIDS}
+Das Merkmal \textit{Report} ist optional. Dieses stellt jedoch ein wichtiges Merkmal dar, da der Datentransfer zwischen \acs{HID}-Gerät und \acs{HID}-Host hauptsächlich über dieses Merkmal stattfindet. Das Merkmal \textit{Report}, kann dabei einen von drei Typen annehmen, nämlich Eingabe, Ausgabe oder Feature. Diese Typen finden sich ebenso in der USB \acs{HID} Spezifikation wieder. \cite[S.~11f.]{bluetoothHIDS}
 
-Da ein \acs{HID}-Gerät mehrere Reports haben kann, muss für jeden Report ein eigenes Merkmal erstellt werden. Zu Unterscheidung der verschiedenen Reports muss jeweils ein Referenz-Merkmalsdeskriptor hinzugefügt werden, welche eine eindeutige Report-ID und den Report-Typen enthält. Als zusätzliche Bedingung müssen in allen Report-Merkmalen vom Typ Eingabe ein Konfigurationsdeskriptor vorhanden sein. Mittels diesen Deskiptor kann konfiguriert werden, ob bei Änderung des Merkmalswerts der \acs{HID}-Host informiert werden soll oder nicht. Diese Angabe ist desweiteren verpflichtend. \cite[S.~14.f]{bluetoothHIDS}
+Da ein \acs{HID}-Gerät mehrere Reports haben kann, muss für jeden Report ein eigenes Merkmal erstellt werden. Zu Unterscheidung der verschiedenen Reports muss jeweils ein Referenz-Merkmalsdeskriptor hinzugefügt werden, welche eine eindeutige Report-ID und den Report-Typen enthält. Als zusätzliche Bedingung müssen in allen Report-Merkmalen vom Typ Eingabe ein Konfigurationsdeskriptor vorhanden sein. Mittels diesen Deskiptor kann konfiguriert werden, ob bei Änderung des Merkmalswerts der \acs{HID}-Host informiert werden soll oder nicht. Diese Angabe ist des Weiteren verpflichtend. \cite[S.~14.f]{bluetoothHIDS}
 
 \subsubsubsection{Report Map Merkmal}
-In dem Merkmal \textit{Report Map}, wir der USB Report Deskriptor abgespeichert (wie in der USB \acs{HID} Spezifikation definiert \cite[S.~21]{bluetoothHOGP}), welcher den Aufbau und die Formatierung der einzelnen Report-Merkmale enthält \cite[S.~11]{bluetoothHIDS}. Pro \acs{HID}-Dienst darf nur jeweils nur eine Instanz dieses Merkmals vorhanden sien und die maximale Größe ist auf 512~Oktette beschränkt \cite[S.~16]{bluetoothHIDS}. Mittels dem zusätzlich benötigten \textit{Report Referenz}-Merkmalsdeskriptors ist es den \acs{HID}-Hosts möglich die Informationen des \textit{Report Map} Merkmals mit den \textit{Report} Merkmalen zu verknüpfen \cite[S.~17]{bluetoothHIDS}.
+Im Merkmal \textit{Report Map}, wir der USB Report Deskriptor abgespeichert (wie in der USB \acs{HID} Spezifikation definiert \cite[S.~21]{bluetoothHOGP}), welcher den Aufbau und die Formatierung der einzelnen Report-Merkmale enthält \cite[S.~11]{bluetoothHIDS}. Pro \acs{HID}-Dienst darf nur jeweils nur eine Instanz dieses Merkmals vorhanden sein und die maximale Größe ist auf 512~Oktette beschränkt \cite[S.~16]{bluetoothHIDS}. Mittels dem zusätzlich benötigten \textit{Report Referenz}-Merkmalsdeskriptors ist es den \acs{HID}-Hosts möglich die Informationen des \textit{Report Map} Merkmals mit den \textit{Report} Merkmalen zu verknüpfen \cite[S.~17]{bluetoothHIDS}.
 
 \subsubsubsection{\ac{HID} Information Merkmal}
-Dieses Merkmal enthält eine Ansammlung von Informationenen welche \acs{HID} spezifische Werte sind. Zwei beispielhafte Werte welche in diesem Merkmal enthalten sind, ist zum einen der Wert \textit{bcdHID}. Dieser wird verwendet, um den \acs{HID}-Host anzuzeigen, welche USB-Spezifikation im \acs{HID}-Gerät implementiert wurde. Zum anderen gibt es den Wert \textit{bCountryCode}. Mit diesem Wert wird angegeben,für welches Land das \acs{HID}-Gerät entwickelt wurde. Da Geräte meist nich für ein spezielles Land entwickelt werden steht dieser Wert häufig auf 0x00. Das \textit{\acs{HID} Information} Merkmal darf pro \acs{HID} Dienst nur einmal vorkommen und die Daten müssen statisch sein. \cite[S.~20f.]{bluetoothHIDS}
+Dieses Merkmal enthält eine Ansammlung von Informationen, welche \acs{HID} spezifische Werte sind. Zwei beispielhafte Werte, welche in diesem Merkmal enthalten sind, ist zum einen der Wert \textit{bcdHID}. Dieser wird verwendet, um den \acs{HID}-Host anzuzeigen, welche USB-Spezifikation im \acs{HID}-Gerät implementiert wurde. Zum anderen gibt es den Wert \textit{bCountryCode}. Mit diesem Wert wird angegeben, für welches Land das \acs{HID}-Gerät entwickelt wurde. Da Geräte meist nicht für ein spezielles Land entwickelt werden steht dieser Wert häufig auf 0x00. Das \textit{\acs{HID} Information} Merkmal darf pro \acs{HID} Dienst nur einmal vorkommen und die Daten müssen statisch sein. \cite[S.~20f.]{bluetoothHIDS}
 
 \subsubsubsection{\ac{HID} Control Point Merkmal}
 Dieses Merkmal wird von \acs{HID}-Hosts verwendet, um \acs{HID}-Geräte in den Schlafmodus und in den normalen Betrieb zu versetzen. Dieses Merkmal darf nur einmal pro \acs{HID} Dienst vorkommen. \cites[S.~23]{bluetoothHOGP}[S.~21]{bluetoothHIDS}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
-Alle Merkmale die in dem \textit{Report Map} Merkmal veschrieben sind und nicht im \acs{HID} Dienst enthalten sind, sollen mittels eines \textit{Includes} in der \acs{HID} Dienst Definition referenziert werden. Zusätzlich müssen alle referenzierten Merkmale den \textit{Report Referenz} Merkmaldeskriptor enthalten. Auch müssen alle \acs{HID}-Dienste als primärer Dienst initialisiert werden und während der Entdeckungsphase für einen Verbindungsaufbau als möglicher Dienst angegeben werden. \cite[S.~13f.]{bluetoothHOGP}
+Alle Merkmale, die in dem \textit{Report Map} Merkmal beschrieben sind und nicht im \acs{HID} Dienst enthalten sind, sollen mittels eines \textit{Includes} in der \acs{HID} Dienst Definition referenziert werden. Zusätzlich müssen alle referenzierten Merkmale den \textit{Report Referenz} Merkmaldeskriptor enthalten. Auch müssen alle \acs{HID}-Dienste als primärer Dienst initialisiert werden und während der Entdeckungsphase für einen Verbindungsaufbau als möglicher Dienst angegeben werden. \cite[S.~13f.]{bluetoothHOGP}
 
 \subsubsection{Batteriedienst}
 Mittels diesem Dienst wird dem \acs{GATT}-Host der aktuelle Batteriestatus einer oder mehrerer Batterien des \acs{GATT}-Servers bereitgestellt. Dabei gilt es zu beachten, dass alle bereitgestellten Merkmale des \acs{GATT}-Servers mit dem niederwertigsten Oktett zuerst übertragen werden. \cite[S.~6]{bluetoothBatteryS}
 
-Für diesen Dienst muss ein Merkmal mit den Namen \textit{Battery Level} implementiert werden. Der Batteriestand wird dabei als ein Prozentwert zwischen 0 und 100 angegben. Wobei 100\% einer voll aufgelandenen Batterie entspricht. Zusätzlich kann das Merkmal so eingerichtet werden, dass der \acs{GATT}-Server den \acs{GATT}-Client informiert sobald sich der Wert geändert hat. \cite[S.~8]{bluetoothBatteryS}
+Für diesen Dienst muss ein Merkmal mit den Namen \textit{Battery Level} implementiert werden. Der Batteriestand wird dabei als ein Prozentwert zwischen 0 und 100 angegeben. Wobei 100~\% einer voll aufgeladenen Batterie entspricht. Zusätzlich kann das Merkmal so eingerichtet werden, dass der \acs{GATT}-Server den \acs{GATT}-Client informiert, sobald sich der Wert geändert hat. \cite[S.~8]{bluetoothBatteryS}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
 Es muss mindestens ein Batteriedienst als primärer Dienst auf dem \acs{HID}-Gerät laufen. Falls ein Batteriestandsmerkmal Bestandteil des \textit{Report Map} Merkmals ist, muss der Dienst mittels eines \textit{Include} in der \acs{HID} Dienst Definition referenziert werden. \cite[S.~14]{bluetoothHOGP}
 
 \subsubsection{Geräteinformationsdienst}
-Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller und Anbieter des \acs{GATT}-Server bereit. Dabei darf jedes verfügbare Merkmal nur einmalig pro Dienst vorkommen. Zu beachten ist, dass alle Merkmale optional sind. \cite[S.~6ff.]{bluetoothDeviceI}. In Tabelle \ref{table:deviceinformationlist} sind alle vorhanden Merkmale mit einer kurzen Beschreibung aufgelistet.
+Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller und Anbieter des \acs{GATT}-Servers bereit. Dabei darf jedes verfügbare Merkmal nur einmalig pro Dienst vorkommen. Zu beachten ist, dass alle Merkmale optional sind. \cite[S.~6ff.]{bluetoothDeviceI}. In Tabelle \ref{table:deviceinformationlist} sind alle vorhanden Merkmale mit einer kurzen Beschreibung aufgelistet.
 
 \begin{longtable}[c]{|p{4cm}|p{11cm}|}
     \caption{Liste der verfügbaren Geräteinformationsmerkmale}
@@ -162,7 +177,6 @@ Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller 
     \hline
     \endfirsthead
 
-    \caption{Fortsetzung der verfügbaren Merkmale}\\
     \hline
     \textbf{Merkmalname} & \textbf{Kurzbeschreibung}\\
     \hline
@@ -189,11 +203,11 @@ Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller 
     \hline
     Softwareversion & Enthält die Softwareversion \cite[S.~9]{bluetoothDeviceI}\\
     \hline
-    System-ID & Enthält eine Komination aus organisatorischer UID und herstellerdefinierte ID. Diese ID ist eindeutig für jedes Gerät eines Produkts \cite[S.~9]{bluetoothDeviceI}\\
+    System-ID & Enthält eine Kombination aus organisatorischer UID und Hersteller definierte ID. Diese ID ist eindeutig für jedes Gerät eines Produkts \cite[S.~9]{bluetoothDeviceI}\\
     \hline
     IEEE 11073-20601 Regulatory Certification Data Liste & Enthält eine Liste aller Regulations- und Zertifizierungsinfromationen des Produkts \cite[S.~9]{bluetoothDeviceI}\\
     \hline
-    PNP-ID & Enthält eine eindeutige Geräte-ID. Diese bestht aus der Anbieter-ID-Quelle (Angabe, ob die Anbieter-ID durch Bluetooth~SIG oder USB Implementer's Forum festgelet wurde), der Anbieter-ID, der Produkt-ID (von Anbieter festgelegt) und einer Produktversion. Die Produktversion wird als binär-kodierte Dezimalzahl dargestellt. Zum Beispiel Version 2.13 = 0x0213 \cite[S.~10f.]{bluetoothDeviceI}\\
+    PNP-ID & Enthält eine eindeutige Geräte-ID. Diese besteht aus der Anbieter-ID-Quelle (Angabe, ob die Anbieter-ID durch Bluetooth~SIG oder USB Implementer's Forum festgelegt wurde), der Anbieter-ID, der Produkt-ID (von Anbieter festgelegt) und einer Produktversion. Die Produktversion wird als binär-kodierte Dezimalzahl dargestellt. Zum Beispiel Version 2.13 = 0x0213 \cite[S.~10f.]{bluetoothDeviceI}\\
 \end{longtable}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
@@ -209,13 +223,228 @@ Mittels diesem optionalen Profil beziehungsweise Dienst, stellt ein \acs{GATT}-S
 
 \section{Übertragungsprotokolle am Fernbedienungsmodulschacht}
 
+Die Multikopter-Fernsteuerungssoftware OpenTX bietet eine Vielzahl von verschiedenen Übertragungsmöglichkeiten zwischen der Fernsteuerung und den Modulen im Modulschacht. Die unterstützten Übertragungsmöglichkeiten sind hierbei: \ac{PPM}, ACCST(D12, D8, LR12)\cite{liangRCProtocols}, DSM, MULTI, ein Protokoll für R9m-Erweiterungsmodule \cite{frskyr9m} und SBUS. \cite{opentxsetup}
+
+Zu beachten bei der Übertragung mittels des PPM-Ausgabepins am Modulschacht ist, dass dieser mittels der Batteriespannung der Fernbedienung betrieben wird, worüber auch das SBUS-Protokoll übertragen wird. Dadurch sollte ein Modul nur betrieben werden, wenn ein Spannungsteiler oder ein Pegelumsetzer verwendet wird. \cite{opentxFAQ}
+
+Für die vorhandenen Übertragungsprotokolle ACCST, DSM und für das Protokoll der R9m-Erweiterungsmodule konnte keine Dokumentation gefunden werden. Deshalb werden in folgenden Unterabschnitten nur die Übertragungsprotokolle \ac{PPM}, CRSF, SBUS und MULTI betrachtet.
+
 \subsection{\acf{PPM}}
+\ac{PPM} ist ein Modulationsverfahren, womit Daten -- auch Kanäle genannt -- als Länge zwischen zwei steigenden Flanken zweier Impulse dargestellt werden, zu sehen in Abbildung \ref{fig:ppmtime}. Ein Paket besteht dabei aus n+1 Impulsen, wobei \textit{n} die Anzahl an Kanälen ist. Nach jedem Paket erfolgt eine Pause von 12~ms, damit eine Synchronisation zwischen Sender und Empfänger gegeben ist. Die Anzahl an Kanälen im Modellbau ist bei \ac{PPM} auf acht Kanäle beschränkt. \cite{hornppm}
+
+Die Gesamtlänge eines Pakets beträgt 22,5~ms mit inkludierter Pause. Die Pulse haben dabei eine Länge zwischen 0,7~ms bis 1,7~ms. \cite{opentxppm}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{ppm}
+    \caption{Darstellung einzelner Kanäle im Zeitverlauf bei \acs{PPM}; abgewandelt von \cite{hornppm}}
+    \label{fig:ppmtime}
+\end{figure}
 
 \subsection{CRSF}
+Das CRSF-Protokoll verwendet eine Eindrahtleitung für eine halbduplex \ac{UART}-Verbindung. Über diese Verbindung sendet der Master alle 4~ms ein Paket. Zwischen den Paketen des Masters kann der Slave den Master optional antworten. \cite{cleanflightCrsf}
+
+Die Symbolrate beträgt 420000~Baud bei einer 8N1 Übertragung, womit die Übertragungsrate 46~KByte/s entspricht. Bits werden in einer nicht invertierten Weise übertragen und Daten werden im Big Endian-Format übertragen. \cite{cleanflightCrsf}
+
+Ein Paket hat eine maximale Größe von 64~Byte und besteht aus fünf Teilen, welche in Tabelle \ref{table:crsfPaket} zu sehen sind. \cite{cleanflightCrsf}
+
+\begin{longtable}[c]{|l|l|l|}
+    \caption{Aufbau eines CRSF-Pakets \cite{cleanflightCrsf}}
+    \label{table:crsfPaket}\\
+    \hline
+    \textbf{Feld-Index} & \textbf{Feldtyp} & \textbf{Größe in Byte}\\
+    \hline
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Feld-Index} & \textbf{Feldtyp} & \textbf{Größe in Byte}\\
+    \hline
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{3}{|r|}{Weitere Felder auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    0 & Geräteadresse & 1\\
+    \hline
+    0 & Paketlänge & 1\\
+    \hline
+    0 & Typenfeld & 1\\
+    \hline
+    0 & Daten & maximal 60\\
+    \hline
+    0 & CRC-Feld & 1\\
+\end{longtable}
+
+Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon ist in Tabelle \ref{table:crsfAdressen} zu sehen.
+
+\begin{longtable}[c]{|l|l|}
+    \caption{Auschnitt aus den vorhandenen CRSF-Geräteadressen \cite{cleanflightCrsfP}}
+    \label{table:crsfAdressen}\\
+    \hline
+    \textbf{Empfängergerät} & \textbf{Adresse}\\
+    \hline
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Empfängergerät} & \textbf{Adresse}\\
+    \hline
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{2}{|r|}{Weitere Adressen auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    CRSF Fernsteuerung & 0xEA \\
+    \hline
+    CRSF Empfänger & 0xEC \\
+    \hline
+    CRSF Sender & 0xEE \\
+    \hline
+    CRSF Multikopterplatine & 0xC8 \\
+\end{longtable}
+
+Im Paketlängenfled wird die Größe des Pakets in Byte angegeben, wobei das Typenfeld und das Datenfeld in die Größe des Pakets einfließen. \cite{cleanflightCrsf}
+
+Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest vorgeschrieben. Ein Auschnitt möglicher Typen ist in Tabelle \ref{table:crsfTyp} zu finden.
+
+\begin{longtable}[c]{|l|l|}
+    \caption{Vordefinierte CRSF Datentypen \cite{cleanflightCrsfP}}
+    \label{table:crsfTyp}\\
+    \hline
+    \textbf{Datentyp} & \textbf{Typenwert}\\
+    \hline
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Datentyp} & \textbf{Typenwert}\\
+    \hline
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{2}{|r|}{Weitere Datentypen auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    Batteriesensor & 0x08 \\
+    \hline
+    Verbindungsstatistiken & 0x14 \\
+    \hline
+    Kanaldaten & 0x16 \\
+    \hline
+    Multikopterflugmodus & 0x21 \\
+\end{longtable}
+
+Der Datenteil eines Pakets wird in 16 Kanäle aufgeteilt. Jeder Kanal ist dabei 11~Bit groß. Der Wertebreich pro Kanal liegt zwischen 172 und 1811. \cite{cleanflightCrsf}
+
+Die CRC-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite{cleanflightCrsf}. Das Gerneratorpolynom lautet: 0xD5 \cite{cleanflightCRC}
 
 \subsection{SBUS}
 
+Das SBUS-Protokoll ist ein invertiertes (hohes Spannungsniveau = logisch niedrig \cite{sigrokSBus}) serielles Protokoll, über eine Leitung mit einer Symbolrate von 100000~Baud. Die Daten werden dabei im 8E2-Format übertragen. Die Länge eines SBUS-Pakets beträgt 25~Byte mit welchem 18 Kanäle übertragen werden. \cite{BolderFlight}
+
+Das Interval zum versenden von SBUS-Paketen kann in OpenTX zwischen 6~ms und 40~ms frei eingestellt werden. Der Aufbau eines Pakets ist in Tabelle \ref{table:sbusPaket} zu sehen.
+
+\begin{longtable}[c]{|p{3cm}|p{12cm}|}
+    \caption{Paketaufbau von SBUS \cite{BolderFlight}}
+    \label{table:sbusPaket}\\
+    \hline
+    \textbf{Byte} & \textbf{Verwendungszweck}\\
+    \hline
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Byte} & \textbf{Verwendungszweck}\\
+    \hline
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{2}{|r|}{Weitere Bytefelder auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    0 & Kopf des Pakets. Immer 0x0F \\
+    \hline
+    1 - 22 & 16 Kanäle mit jeweils einer Größe von 11~Bit \\
+    \hline
+    23 Bit 0 & Digitaler ein/aus Kanal 17 \\
+    \hline
+    23 Bit 1 & Digitaler ein/aus Kanal 18 \\
+    \hline
+    23 Bit 2 & Paketverlustanzeige. Anzeige, wenn ein Paket zwischen Sender und Empfänger verloren geht. \\
+    \hline
+    23 Bit 3 & Paketausfallanzeige. Anzeige, wenn mehrere hintereinander verschickte Pakete zwischen Sender und Empfänger verloren gehen. \\
+    \hline
+    24 & Paketfluss. Immer 0x00 \cite{sigrokSBus} \\
+\end{longtable}
+
+Für die Synchronisation zwischen Sender und Empfänger gibt es Lücken einnerhalb eines Pakets \cite{sigrokSBus}. Ebenso gibt es eine weitere Version von SBUS. Diese hat den Namen \textit{Fast SBUS} und hat eine Symbolrate von 200000~Baud \cite{BolderFlight}. Der Wertebereich der Kanäle 1 bis 16 liegt zwiscehn 172 und 1811 und kann auf den Wertebereich 0 bis 2047 erweitert werden, um die vollen 11 Bit auszuneutzen \cite{BolderFlight}. 
+
 \subsection{MULTI}
+
+Das MULTI-Prokoll wird für die Kommunikation zwischen einer Fernsteuerung auf der OpenTX läuft und einem 2,4~GHz Erweiterungsmodul verwendet. Mittels diesem Protokoll wird zum einen das Erweiterungsmodul konfiguriert und zum anderen werden die DAten der 16 zu übertragenden Kanäle an das Erweiterungsmodul geschickt. \cites{langerTransmitter}{langerMultiprotocol}
+
+Die Übertragung findet dabei seriell mittels dem 8E2-Format statt und mit einer Symbolrate von 100000~Baud. In Version~1 ist die Länge eines Pakets 26~Byte. In Version~2 ist die Länge eines Pakets zwischen 27 und 36~Byte. \cite{langerMultiprotocol}. In Tabelle \ref{table:mutliPaket} ist der Aufbau eines MULTI-Pakets dargestellt.
+
+\begin{longtable}[c]{|p{2cm}|p{13cm}|}
+    \caption{Paketaufbau von MULTI \cite{langerMultiprotocol}}
+    \label{table:mutliPaket}\\
+    \hline
+    \textbf{Byte} & \textbf{Verwendungszweck}\\
+    \hline
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Byte} & \textbf{Verwendungszweck}\\
+    \hline
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{2}{|r|}{Weitere Bytefelder auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    0 & Paketkopf mit der Angabe welche Art von Daten übermittelt werden. \\
+    \hline
+    1 & Das zu verwendende Protokoll, welches das Erweiterungsmodul zum versenden der Daten verwenden soll. \\
+    \hline
+    2 & Informationen über den Verbindungszustand zwischen dem Erweiterungsmodul und einem Empfänger sowie das zu verwendende Subprotokoll. \\
+    \hline
+    3 & Optionale Protokollauswahl, welche nicht verdefiniert ist. \\
+    \hline
+    4 - 25 & Daten der Kanäle oder die Daten welche bei einen Paketausfall versendet werden. \\
+    \hline
+    26 & Weitere Protokollinformationen und Telemetriedaten. \\
+    \hline
+    27 - 35 & Weitere Möglichkeiten zur Protokolldefinition. \\
+\end{longtable}
 
 \section{Mikrocontroller ESP}
 mehrere Kerne; Pins; Kommunikationsmöglichkeiten; CE z

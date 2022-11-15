@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg2477"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="profilhiearchie.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2479"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.81423962"
+     inkscape:cx="423.09413"
+     inkscape:cy="575.99752"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2474" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#a4afb4;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       id="rect2560"
+       width="145.14107"
+       height="93.451378"
+       x="46.015358"
+       y="102.14812" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="47.981331"
+       y="110.27497"
+       id="text8388"><tspan
+         sodipodi:role="line"
+         id="tspan8386"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.264583"
+         x="47.981331"
+         y="110.27497">Generic Access Profil (GAP)</tspan></text>
+    <rect
+       style="fill:#77d9a9;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       id="rect13456"
+       width="132.64722"
+       height="76.930756"
+       x="51.200336"
+       y="114.4842" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="52.746296"
+       y="122.50242"
+       id="text18248"><tspan
+         sodipodi:role="line"
+         id="tspan18246"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:0.264583"
+         x="52.746296"
+         y="122.50242">Generic Attribute Profil (GATT)</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       id="rect29654"
+       width="119.54688"
+       height="60.855625"
+       x="56.954933"
+       y="127.45274" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="70.768829"
+       y="155.26775"
+       id="text31792"><tspan
+         sodipodi:role="line"
+         id="tspan31790"
+         style="stroke-width:0.264583"
+         x="70.768829"
+         y="155.26775">Beispielhaftes</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="70.768829"
+         y="168.49687"
+         id="tspan34410">Applikationsprofil</tspan></text>
+  </g>
+</svg>
