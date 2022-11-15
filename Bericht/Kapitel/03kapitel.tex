@@ -14,13 +14,12 @@
 
 Bluetooth ist ein Kurzstreckenkommunikationssystem, bei welchen die Hauptmerkmale auf Robustheit, einen geringen Stromverbrauch und geringe Kosten gelegt wurde. Bluetooth wir in zwei Kategorien aufgeteilt. Die erste Kategorie ist \ac{BBR}. Die zweite Kategorie ist \ac{BLE}. Beide Kategorien beinhalten dabei Mechanismen, um Bluetooth-Geräte zu entdecken, einen Verbindungsaufbau durchzuführen sowie eine Verbindung herzustellen. Das Augenmerk bei \ac{BLE} Produkten liegt dabei auf einen niedrigen Stromverbrauch, welche durch eine geringere Datenrate und eine geringere Einschaltdauer während den Datenaustausch als bei \ac{BBR} realisiert wird. Die Übertragungsrate bei \ac{BLE} in der physikalischen Schicht beträgt 2~MB/s. Zu beachten ist, dass ein Bluetooth-Controller entweder nur \ac{BLE}, \ac{BBR} oder beide Bluetooth-Kategorien unterstützen kann. \cite[S.~187]{bluetoothCore}
 
-Die Übertragungsfrequenz von \ac{BLE} ist im lizenzfreien 2.4~GHz \acf{ISM}-Band von 2402~MHz bis 2480~MHz \cites[S.~4]{siliconBLE}[S.~190]{bluetoothCore}. Das Frequenzband ist in 40 physikalische Kanäle mit jeweils einer Bandbreite von 2~MHz aufgeteilt, wie in Abbildung \ref{fig:frequenzbandBLE} zu sehen ist \cite[S.~190]{bluetoothCore}. Drei dieser 40 physikalischen Kanäle sind für das sogenannte Advertising vorhanden \cite[S.~190]{bluetoothCore}, welches für die Geräteentdeckung, den Verbindungsaufbau und für das Broadcasting von Nachrichten vorhanden ist \cite[S.~4]{siliconBLE}. Die restlichen Kanäle sind für eine allgemeine Datenübertragung vorhanden \cite[S.~190]{bluetoothCore}. Zusätzlich zu der Aufteilung des Frequenzbandes in Kanäle werden Kanäle in Zeiteinheiten aufgeteilt, welche Events genannt werden \cite[S.~190]{bluetoothCore}. Daten werden in Paketen innerhalb eines Events übertragen. Zusätzlich wird bei der Übertragung von Daten Frequenzhopping betrieben, welches zu Beginn jedes Events stattfindet \cite[S.~190f.]{bluetoothCore}. 
+Die Übertragungsfrequenz von \ac{BLE} ist im lizenzfreien 2.4~GHz \acf{ISM}-Band von 2402~MHz bis 2480~MHz \cites[S.~4]{siliconBLE}[S.~190]{bluetoothCore}. Das Frequenzband ist in 40 physikalische Kanäle mit jeweils einer Bandbreite von 2~MHz aufgeteilt, wie in Abbildung \ref{fig:frequenzbandBLE} zu sehen ist \cite[S.~190]{bluetoothCore}. Drei dieser 40 physikalischen Kanäle sind für das sogenannte Advertising vorhanden ()\cite[S.~190]{bluetoothCore}, welches für die Geräteentdeckung, den Verbindungsaufbau und für das Broadcasting von Nachrichten vorhanden ist \cite[S.~4]{siliconBLE}. Die restlichen Kanäle sind für eine allgemeine Datenübertragung vorhanden \cite[S.~190]{bluetoothCore}. Zusätzlich zu der Aufteilung des Frequenzbandes in Kanäle werden Kanäle in Zeiteinheiten aufgeteilt, welche Events genannt werden \cite[S.~190]{bluetoothCore}. Daten werden in Paketen innerhalb eines Events übertragen. Zusätzlich wird bei der Übertragung von Daten Frequenzhopping betrieben, welches zu Beginn jedes Events stattfindet \cite[S.~190f.]{bluetoothCore}. 
 
-\todo[inline]{Bild anpassen und schreiben, abgewandelt von ...}
 \begin{figure}[h]
 \centering
 \includegraphics[height=.3\textwidth]{frequenzband}
-\caption{Frequenzband mit Kanälen von \ac{BLE} \cite[S.~4]{siliconBLE}}
+\caption{Frequenzband mit Kanälen von \ac{BLE}; Abgewandelt von \cite[S.~4]{siliconBLE}}
 \label{fig:frequenzbandBLE}
 \end{figure}
 
@@ -30,9 +29,14 @@ Bluetooth-Geräten werden unterschiedliche Rollen zugewiesen. Dafür gibt es die
 
 \subsection{Benötigte Komponenten eines \ac{BLE}-Geräts}
 
-Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen damit es laut Bluetooth \ac{SIG} \ac{BLE} kompatibel ist. In Abbildung \todo{Referenz hinzufügen} sind die benötigten Funktionen und deren Zusammenspiel durch ein Schichtenmodell dargestellt. Die Funktionen können dabei in einen Hostteil und einen Controllerteil aufgeteilt werden. Im Hostteil befinden sich die Funktionen \ac{L2CAP}, \ac{GAP}, \ac{ATT}, \ac{GATT}, \ac{SDP} und \ac{SMP}. Im Controllerteil befinden sich die Funktionen \ac{PHY} und \ac{LL}. Die Kommunikation zwischen den Hostteil und dem Controllerteil finden mittels des \ac{HCI} statt \cite[S.~1735]{bluetoothCore}. \cite[S.~193]{bluetoothCore}
+Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen damit es laut Bluetooth \ac{SIG} \ac{BLE} kompatibel ist. In Abbildung \ref{fig:blestack} sind die benötigten Funktionen und deren Zusammenspiel durch ein Schichtenmodell dargestellt. Die Funktionen können dabei in einen Hostteil und einen Controllerteil aufgeteilt werden. Im Hostteil befinden sich die Funktionen \ac{L2CAP}, \ac{GAP}, \ac{ATT}, \ac{GATT}, \ac{SDP} und \ac{SMP}. Im Controllerteil befinden sich die Funktionen \ac{PHY} und \ac{LL}. Die Kommunikation zwischen den Hostteil und dem Controllerteil finden mittels des \ac{HCI} statt \cite[S.~1735]{bluetoothCore}. \cite[S.~193]{bluetoothCore}
 
-\todo[inline]{Bild erstellen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.25\paperheight]{blestack}
+    \caption{Benötigte Komponenten eines \acs{BLE}-Geräts; Abgewandelt von \cite[S.~203, S.~1245]{bluetoothCore}}
+    \label{fig:blestack}
+\end{figure}
 
 In den nachfolgenden Unterkapiteln werden die wichtigsten Informationen jeder benötigten Funktion von \ac{BLE} beschrieben.
 
@@ -155,16 +159,18 @@ Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller 
     \hline
     \textbf{Merkmalname} & \textbf{Kurzbeschreibung}\\
     \hline
+    \hline
     \endfirsthead
 
-    \caption{Fortsetzung der Tabelle}\\
+    \caption{Fortsetzung der verfügbaren Merkmale}\\
     \hline
     \textbf{Merkmalname} & \textbf{Kurzbeschreibung}\\
+    \hline
     \hline
     \endhead
 
     \hline
-    \multicolumn{2}{|r|}{Weiter auf der nächsten Seite}\\
+    \multicolumn{2}{|r|}{Weitere Merkmale auf der nächsten Seite}\\
     \hline
     \endfoot
 
