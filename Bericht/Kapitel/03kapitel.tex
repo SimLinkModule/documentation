@@ -102,32 +102,102 @@ Merkmale sind Werte eines Dienstes welche aus mehreren \ac{ATT}-Attributen beste
 Der Start eines Merkmals in der Liste der \ac{ATT}-Attribute wird durch ein spezielles Attribut festgelegt, welche den Attribut-Typ \textit{Merkmal} enthält. Das Ende eines Merkmals stellt eine neue Merkmaldeklaration oder eine neue Dienstdeklaration dar. \cite[S.~1484ff.]{bluetoothCore}
 
 \subsection{Sollanforderungen durch Apple}
+Im Apple Ökosystem muss Zubehör welches \ac{MFi} lizensierte Technologie, zum Verbindung zu Apple Geräte, verwendet -- beispielsweise \ac{MFi} Game Controller -- von Apple geprüft werden. Eine Ausnahme stellen dabei \ac{BLE}-Geräte dar. \cite{appleMfiProgram} Jedoch müssen diese Geräte einige Sollanforderungen im Bezug auf \ac{BLE} erfüllen. Eine Anforder ist, dass alle drei Advertising-Kanäle bei jeden Advertising Event verwendet werden sollen \cite[S.~186]{appleDesignGuide}. Dabei muss ein Advertising-Paket mindestens folgende Daten enthalten: TX Power Level, lokaler Name (ohne \textit{:} und \textit{;}), Flags und der primäre Dienst des Geräts \cite[S.~186f.]{appleDesignGuide}. Eine weitere Anforderung ist, dass die Advertising-Intervalle zunächst 20~ms für die ersten 30~Sekunden lang ist und danach auf andere Intervalle umgeschalten werden soll, welche in der Tabelle \cite[S.~187]{appleDesignGuide} stehen. Eine weitere Anforderung ist, dass keine speziellen Berechtigungen benötigt werden, um Dienste und Merkmale eines Gerätes zu endecken \cite[S.~190]{appleDesignGuide}. Auch soll auf den \ac{BLE}-Geräten der Geräteinformationsdienst implementiert sein, damit der Herstellername, die Modellnummer, die Firmwareversion und die Softwareversion ausgelsen werden kann \cite[S.~191]{appleDesignGuide}. Ebenso sollte Zubehör im \ac{GATT}-Profil das Merkmal mit dem Namen \textit{Gerätename} implementiert haben und durch das Apple-Gerät beschreibbar sein \cite[S.~190]{appleDesignGuide}. Als weitere Anforderung ist zu nennen, dass die Datenpacketlängenerweiterung vorhanden sein sollte, damit der Datenteil eines Pakets statt 27~Byte 251~Byte lang sein kann \cite[S.~189]{appleDesignGuide}. Die letzte Anforderung ist, dass auflösbare private Geräteadressen verwendet werden sollen \cite[S.~189]{appleDesignGuide}.
+
+Auch geben Apple-Geräte nicht alle Dienste an Drittanbieter-Apps weiter, sondern verarbeitern diese intern und geben daraufhin die verarbeiteten Daten an die Drittanbieter-Apps weiter. Die herausgefilteren Dienste sind: \ac{GAP}, \ac{GATT} sowie \ac{BLE} \ac{HID}. \cite[S.~192]{appleDesignGuide}
 
 \subsection{\acf{HOGP}}
+In diesen Abschnitt der Arbeit, wird nur auf die Anforderungen eines \acs{HID}-Geräts -- stellt einen \acs{GATT}-Server bereit \cite[S.~9]{bluetoothHOGP} -- und nicht eines \acs{HID}-Hosts -- stellt einen \acs{GATT}-Client bereit \cite[S.~9]{bluetoothHOGP} --, da eine Implementierung des \acs{HID}-Hosts nicht in diesem Projekt benötigt werden.
+
+Mittels dem \acl{HOGP} werden Prozeduren und Fähigkeiten definiert, welches ein \acs{BLE}-\acs{HID} fähiges Gerät benötigt, um als \acs{HID}-Gerät von \acs{HID}-Host wargenommen zu werden. Das Profil ist passt dafür die USB \acs{HID} Spezifikation für \ac{BLE} an. \cite[S.~9]{bluetoothHOGP}
+
+Als Abhängigkeiten hat das \acf{HOGP} weiter Profile und Dienste, welche auf einen \acs{HID}-Gerät implementiert sein müssen. Dazu zählen das \acs{GATT}, der Batteriedienst, der Geräteinformationsdiesnt, das Scan Parameters Profil und der \acs{HID} Dienst. Dabei ist zu beachten, dass auf einen \acs{HID}-Gerät ein oder mehrere Instanzen des \acs{HID}-Dienstes, ein oder mehrere Instanzen des Batteriedienstes, sowie nur eine Instanz des Gerätinformationsdienstes und optional eine Instanz des Scan Parameters Dienstes laufen darf. \cite[S.~9, S.~11]{bluetoothHOGP} In Abbildung \todo{referenz einfügen} sind alle benötgiten und optionalen Dienste grafisch dargestellt. Optionale Dienste werden dabei durch eine gestrichelte Linie angedeutet.
+
+\todo[inline]{Bild einfügen}
+
+Auch werden im \acl{HOGP} für alle benötigten Dienste und Profile zusätzliche Bedingungen gesetzt. Diese werden in folgenden Unterkapiteln bei dem jeweiligen Dienst beziehungsweise Profil dargelegt.
 
 \subsubsection{\ac{HID}-Dienst}
 
+Der \acs{HID}-Dienst ist auf \acs{HID}-Geräten zuständig, um alle benötigten Daten für einen \acs{HID}-Host bereitszustellen. Dabei ist zu beachten, dass alle gespeicherten Merkmale des \acs{GATT}-Servers mit dem niederwertigsten Oktett zuerst übertragen werden müssen. Auch muss der Dienst für den standardkonformen Betrieb mindestens die Merkmale \textit{Report Map}, \textit{HID Information} und \textit{HID Control Point} implementiert haben. \cite[S.~8ff.]{bluetoothHIDS}
+
 \subsubsubsection{Report Merkmal}
+Das Merkmal \textit{Report} ist optional. Dieses stellt jedoch ein wichtiges Merkmal dar, da der Datentransfer zwischen \acs{HID}-Gerät und \acs{HID}-Host hauptsächlich über dieses Merkmal stattfindent. Das Merkmal \textit{Report}, kann dabei einen von drei Typen annehmen, nämlich Eingabe, Ausgabe oder Feature. Diese Typen finden sich ebenso in der USB \acs{HID} Sepifikation wieder. \cite[S.~11f.]{bluetoothHIDS}
+
+Da ein \acs{HID}-Gerät mehrere Reports haben kann, muss für jeden Report ein eigenes Merkmal erstellt werden. Zu Unterscheidung der verschiedenen Reports muss jeweils ein Referenz-Merkmalsdeskriptor hinzugefügt werden, welche eine eindeutige Report-ID und den Report-Typen enthält. Als zusätzliche Bedingung müssen in allen Report-Merkmalen vom Typ Eingabe ein Konfigurationsdeskriptor vorhanden sein. Mittels diesen Deskiptor kann konfiguriert werden, ob bei Änderung des Merkmalswerts der \acs{HID}-Host informiert werden soll oder nicht. Diese Angabe ist desweiteren verpflichtend. \cite[S.~14.f]{bluetoothHIDS}
 
 \subsubsubsection{Report Map Merkmal}
+In dem Merkmal \textit{Report Map}, wir der USB Report Deskriptor abgespeichert (wie in der USB \acs{HID} Spezifikation definiert \cite[S.~21]{bluetoothHOGP}), welcher den Aufbau und die Formatierung der einzelnen Report-Merkmale enthält \cite[S.~11]{bluetoothHIDS}. Pro \acs{HID}-Dienst darf nur jeweils nur eine Instanz dieses Merkmals vorhanden sien und die maximale Größe ist auf 512~Oktette beschränkt \cite[S.~16]{bluetoothHIDS}. Mittels dem zusätzlich benötigten \textit{Report Referenz}-Merkmalsdeskriptors ist es den \acs{HID}-Hosts möglich die Informationen des \textit{Report Map} Merkmals mit den \textit{Report} Merkmalen zu verknüpfen \cite[S.~17]{bluetoothHIDS}.
 
 \subsubsubsection{\ac{HID} Information Merkmal}
+Dieses Merkmal enthält eine Ansammlung von Informationenen welche \acs{HID} spezifische Werte sind. Zwei beispielhafte Werte welche in diesem Merkmal enthalten sind, ist zum einen der Wert \textit{bcdHID}. Dieser wird verwendet, um den \acs{HID}-Host anzuzeigen, welche USB-Spezifikation im \acs{HID}-Gerät implementiert wurde. Zum anderen gibt es den Wert \textit{bCountryCode}. Mit diesem Wert wird angegeben,für welches Land das \acs{HID}-Gerät entwickelt wurde. Da Geräte meist nich für ein spezielles Land entwickelt werden steht dieser Wert häufig auf 0x00. Das \textit{\acs{HID} Information} Merkmal darf pro \acs{HID} Dienst nur einmal vorkommen und die Daten müssen statisch sein. \cite[S.~20f.]{bluetoothHIDS}
 
 \subsubsubsection{\ac{HID} Control Point Merkmal}
+Dieses Merkmal wird von \acs{HID}-Hosts verwendet, um \acs{HID}-Geräte in den Schlafmodus und in den normalen Betrieb zu versetzen. Dieses Merkmal darf nur einmal pro \acs{HID} Dienst vorkommen. \cites[S.~23]{bluetoothHOGP}[S.~21]{bluetoothHIDS}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
+Alle Merkmale die in dem \textit{Report Map} Merkmal veschrieben sind und nicht im \acs{HID} Dienst enthalten sind, sollen mittels eines \textit{Includes} in der \acs{HID} Dienst Definition referenziert werden. Zusätzlich müssen alle referenzierten Merkmale den \textit{Report Referenz} Merkmaldeskriptor enthalten. Auch müssen alle \acs{HID}-Dienste als primärer Dienst initialisiert werden und während der Entdeckungsphase für einen Verbindungsaufbau als möglicher Dienst angegeben werden. \cite[S.~13f.]{bluetoothHOGP}
 
 \subsubsection{Batteriedienst}
+Mittels diesem Dienst wird dem \acs{GATT}-Host der aktuelle Batteriestatus einer oder mehrerer Batterien des \acs{GATT}-Servers bereitgestellt. Dabei gilt es zu beachten, dass alle bereitgestellten Merkmale des \acs{GATT}-Servers mit dem niederwertigsten Oktett zuerst übertragen werden. \cite[S.~6]{bluetoothBatteryS}
+
+Für diesen Dienst muss ein Merkmal mit den Namen \textit{Battery Level} implementiert werden. Der Batteriestand wird dabei als ein Prozentwert zwischen 0 und 100 angegben. Wobei 100\% einer voll aufgelandenen Batterie entspricht. Zusätzlich kann das Merkmal so eingerichtet werden, dass der \acs{GATT}-Server den \acs{GATT}-Client informiert sobald sich der Wert geändert hat. \cite[S.~8]{bluetoothBatteryS}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
+Es muss mindestens ein Batteriedienst als primärer Dienst auf dem \acs{HID}-Gerät laufen. Falls ein Batteriestandsmerkmal Bestandteil des \textit{Report Map} Merkmals ist, muss der Dienst mittels eines \textit{Include} in der \acs{HID} Dienst Definition referenziert werden. \cite[S.~14]{bluetoothHOGP}
 
 \subsubsection{Geräteinformationsdienst}
+Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller und Anbieter des \acs{GATT}-Server bereit. Dabei darf jedes verfügbare Merkmal nur einmalig pro Dienst vorkommen. Zu beachten ist, dass alle Merkmale optional sind. \cite[S.~6ff.]{bluetoothDeviceI}. In Tabelle \ref{table:deviceinformationlist} sind alle vorhanden Merkmale mit einer kurzen Beschreibung aufgelistet.
+
+\begin{longtable}[c]{|p{4cm}|p{11cm}|}
+    \caption{Liste der verfügbaren Geräteinformationsmerkmale}
+    \label{table:deviceinformationlist}\\
+    \hline
+    \textbf{Merkmalname} & \textbf{Kurzbeschreibung}\\
+    \hline
+    \endfirsthead
+
+    \caption{Fortsetzung der Tabelle}\\
+    \hline
+    \textbf{Merkmalname} & \textbf{Kurzbeschreibung}\\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{2}{|r|}{Weiter auf der nächsten Seite}\\
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    Herstellername & Enthält den Namen des Herstellers \cite[S.~8]{bluetoothDeviceI}\\
+    \hline
+    Modellnummer & Enthält die Modellnummer des Geräteanbieters \cite[S.~8]{bluetoothDeviceI}\\
+    \hline
+    Seriennummer & Enthält die Seriennummer des Geräts \cite[S.~8]{bluetoothDeviceI}\\
+    \hline
+    Hardwareversion & Enthält die Hardwareversion \cite[S.~9]{bluetoothDeviceI}\\
+    \hline
+    Firmwareversion & Enthält die Firmwareversion \cite[S.~9]{bluetoothDeviceI}\\
+    \hline
+    Softwareversion & Enthält die Softwareversion \cite[S.~9]{bluetoothDeviceI}\\
+    \hline
+    System-ID & Enthält eine Komination aus organisatorischer UID und herstellerdefinierte ID. Diese ID ist eindeutig für jedes Gerät eines Produkts \cite[S.~9]{bluetoothDeviceI}\\
+    \hline
+    IEEE 11073-20601 Regulatory Certification Data Liste & Enthält eine Liste aller Regulations- und Zertifizierungsinfromationen des Produkts \cite[S.~9]{bluetoothDeviceI}\\
+    \hline
+    PNP-ID & Enthält eine eindeutige Geräte-ID. Diese bestht aus der Anbieter-ID-Quelle (Angabe, ob die Anbieter-ID durch Bluetooth~SIG oder USB Implementer's Forum festgelet wurde), der Anbieter-ID, der Produkt-ID (von Anbieter festgelegt) und einer Produktversion. Die Produktversion wird als binär-kodierte Dezimalzahl dargestellt. Zum Beispiel Version 2.13 = 0x0213 \cite[S.~10f.]{bluetoothDeviceI}\\
+\end{longtable}
 
 \subsubsubsection{Zusätzliche Bedingungen durch das \acl{HOGP}}
+Der Dienst muss als primärer Dienst gestartet werden und muss das \textit{PNP-ID} Merkmal enthalten. \cite[S.~14f.]{bluetoothHOGP}
 
 \subsubsection{Scan Parameters Profil}
+Mittels diesem optionalen Profil beziehungsweise Dienst, stellt ein \acs{GATT}-Server einen \acs{GATT}-Client Informationen zur Verfügung, die die Geräte unterstützen bei der Verwaltung von Verbindungszeitüberschreitungen und den Advertising Paketen. Durch diese Informationen kann der Stromverbrauch sowie die Wiederverbindungslatenz optimiert werden. \cite[S.~6]{bluetoothScan}
 
 \subsection{Bluetooth-Stacks}
+\todo[inline]{TODO}
 \subsubsection{Bluedroid}
 \subsubsection{NimBLE}
 
