@@ -315,9 +315,13 @@ Der Dienst muss als primärer Dienst gestartet werden und muss das \textit{PNP-I
 Mittels diesem optionalen Profil beziehungsweise Dienst, stellt ein \acs{GATT}-Server einen \acs{GATT}-Client Informationen zur Verfügung, die die Geräte unterstützen bei der Verwaltung von Verbindungszeitüberschreitungen und den Advertising Paketen. Durch diese Informationen kann der Stromverbrauch sowie die Wiederverbindungslatenz optimiert werden. \cite[S.~6]{bluetoothScan}
 
 \subsection{Bluetooth-Stacks}
-\todo[inline]{TODO}
-\subsubsection{Bluedroid}
-\subsubsection{NimBLE}
+
+Damit die Verwendung von Bluetooth auf dem verwendeten Mikrocontroller einfacher ist, bietet das \ac{ESP-IDF} zwei Bluetooth-Stacks an. Zum einen den Stack Bluedroid welcher \ac{BBR} und \ac{BLE} unterstützt. Zum anderen wird der Stack NimBLE bereitgestellt wercher nur \ac{BLE} unterstützt. \cite{espidfBluetoothStack}
+
+Bluedroid ist ein von Broadcom Corporation bis 2012 entwickelter Bluetooth-Stack welcher unter der Apache Lizenz steht \cite{bluedroidlizenz}. Dieser Bluetooth-Stack wird von Google seit der Android Version 4.2 als Bluetooth Stack verwendet \cite{lwnBluedroid}. Heutzutage wird dieser Bluetooth-Stack weiterhin unter Android verwendet, aber ist nun unter den Namen Fluoride zu finden \cites{aospFluoride}{anachaoFluoride}.
+
+Apache NimBLE ist ein open source \ac{BLE}-Stack, welcher vollständig mit der Bluetooth~5 Spezifikation übereinstimmt \cite{docnimble} und ist Bestandteil des Apache Mynewt project \cite{gitnimble}.
+
 
 \section{Übertragungsprotokolle am Fernbedienungsmodulschacht}
 
