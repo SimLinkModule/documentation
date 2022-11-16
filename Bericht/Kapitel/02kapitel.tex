@@ -1,14 +1,17 @@
 %!TEX root = ../Studienarbeit.tex
 
 \chapter{Aufgabenstellung}
-\todo[inline]{Schreiben}
 
-Ziel der Arbeit ist es, ein Hardware-Erweiterungsmodul für Multicopterfernbedienungen zu entwickeln. Vorausgesetzt wird im Rahmen dieser Arbeit, dass die Fernbedienungen einen Modulschacht aufweisen
-und die Firmware OpenTX (https://www.open-tx.org/) beziehungsweise eine Abspaltung davon verfügbar ist. Das Erweiterungsmodul soll sich dabei durch BLE als HID-Gerät an Endgeräten authentifizieren, wodurch die
-Multicopterfernbedienung als kabelloser Joystick an Endgeräten verwendet werden kann.
-Weitere zusätzliche Optionen -- sofern zeitlich machbar -- sind zum einen, ein kleines LED-Display einzubauen, womit die Bedienung des Moduls erleichtert werden kann. Zum anderen eine GUI zu entwickeln,
-um den Updateprozess für das BLE-HID-Modul zu vereinfachen. Die GUI kann dafür mit dem Framework Electron für eine systemunabhängige Verwendung entwickelt werden.
+Ziel der Arbeit ist es, ein Hardware-Erweiterungsmodul für Multikopterfernsteuerungen zu entwickeln. Vorausgesetzt wird im Rahmen dieser Arbeit, dass die Fernsteuerungen einen Modulschacht aufweisen und die Firmware OpenTX \cite{opentxMain} beziehungsweise eine Abspaltung davon verfügbar ist. Das Erweiterungsmodul soll sich dabei durch \acs{BLE} als \acs{HID}-Gerät an Endgeräten authentifizieren, wodurch die Multikopterfernsteuerung als kabelloser Joystick an Endgeräten verwendet werden kann. Die Aufgaben für diese Arbeit lassen sich in nachfolgende drei Teilbereiche aufteilen.
 
 \section{Softwareentwicklung}
+
+Im Aufgabenbereich der Softwareentwicklung soll die Kommunikation zwischen dem ESP32-Entwicklerboard und Windows, Linux, iOS/ iPadOS und Android-Systemen hergestellt werden. MacOS kann nicht getestet werden, da kein Gerät mit MacOS vorhanden ist. Die Kommunikation soll dabei mittels \acs{BLE} stattfinden und das Entwicklerboard soll sich als \acs{HID}-Gerät authentifizieren. Auch soll die Kommunikation zwischen dem ESP32-Entwicklerboard und der Fernsteuerung mittels des Modulschachts implementiert werden. Dafür soll auf eins der vorhanden Protokolle der Fernsteuerung zurückgegriffen werden, damit die Firmware der Fernsteuerung nicht angepasst werden muss. Der letzte Bestandteil dieses Aufgabenbereichs ist es weitere Möglichkeiten der Eingabe und Ausgabe an dem ESP32-Entwicklerboard zu implementieren. Dafür soll zum einen ein 0,91~Zoll großes OLED-Display verwendet werden, um kurze Statusnachrichten anzuzeigen. Ebenso sollen Status-LEDS, die Interaktion mit dem Modul vereinfachen. Für die Bestimmung des Akkustandes der Fernsteuerung soll Mittels dem integrierten \acp{ADC} des ESP32-Entwicklerboard geschehen, da der Akkustand bei \acs{HID}-Geräten bereitgestellt werden muss.
+
 \section{Platinendesign}
+
+In diesen Aufgabenbereich soll der erstellte Steckbrettaufbau der für den ersten Aufgabenbereich benötigt wird in eine Platine umgewandelt werden. Bestandteile dieser Platine soll zum einen das ESP32-Modul als Mikrocontroller sein. Ebenso muss die Spannungsregulierung für das ESP32-Modul erstellt werden, da die Elektronik über die Stromversorgung der Fernsteuerung betrieben werden soll. Ein weiterer Bestandteil sind die Verbindungen zu den weiteren Eingabe- und Ausgabe-Elementen. Zur Unterstützung soll auf bereits vorhandene Referenzdesign des ESP32-Entwicklerboards zurückgegriffen werden. Der letzte Bestandteil der Platine ist eine Stiftleiste für die Kommunikation zwischen der Fernsteuerung und dem Modul.
+
 \section{Gehäuseerstellung}
+
+Im letzten Aufgabenbereich soll ein Gehäuse für die erstellte Platine erstellt werden, damit die Platine in den Modulschacht vom Typ Lite fest verankert werden kann. Ebenso muss bei der Konstruktion beachtet werden, dass das Gehäuse möglichst ohne Stützstrukturen mittels eines 3D-Druckers gedruckt werden kann. Dadurch soll die Nachbearbeitung des Gehäuses auf ein Minimum reduziert werden.
