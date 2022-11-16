@@ -5,8 +5,48 @@
 \section{\acf{HID}}
 
 \subsection{Allgemein}
+Das USB Protokoll kann Geräte beim starten beziehungsweie beim einstecken an das System automatisch konfigurieren. Dafür werden Geräte in Klassen eingeteilt. Jede Klasse definiert dabei wie das gewöhnliche Verhalten und die verwendeten Protokolle der Geräte der Klasse sind. Eine dieser Klassen in USB ist die \ac{HID} Klasse. Der primäre Einsatzzweck für Geräte in der \acs{HID} Klasse istdie Bedienung von Computern durch Menschen. Beispiele solcher Geräte sind: Tastaturen, Mäuse, Joysticks, Barcodeleser oder auch Simulationsgeräte. \cite[S.~1f.]{usbHIDS}
+
+Informationen eines USB-Geräts für ein Computersystem werden in Segmenten, auch Deskriptoren genannt, des ROMs des jeweiligen USB-Geräts abgespeichert. Ein Gerät, welches sich in der \acs{HID}-Klasse befindet, hat wie in Abbildung \ref{fig:hiddeskriptoren} zu sehen ist drei Deskriptoren. Zunächst einmal den \acs{HID} Deskriptor, welcher weitere benötigte Deskriptoren für USB-\acs{HID}-Geräte auflistet. Der zweite optionale Deskiptor ist der physikalische Deskritpor. Dieser stellt Informationen an das System bereit, wie einzelne Teil des \acs{HID}-Geräts von einen Menschen bedient werden sollen. Dieser wird in dieser Arbeit nicht genauer betrachet. Der letzte Deskriptor ist der Report Deskriptor. Mittels diesem Deskriptor wird die Struktur der übermittelten Daten zwischen dem Rechnersystem und dem \acs{HID}-Gerät beschrieben. \cite[S.~4f.]{usbHIDS}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=.3\textwidth]{hiddeskriptoren}
+    \caption{\acs{HID} Deskriptorenhierarchie; abgewandelt von \cite[S.~4]{usbHIDS}}
+    \label{fig:hiddeskriptoren}
+\end{figure}
 
 \subsection{Report Deskriptor}
+
+Das USB-Protokoll definiert meist in USB-Geräte-Klassen das zu verwendende Protokoll des Geräts durch Subklassen. Dies ist jedoch in der USB-\acs{HID}-Klasse nicht der Fall. USB-\acs{HID}-Geräte stellen nämlich durch den Report Deskriptor einen System den Aufbau und die Datentypen der übermittelten Datenpakte bereit. \cite[S.~8]{usbHIDS} Durch dieses Verfahren ist es möglich, dass Applikationen durch lesen des Report Deskriptors die Daten verarbeiten können \cite[S.~24]{usbHIDS}. Die Länge des Deskriptors ist dabei für jedes Gerät variabl und hängt von der Mänge der übermittelten Daten ab \cite[S.~23]{usbHIDS}.
+
+Ein Report Deskriptor ist dabei aus sogennanten Elementen aufgebaut. Ein Element stellt eine Teilinformation über ein USB-\acs{HID}-Gerät dar. Jedes Element hat zu beginn jeweils ein 1~Byte großes Präfix. In diesem Präfix befinden sich jeweils ein Element-Marker, ein Elementtyp und eine Elementengröße. Darauf folgend können optional Daten angefügt werden. Es kann dabei zwischen langen und kurzen Elementen unterschieden werden, wodurch die Größe zwischen 0 und 258~Byte groß sein kann. \cite[S.~14]{usbHIDS}
+
+Alle benötigten Elemente die in einem Report Deskriptor enthalten sein müssen sind in folgender Aufzählung: Input (\,Output oder Feature)\,, Usage, Usage\_Page, Logical\_Minimum, Logical\_Maximum, Reprot\_Size und Report Count. \cite[S.~24]{usbHIDS}
+
+Alle Elemente eines Report Deskriptors lassen sich in drei Gruppen einteilen. Zunächst gibt es die Hauptelemente. Diese werden verwendet, um Datenfelder zu definieren oder Datenfelder zu gruppieren. Die zweite Gruppe an Elementen sin die globalen Elemente. Mit diesen werden die zu übermittelten Datenfelder beschrieben. Die letzte Gruppe umfasst die lokalen Elemente. Diese werden verwendet, um Merkmale eines Datenfelds zu beschreiben. \cite[S.~16, S.~28, S.~35]{usbHIDS}
+
+Die Verwendung der drei Gruppen von Elementen stehen folgendermaßen in Beziehung. Mittels eines Hauptelements wird ein Datenfeld definiert. Mittels den globalen und lokalen Elementen werden für das Datenfeld Definitionen hinzugefügt. Dabei gelten lokale Elemente nur für das nächst kommende Hauptelement. Globale Elemente gelten im Gegensatz dazu so lange bis das gobale Element durch ein anderes globale Element überschrieben wird. Dadurch ist es möglich die Datenstruktur wie in Abbildung \ref{fig:reportdeskriptorexample} zu erstellen. \cite[S.~24]{usbHIDS}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.25\paperheight]{reportdeskriptorexample}
+    \caption{Beispielhafte Verwendung von Elementen, um eine Datenstruktur zu definieren; abgewandelt von \cite[S.~24]{usbHIDS}}
+    \label{fig:reportdeskriptorexample}
+\end{figure}
+
+Unter der Gruppe der Hauptelemete gibt es fünf Element-Marker. Ein häufig verwendeter Marker ist der Input-Marker, mittels diesen können Ausgabedatenfelder definiert werden. Weitere wichtige Element-Marker für Hauptelemente sind Collection und End Collection, womit Datenfelder gruppiert werden können. \cite[S.~23f., S.~30ff.]{usbHIDS}
+
+In der Gruppe der globalen Elemente gibt es 13 Element-Marker. Wichtige Marker hierbei sind: Usage Page, Logical Minimun, Logical Maximum, Report ID, Report Size und Report Count. Mittels dem Marker Report Size wird angegeben wie groß ein Datenfeld in Bits sein soll. Mit dem Marker Report Count wird angegeben wie viele Datenfelder mit den definierten Eigenschaften erstellt werden sollen. Mit dem Marker Report ID ist es möglich mehrere Datenstrukturen innerhalb eines Report Deskriptors zu erstellen und diese eindeutig zu identifizieren \cite[S.~17]{usbHIDS}. \cite[S.~35ff.]{usbHIDS}
+
+Wichtige Element-Marker der Gruppe der lokalen Elemente, welche elf Element-Marker umfasst, sind: Usage, Usage Minimum und Usage Maximum. \cite[S.~40]{usbHIDS}
+
+Durch den Element-Marker Usage wird der Einsatzzweck eines Datenfelds definiert. Ebenso können statt einzelnen Datenfeldern auch Kollektionen von Datenfeldern mit Einsatzzwecken markiert werden. Einsatzzwekce sind in Einsatzzweck-Seiten organisiert und mit dem Element-Marker Usage Page definiert. Beachtet werden sollte, dass ein Einsatzzweck so spezifisch wie nötig und so allgemein wie möglich gehalten weden sollte, damit das \acs{HID}-Gerät alle gerätespezifischen Eigenschaften bereitstellen kann. \cite[S.~15f.]{usbHIDt}
+
+Schlussendlich können mittels Padding-Bits die enthaltenen Datenfelder byteorientiert ausgerichtet werden. In Tabelle \todo{Referenz hinzufügen} ist eine beispielhafte Datenstruktur für eine Maus mit dazugehörigen Report Deskriptor in Quellcode \todo{Referenz hinzufügen} zu sehen.
+
+\todo[inline]{Tabelle erstellen}
+\todo[inline]{Quellcode erstellen}
 
 \section{Bluetooth}
 
