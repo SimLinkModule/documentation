@@ -53,9 +53,27 @@
 \renewcommand\lstlistingname{Quellcode}
 \renewcommand\lstlistlistingname{Quellcodeverzeichnis}
 
-%für die zählung von bildern
+%für die zählung von bildern, tabellen und code
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
+\lstset{numberbychapter=false}
 
 %eine weitere ebene für titel
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+
+%style setzen für code
+\lstdefinestyle{generalStyle}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    frame=none,
+    numbers=none,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+    identifierstyle=\color{blue},
+    backgroundcolor=\color{gray!10!white},
+}
+
+%setzt zeilenumbruch für literatur mit url
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}

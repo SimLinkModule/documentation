@@ -43,10 +43,68 @@ Wichtige Element-Marker der Gruppe der lokalen Elemente, welche elf Element-Mark
 
 Durch den Element-Marker Usage wird der Einsatzzweck eines Datenfelds definiert. Ebenso können statt einzelnen Datenfeldern auch Kollektionen von Datenfeldern mit Einsatzzwecken markiert werden. Einsatzzwekce sind in Einsatzzweck-Seiten organisiert und mit dem Element-Marker Usage Page definiert. Beachtet werden sollte, dass ein Einsatzzweck so spezifisch wie nötig und so allgemein wie möglich gehalten weden sollte, damit das \acs{HID}-Gerät alle gerätespezifischen Eigenschaften bereitstellen kann. \cite[S.~15f.]{usbHIDt}
 
-Schlussendlich können mittels Padding-Bits die enthaltenen Datenfelder byteorientiert ausgerichtet werden. In Tabelle \todo{Referenz hinzufügen} ist eine beispielhafte Datenstruktur für eine Maus mit dazugehörigen Report Deskriptor in Quellcode \todo{Referenz hinzufügen} zu sehen.
+Schlussendlich können mittels Padding-Bits die enthaltenen Datenfelder byteorientiert ausgerichtet werden. In Tabelle \ref{table:mousedatastructure} ist eine beispielhafte Datenstruktur für eine Maus mit dazugehörigen Report Deskriptor in Quellcode \ref{lst:reportDeskriptor} zu sehen.
 
-\todo[inline]{Tabelle erstellen}
-\todo[inline]{Quellcode erstellen}
+\begin{small}
+    \begin{longtable}[c]{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{1cm}|p{1cm}|}
+        \caption{Datenstruktur einer Maus mit drei Knöpfen; abgewandelt von \cite{usbHIDTutorial}}
+        \label{table:mousedatastructure}\\
+        \hline
+        & \textbf{Bit 7} & \textbf{Bit 6} & \textbf{Bit 5} & \textbf{Bit 4} & \textbf{Bit 3} & \textbf{Bit 2} & \textbf{Bit 1} & \textbf{Bit 0} \\
+        \hline
+        \hline
+        \endfirsthead
+
+        \hline
+        & \textbf{Bit 7} & \textbf{Bit 6} & \textbf{Bit 5} & \textbf{Bit 4} & \textbf{Bit 3} & \textbf{Bit 2} & \textbf{Bit 1} & \textbf{Bit 0} \\
+        \hline
+        \hline
+        \endhead
+
+        \hline
+        \multicolumn{9}{|r|}{Weiter auf der nächsten Seite}\\
+        \hline
+        \endfoot
+
+        \hline
+        \endlastfoot
+        
+        \textbf{Byte 0} & unbenutzt & unbenutzt & unbenutzt & unbenutzt & unbenutzt & linke Taste & mittlere Taste & rechte Taste \\
+        \hline
+        \textbf{Byte 1} & \multicolumn{8}{l|}{relative X-Achsen Bewegung als signed Integer} \\
+        \hline
+        \textbf{Byte 2} & \multicolumn{8}{l|}{relative Y-Achsen Bewegung als signed Integer} \\
+    \end{longtable}
+\end{small}
+
+\begin{lstlisting}[caption=Report Deskriptor einer Maus mit 3 Knöpfen \cite{usbHIDTutorial}, label={lst:reportDeskriptor}, style=generalStyle]
+0x05, 0x01,     //USAGE_PAGE (Generic Desktop)
+0x09, 0x02,     //USAGE (Mouse)
+0xa1, 0x01,     //COLLECTION (Application)
+0x09, 0x01,     //  USAGE (Pointer)
+0xa1, 0x00,     //  COLLECTION (Physical)
+0x05, 0x09,     //      USAGE_PAGE (Button)
+0x19, 0x01,     //      USAGE_MINIMUM (Button 1)
+0x29, 0x03,     //      USAGE_MAXIMUM (Button 3)
+0x15, 0x00,     //      LOGICAL_MINIMUM (0)
+0x25, 0x01,     //      LOGICAL_MAXIMUM (1)
+0x95, 0x03,     //      REPORT_COUNT (3)
+0x75, 0x01,     //      REPORT_SIZE (1)
+0x81, 0x02,     //      INPUT (Data, Var, Abs)
+0x95, 0x01,     //      REPORT_COUNT (1)
+0x75, 0x05,     //      REPORT_SIZE (5)
+0x81, 0x03,     //      INPUT (Cnst, Var, Abs)
+0x05, 0x01,     //      USAGE_PAGE (Generic Desktop)
+0x09, 0x30,     //      USAGE (X)
+0x09, 0x31,     //      USAGE (Y)
+0x15, 0x81,     //      LOGICAL_MINIMUM (-127)
+0x25, 0x7f,     //      LOGICAL_MAXIMUM (127)
+0x75, 0x08,     //      REPORT_SIZE (8)
+0x95, 0x02,     //      REPORT_COUNT (2)
+0x81, 0x06,     //      INPUT (Data, Var, Rel)
+0xc0,           //  END_COLLECTION
+0xc0            //END_COLLECTION
+\end{lstlisting}
 
 \section{Bluetooth}
 
