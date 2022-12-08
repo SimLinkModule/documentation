@@ -342,7 +342,7 @@ Die Gesamtlänge eines Pakets beträgt 22,5~ms mit inkludierter Pause. Die Pulse
 \end{figure}
 
 \subsection{CRSF}
-Das CRSF-Protokoll verwendet eine Eindrahtleitung für eine halbduplex \ac{UART}-Verbindung. Über diese Verbindung sendet der Master alle 4~ms ein Paket. Zwischen den Paketen des Masters kann der Slave den Master optional antworten. \cite{cleanflightCrsf}
+Das CRSF-Protokoll verwendet eine Eindrahtleitung für eine halbduplex \ac{UART}-Verbindung. Über diese Verbindung sendet der Master alle 6~ms ein Paket. Zwischen den Paketen des Masters kann der Slave den Master optional antworten. Optional zu Beginn eines Pakets gibt es ein Synchronisationsbyte mit den Daten 0xC8. \cites{cleanflightCrsf}{cleanflightCrsfP}
 
 Die Symbolrate beträgt 420000~Baud bei einer 8N1 Übertragung, womit die Übertragungsrate 46~KByte/s entspricht. Bits werden in einer nicht invertierten Weise und Daten werden im Big Endian-Format übertragen. \cite{cleanflightCrsf}
 
@@ -370,16 +370,15 @@ Ein Paket hat eine maximale Größe von 64~Byte und besteht aus fünf Teilen, we
 
     \hline
     \endlastfoot
-    
     0 & Geräteadresse & 1\\
     \hline
-    0 & Paketlänge & 1\\
+    1 & Paketlänge & 1\\
     \hline
-    0 & Typenfeld & 1\\
+    2 & Typenfeld & 1\\
     \hline
-    0 & Daten & maximal 60\\
+    3-62 & Daten & maximal 60\\
     \hline
-    0 & CRC-Feld & 1\\
+    63 & CRC-Feld & 1\\
 \end{longtable}
 
 Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon ist in Tabelle \ref{table:crsfAdressen} zu sehen.
@@ -407,13 +406,13 @@ Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon is
     \hline
     \endlastfoot
     
-    CRSF Fernsteuerung & 0xEA \\
+    CRSF Fernsteuerung & 0xAE \\
     \hline
-    CRSF Empfänger & 0xEC \\
+    CRSF Empfänger & 0xCE \\
     \hline
     CRSF Sender & 0xEE \\
     \hline
-    CRSF Multikopterplatine & 0xC8 \\
+    CRSF Multikopterplatine & 0x8C \\
 \end{longtable}
 
 Im Paketlängenfeld wird die Größe des Pakets in Byte angegeben, wobei das Typenfeld und das Datenfeld in die Größe des Pakets mit einfließen. \cite{cleanflightCrsf}
