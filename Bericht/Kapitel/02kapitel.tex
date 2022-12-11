@@ -2,7 +2,7 @@
 
 \chapter{Aufgabenstellung}
 
-Ziel der Arbeit ist es, ein Hardware-Erweiterungsmodul für Multikopterfernsteuerungen zu entwickeln. Vorausgesetzt wird im Rahmen dieser Arbeit, dass die Fernsteuerungen einen Modulschacht aufweisen und die Firmware OpenTX \cite{opentxMain} beziehungsweise eine Abspaltung davon verfügbar ist. Das Erweiterungsmodul soll sich dabei durch \acs{BLE} als \acs{HID}-Gerät an Endgeräten authentifizieren, wodurch die Multikopterfernsteuerung als kabelloser Joystick an Endgeräten verwendet werden kann. Die Umsetzung dieser Arbeit lassen sich in nachfolgende drei Teilbereiche aufteilen.
+Ziel der Arbeit ist es, ein Hardware-Erweiterungsmodul für Multikopterfernsteuerungen zu entwickeln. Vorausgesetzt wird im Rahmen dieser Arbeit, dass die Fernsteuerungen einen Modulschacht aufweisen und die Firmware OpenTX \cite{opentxMain} beziehungsweise eine Abspaltung davon verfügbar ist. Das Erweiterungsmodul soll sich dabei durch \acs{BLE} als \acs{HID}-Gerät an Endgeräten authentifizieren, wodurch die Multikopterfernsteuerung als kabelloser Joystick an Endgeräten verwendet werden kann. Die Umsetzung dieser Arbeit lässt sich in nachfolgende drei Teilbereiche aufteilen.
 
 \section{Softwareentwicklung}
 
@@ -10,8 +10,8 @@ Im Aufgabenbereich der Softwareentwicklung soll die Kommunikation zwischen dem E
 
 \section{Platinendesign}
 
-In diesen Aufgabenbereich soll der erstellte Steckbrettaufbau der für den ersten Aufgabenbereich benötigt wird in eine Platine umgewandelt werden. Bestandteile dieser Platine soll zum einen das ESP32-Modul sein, welches als primärer Mikrocontroller fungiert. Ebenso soll eine Spannungsregulierung für die Komponenten der Platine erstellt werden, da die Elektronik über die Stromversorgung der Fernsteuerung betrieben werden soll. Ein weiterer Bestandteil der Platine ist die Verbindung mit Ein- und Ausgabeelementen mit der Fernsteuerung und mit dem Benutzer des Moduls. Zur einfacheren Umsetzung soll auf bereits vorhandene Referenzdesigns des ESP32-Entwicklerboards zurückgegriffen werden.
+In diesen Aufgabenbereich soll der erstellte Steckbrettaufbau der während der Softwareentwicklung benötigt wurde in eine Platine umgewandelt werden. Bestandteile dieser Platine soll zum einen das ESP32-Modul sein, welches als primärer Mikrocontroller fungiert. Ebenso soll eine Spannungsregulierung für die Komponenten der Platine erstellt werden, da die Elektronik über die Stromversorgung der Fernsteuerung betrieben werden soll. Ein weiterer Bestandteil der Platine ist die Verbindung der Ein- und Ausgabeelemente mit dem ESP32-Modul, um die Bedienung des Erweiterungsmoduls zu vereinfachen. Zur einfacheren Umsetzung soll auf bereits vorhandene Referenzdesigns des ESP32-Entwicklerboards zurückgegriffen werden.
 
 \section{Gehäuseerstellung}
 
-Im letzten Aufgabenbereich soll ein Gehäuse für die erstellte Platine erstellt werden, damit die Platine in den Modulschacht vom Typ Lite fest verbaut werden kann. Ebenso muss bei der Konstruktion beachtet werden, dass das Gehäuse möglichst ohne Stützstrukturen mittels eines 3D-Druckers gedruckt werden kann. Dadurch soll die Nachbearbeitung des Gehäuses auf ein Minimum reduziert werden.
+Im letzten Aufgabenbereich soll ein Gehäuse für die erstellte Platine erstellt werden, damit die Platine in den Modulschacht vom Typ Lite fest verbaut werden kann. Ebenso muss bei der Konstruktion beachtet werden, dass das Gehäuse möglichst ohne Stützstrukturen mittels eines 3D-Druckers gedruckt werden kann. Dadurch soll die Nachbearbeitung des Gehäuses nach dem Druck auf ein Minimum reduziert werden.

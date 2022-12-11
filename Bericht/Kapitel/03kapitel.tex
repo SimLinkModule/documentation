@@ -5,9 +5,9 @@
 \section{\acf{HID}}
 
 \subsection{Allgemein}
-Das USB Protokoll kann Geräte beim starten beziehungsweie beim einstecken an das System automatisch konfigurieren. Dafür werden Geräte in Klassen eingeteilt. Jede Klasse definiert dabei wie das gewöhnliche Verhalten und die verwendeten Protokolle der Geräte der Klasse sind. Eine dieser Klassen in USB ist die \ac{HID} Klasse. Der primäre Einsatzzweck für Geräte in der \acs{HID} Klasse ist die Bedienung von Computern durch Menschen. Beispiele für solche Geräte sind: Tastaturen, Mäuse, Joysticks, Barcodeleser und auch Simulationsgeräte. \cite[S.~1f.]{usbHIDS}
+Das USB Protokoll kann Geräte beim Starten beziehungsweise beim Einstecken an ein Computersystem automatisch konfigurieren. Dafür werden Geräte in Klassen eingeteilt. Jede Klasse definiert dabei wie das gewöhnliche Verhalten und die verwendeten Protokolle der Geräte der Klasse sind. Eine dieser Klassen in USB ist die \ac{HID} Klasse. Der primäre Einsatzzweck für Geräte in der \acs{HID} Klasse ist die Bedienung von Computern durch Menschen. Beispiele für solche Geräte sind: Tastaturen, Mäuse, Joysticks, Barcodeleser und auch Simulationsgeräte. \cite[S.~1f.]{usbHIDS}
 
-Informationen eines USB-Geräts für ein Computersystem werden in Segmenten, auch Deskriptoren genannt, des ROMs des jeweiligen USB-Geräts abgespeichert. Ein Gerät, welches sich in der \acs{HID}-Klasse befindet, hat wie in Abbildung \ref{fig:hiddeskriptoren} zu sehen ist drei Deskriptoren. Zunächst einmal den \acs{HID} Deskriptor, welcher alle weiteren benötigte Deskriptoren für USB-\acs{HID}-Geräte auflistet. Der zweite optionale Deskiptor ist der physikalische Deskritpor. Dieser stellt Informationen an das System bereit, wie einzelne Teil des \acs{HID}-Geräts von einen Menschen bedient werden sollen. Dieser wird in dieser Arbeit nicht genauer betrachet. Der letzte Deskriptor ist der Report Deskriptor. Mittels diesem Deskriptor wird die Struktur der übermittelten Daten zwischen dem Rechnersystem und dem \acs{HID}-Gerät beschrieben. \cite[S.~4f.]{usbHIDS}
+Informationen eines USB-Geräts für ein Computersystem werden in Segmenten, auch Deskriptoren genannt, des ROMs des jeweiligen USB-Geräts abgespeichert. Ein Gerät, welches sich in der \acs{HID}-Klasse befindet, hat wie in Abbildung \ref{fig:hiddeskriptoren} zu sehen ist drei Deskriptoren. Zunächst einmal den \acs{HID} Deskriptor, welcher alle weiteren benötigte Deskriptoren für USB-\acs{HID}-Geräte auflistet. Der zweite optionale Deskriptor ist der physikalische Deskriptor. Dieser stellt Informationen an das System bereit, wie einzelne Teil des \acs{HID}-Geräts von einem Menschen bedient werden sollen. Dieser wird in dieser Arbeit nicht genauer betrachtet. Der letzte Deskriptor ist der Report Deskriptor. Mittels diesem Deskriptor wird die Struktur der übermittelten Daten zwischen dem Rechnersystem und dem \acs{HID}-Gerät beschrieben. \cite[S.~4f.]{usbHIDS}
 
 \begin{figure}[h]
     \centering
@@ -18,15 +18,15 @@ Informationen eines USB-Geräts für ein Computersystem werden in Segmenten, auc
 
 \subsection{Report Deskriptor}
 
-Das USB-Protokoll definiert meist in USB-Geräte-Klassen das zu verwendende Protokoll des Geräts durch Subklassen. Dies ist jedoch in der USB-\acs{HID}-Klasse nicht der Fall. USB-\acs{HID}-Geräte stellen nämlich durch den Report Deskriptor einen anderen System den Aufbau und die Datentypen der übermittelten Datenpakete bereit. \cite[S.~8]{usbHIDS} Durch dieses Verfahren ist es möglich, dass Applikationen durch lesen des Report Deskriptors die modular aufgebauten Daten verarbeiten können \cite[S.~24]{usbHIDS}. Die Länge des Deskriptors ist dabei für jedes Gerät variabel und hängt von der Mänge der übermittelten Daten ab \cite[S.~23]{usbHIDS}.
+Das USB-Protokoll definiert meist in USB-Geräte-Klassen das zu verwendende Protokoll des Geräts durch Subklassen. Dies ist jedoch in der USB-\acs{HID}-Klasse nicht der Fall. USB-\acs{HID}-Geräte stellen nämlich durch den Report Deskriptor einem anderen System den Aufbau und die Datentypen der übermittelten Datenpakete bereit. \cite[S.~8]{usbHIDS} Durch dieses Verfahren ist es möglich, dass Applikationen durch Lesen des Report Deskriptors die modular aufgebauten Daten verarbeiten können \cite[S.~24]{usbHIDS}. Die Länge des Deskriptors ist dabei für jedes Gerät variabel und hängt von der Menge der übermittelten Daten ab \cite[S.~23]{usbHIDS}.
 
-Ein Report Deskriptor ist dabei aus sogennanten Elementen aufgebaut. Ein Element stellt eine Teilinformation über ein USB-\acs{HID}-Gerät dar. Jedes Element hat zu beginn jeweils ein 1~Byte großes Präfix. In diesem Präfix befinden sich jeweils ein Element-Marker, ein Elementtyp und eine Elementengröße. Darauf folgend können optional Daten angefügt werden. Es kann dabei zwischen langen und kurzen Elementen unterschieden werden, wodurch die Größe zwischen 0 und 258~Byte groß sein kann. \cite[S.~14]{usbHIDS}
+Ein Report Deskriptor ist dabei aus sogenannten Elementen aufgebaut. Ein Element stellt eine Teilinformation über ein USB-\acs{HID}-Gerät dar. Jedes Element hat zu Beginn jeweils ein 1~Byte großes Präfix. In diesem Präfix befinden sich jeweils ein Element-Marker, ein Elementtyp und eine Elementengröße. Darauf folgend können optional Daten angefügt werden. Es kann dabei zwischen langen und kurzen Elementen unterschieden werden, wodurch die Größe zwischen 0 und 258~Byte groß sein kann. \cite[S.~14]{usbHIDS}
 
-Alle benötigten Elemente die in einem Report Deskriptor enthalten sein müssen sind in nachfolgender Aufzählung enthalten: Input (\,Output oder Feature)\,, Usage, Usage\_Page, Logical\_Minimum, Logical\_Maximum, Reprot\_Size und Report Count. \cite[S.~24]{usbHIDS}
+Alle Elemente, die in einem Report Deskriptor enthalten sein müssen sind, sind in nachfolgender Aufzählung enthalten: Input (Output oder Feature), Usage, Usage\_Page, Logical\_Minimum, Logical\_Maximum, Reprot\_Size und Report Count. \cite[S.~24]{usbHIDS}
 
 Alle Elemente eines Report Deskriptors lassen sich in drei Gruppen einordnen. Zunächst gibt es die Hauptelemente. Diese werden verwendet, um Datenfelder zu definieren oder Datenfelder zu gruppieren. Die zweite Gruppe sind die globalen Elemente. Mit diesen werden die zu übermittelten Datenfelder beschrieben. Die letzte Gruppe umfasst die lokalen Elemente. Diese werden verwendet, um Merkmale eines Datenfelds zu beschreiben. \cite[S.~16, S.~28, S.~35]{usbHIDS}
 
-Die Einsatzzwecke der drei Gruppen stehen folgendermaßen in Beziehung. Mittels eines Hauptelements wird ein Datenfeld definiert. Durch globale und lokale Elemente werden erstellten Datenfeldern Definitionen hinzugefügt. Dabei gelten lokale Elemente nur für das nächst kommende Hauptelement. Globale Elemente gelten im Gegensatz dazu so lange bis das gobale Element durch ein anderes globales Element überschrieben wird. Dadurch ist es möglich Datenstrukturen wie in Abbildung \ref{fig:reportdeskriptorexample} zu erstellen. \cite[S.~24]{usbHIDS}
+Die Einsatzzwecke der drei Gruppen stehen folgendermaßen in Beziehung. Mittels eines Hauptelements wird ein Datenfeld definiert. Durch globale und lokale Elemente werden erstellten Datenfeldern Definitionen hinzugefügt. Dabei gelten lokale Elemente nur für das nächst kommende Hauptelement. Globale Elemente gelten im Gegensatz dazu so lange bis das globale Element durch ein anderes globales Element überschrieben wird. Dadurch ist es möglich Datenstrukturen wie in Abbildung \ref{fig:reportdeskriptorexample} zu erstellen. \cite[S.~24]{usbHIDS}
 
 \begin{figure}[h]
     \centering
@@ -35,11 +35,11 @@ Die Einsatzzwecke der drei Gruppen stehen folgendermaßen in Beziehung. Mittels 
     \label{fig:reportdeskriptorexample}
 \end{figure}
 
-Unter der Gruppe der Hauptelemete gibt es fünf Element-Marker. Ein häufig verwendeter Marker ist der Input-Marker, mittels diesem können Ausgabedatenfelder definiert werden. Weitere wichtige Element-Marker für Hauptelemente sind Collection und End Collection, womit Datenfelder gruppiert werden können. \cite[S.~23f., S.~30ff.]{usbHIDS}
+Unter der Gruppe der Hauptelemente gibt es fünf Element-Marker. Ein häufig verwendeter Marker ist der Input-Marker, mittels diesem können Ausgabedatenfelder definiert werden. Weitere wichtige Element-Marker für Hauptelemente sind Collection und End Collection, womit Datenfelder gruppiert werden können. \cite[S.~23f., S.~30ff.]{usbHIDS}
 
 In der Gruppe der globalen Elemente gibt es 13 Element-Marker. Wichtige Marker hierbei sind: Usage Page, Logical Minimun, Logical Maximum, Report ID, Report Size und Report Count. Mittels dem Marker Report Size wird angegeben wie groß ein Datenfeld in Bits sein soll. Mit dem Marker Report Count wird angegeben wie viele Datenfelder mit den definierten Eigenschaften erstellt werden sollen. Mit dem Marker Report ID ist es möglich mehrere Datenstrukturen innerhalb eines Report Deskriptors zu erstellen und diese eindeutig zu identifizieren \cite[S.~17]{usbHIDS}. \cite[S.~35ff.]{usbHIDS}
 
-Wichtige Element-Marker der Gruppe der lokalen Elemente, welche elf Element-Marker umfasst, sind: Usage, Usage Minimum und Usage Maximum \cite[S.~40]{usbHIDS}. Durch den Element-Marker Usage wird der Einsatzzweck eines Datenfelds definiert. Ebenso können statt einzelnen Datenfeldern auch Kollektionen von Datenfeldern mit Einsatzzwecken markiert werden. Einsatzzwecke sind in Einsatzzweck-Seiten organisiert und werden mit dem Element-Marker Usage Page definiert. Beachtet werden sollte, dass ein Einsatzzweck so spezifisch wie nötig und so allgemein wie möglich gehalten weden sollte, damit das \acs{HID}-Gerät alle gerätespezifischen Eigenschaften bereitstellen kann. \cite[S.~15f.]{usbHIDt}
+Wichtige Element-Marker der Gruppe der lokalen Elemente, welche elf Element-Marker umfasst, sind: Usage, Usage Minimum und Usage Maximum \cite[S.~40]{usbHIDS}. Durch den Element-Marker Usage wird der Einsatzzweck eines Datenfelds definiert. Ebenso können statt einzelnen Datenfeldern auch Kollektionen von Datenfeldern mit Einsatzzwecken markiert werden. Einsatzzwecke sind in Einsatzzweck-Seiten organisiert und werden mit dem Element-Marker Usage Page definiert. Beachtet werden sollte, dass ein Einsatzzweck so spezifisch wie nötig und so allgemein wie möglich gehalten werden sollte, damit das \acs{HID}-Gerät alle gerätespezifischen Eigenschaften bereitstellen kann. \cite[S.~15f.]{usbHIDt}
 
 Schlussendlich können mittels Padding-Bits die enthaltenen Datenfelder byteorientiert ausgerichtet werden. In Tabelle \ref{table:mousedatastructure} ist eine beispielhafte Datenstruktur für eine Maus mit dazugehörigen Report Deskriptor in Quellcode \ref{lst:reportDeskriptor} zu sehen.
 
@@ -140,7 +140,7 @@ In den nachfolgenden Unterkapiteln werden die wichtigsten Informationen jeder be
 Die physikalische Schicht in \ac{BLE} ist zum Verschicken und erhalten von Paketen über eines der physikalischen Funkkanäle verantwortlich. \cite[S.~209]{bluetoothCore}
 
 \subsubsection{\acf{LL}}
-Die Verbindungsschicht im \ac{BLE}-System besteht aus mehreren Komponenten. Eine Komponente ist für die Erstellung, Modifizierung und das Freigeben von logischen Verbindungen zuständig. Eine weitere Komponente ist für das Kodieren und Dekodieren von Bluetooth Paketen zuständig. Auch gibt es eine Komponente welche für die Datenflusskontrolle, die Datenbestätigung und für die erneute Übertragen von Paketen zuständig ist. Die letzten Komponenten in der Verbindungsschicht ist für den Zugriff auf das Radiomedium zuständig. Dafür gibt es einen Scheduler, welcher Zeitschlitze des physikalischen Mediums an die höherliegenden Dienste verteilt. \cite[S.~207f.]{bluetoothCore}
+Die Verbindungsschicht im \ac{BLE}-System besteht aus mehreren Komponenten. Eine Komponente ist für die Erstellung, Modifizierung und das Freigeben von logischen Verbindungen zuständig. Eine weitere Komponente ist für das Kodieren und Dekodieren von Bluetooth Paketen zuständig. Auch gibt es eine Komponente welche für die Datenflusskontrolle, die Datenbestätigung und für die erneute Übertragung von Paketen zuständig ist. Die letzten Komponenten in der Verbindungsschicht ist für den Zugriff auf das Radiomedium zuständig. Dafür gibt es einen Scheduler, welcher Zeitschlitze des physikalischen Mediums an die höherliegenden Dienste verteilt. \cite[S.~207f.]{bluetoothCore}
 
 \subsubsection{\acf{HCI}}
 Das \acl{HCI} stellt die Möglichkeit bereit, dass der Hostteil die Funktionen des Controllerteil erreichen kann. Die Übertragung des \ac{HCI} kann dabei wahlweise mittels USB, UART oder anderen Bussystemen stattfinden. \cite[S.~1735f.]{bluetoothCore}
@@ -155,7 +155,7 @@ Das \acl{GAP} beschreibt die Basisfunktionalitäten welche ein \ac{BLE}-Gerät b
 
 Weitere wichtige Eigenschaften die in \ac{GAP} definiert sind, sind zum einen die Bluetooth-Geräteadressen. Die Geräteadresse wird verwendet, um ein Bluetooth-Gerät eindeutig zu identifizieren. Eine weitere Eigenschaft, welche in \ac{GAP} definiert wird, ist der Gerätename. Dieser Name ist eine benutzerfreundliche Zeichenfolge der an entfernten Geräten angezeigt wird. Der Gerätename kann bis zu 248~Byte lang sein und sollte in UTF-8 kodiert sein. Es muss davon ausgegangen werden, dass ein Gerät nur die ersten 40 Zeichen auswerten kann. \cite[S.~1251ff.]{bluetoothCore}
 
-Damit eine Verfolgung von Geräteadressen minimiert werden kann, gibt es in \ac{BLE} zwei Arten von Geräteadressen. Zum einen eine sich verändernde öffentliche Adresse, welche an allen \ac{BLE}-Geräte verschickt wird. Zum anderen gibt es sich nicht verändernde private Adressen, welche von Geräten ausgerechnet werden können, welche schon einmal eine Verbindung mit einen bestimmten Gerät aufgebaut hatten. Damit können Geräte, welche schon einmal mit einem anderen Gerät verbunden waren, überprüfen, ob es sich um ein bereits bekanntes Gerät handelt. \cite[S.~19]{siliconBLE}
+Damit eine Verfolgung von Geräteadressen minimiert werden kann, gibt es in \ac{BLE} zwei Arten von Geräteadressen. Zum einen eine sich verändernde öffentliche Adresse, welche an allen \ac{BLE}-Geräte verschickt wird. Zum anderen gibt es sich nicht verändernde private Adressen, welche von Geräten ausgerechnet werden können, welche schon einmal eine Verbindung mit einem bestimmten Gerät aufgebaut hatten. Damit können Geräte, welche schon einmal mit einem anderen Gerät verbunden waren, überprüfen, ob es sich um ein bereits bekanntes Gerät handelt. \cite[S.~19]{siliconBLE}
 
 Auch wird in \ac{GAP} beschrieben, wie der Bluetooth-Pin für eine Authentifizierung zweier Geräte im Verbindungsmodus aufgebaut sein muss. Die Pin soll sechs Zeichen lang sein und aus Ziffern bestehen. \cite[S.~1253]{bluetoothCore}
 
@@ -181,7 +181,7 @@ Attribut-Handles haben eine Länge von 16~Bit und können durch weitere speziell
 Die hinterlegten Werte eines Attributs bestehen aus einem Oktett-Array mit einer fixen oder variablen Länge \cite[S.~1413]{bluetoothCore}.
 
 \subsubsection{\acf{GATT}}
-\ac{GATT} baut auf \ac{ATT} auf und stellt ein Framework für die Daten, welche in \ac{ATT} gespeichert werden, bereit. \ac{GATT} stellt wie \ac{ATT} zwei Rollen -- den Server und den Client -- bereit. Ebenso definiert \ac{GATT} das Format der Daten, welche auf dem \ac{GATT}-Server gespeichert werden dürfen, in sogenannten Profilen. Attribute werden hierfür in Profile, Dienste und Merkmale untergliedert, wie in Abbildung \ref{fig:gattstructure} zu sehen ist. Ein Applikationsprofil besteht aus einen oder mehreren Diensten, um bestimmte definierte Use-Cases abzudecken und definiert darüber hinaus die benötigten Dienste, Merkmale und Attribute \cite[S.~207]{bluetoothCore}. Ein Dienst enthält eine Ansammlung von Merkmalen und kann andere Dienste inkludieren. Ein Merkmal enthält ein Wert, sowie eine Menge von Deskriptoren. Durch diesen Aufbau ist es einen Client möglich die Daten eines bestimmten Profils auszulesen ohne davor den Aufbau der Attribute des Servers kennen zu müssen. \cite[S.~280, S.~1480]{bluetoothCore}
+\ac{GATT} baut auf \ac{ATT} auf und stellt ein Framework für die Daten, welche in \ac{ATT} gespeichert werden, bereit. \ac{GATT} stellt wie \ac{ATT} zwei Rollen -- den Server und den Client -- bereit. Ebenso definiert \ac{GATT} das Format der Daten, welche auf dem \ac{GATT}-Server gespeichert werden dürfen, in sogenannten Profilen. Attribute werden hierfür in Profile, Dienste und Merkmale untergliedert, wie in Abbildung \ref{fig:gattstructure} zu sehen ist. Ein Applikationsprofil besteht aus einen oder mehreren Diensten, um bestimmt definierte Use-Cases abzudecken und definiert darüber hinaus die benötigten Dienste, Merkmale und Attribute \cite[S.~207]{bluetoothCore}. Ein Dienst enthält eine Ansammlung von Merkmalen und kann andere Dienste inkludieren. Ein Merkmal enthält ein Wert, sowie eine Menge von Deskriptoren. Durch diesen Aufbau ist es einen Client möglich die Daten eines bestimmten Profils auszulesen ohne davor den Aufbau der Attribute des Servers kennen zu müssen. \cite[S.~280, S.~1480]{bluetoothCore}
 
 Anzumerken ist, dass jedes Attribut, welches in \ac{ATT} vorhanden ist, entweder in einer Dienstdeklarierung oder in einer Dienstdefinition enthalten sein soll. \cite[S.~1483]{bluetoothCore}
 
@@ -219,7 +219,7 @@ Auch geben Apple-Geräte nicht alle \ac{BLE}-Dienste an Drittanbieter-Apps weite
 \subsection{\acf{HOGP}}
 In diesen Abschnitt der Arbeit, wird nur auf die Anforderungen eines \acs{HID}-Geräts -- stellt einen \acs{GATT}-Server bereit \cite[S.~9]{bluetoothHOGP} -- und nicht eines \acs{HID}-Hosts -- stellt einen \acs{GATT}-Client bereit \cite[S.~9]{bluetoothHOGP} -- eingegangen, da eine Implementierung des \acs{HID}-Hosts nicht in diesem Projekt benötigt werden.
 
-Mittels dem \acl{HOGP} werden Prozeduren und Fähigkeiten definiert, welches ein \acs{BLE}-\acs{HID} fähiges Gerät benötigt, um als \acs{HID}-Gerät von \acs{HID}-Host wahrgenommen zu werden. Das Profil baut dabie auf der USB \acs{HID} Spezifikation auf. \cite[S.~9]{bluetoothHOGP}
+Mittels dem \acl{HOGP} werden Prozeduren und Fähigkeiten definiert, welches ein \acs{BLE}-\acs{HID} fähiges Gerät benötigt, um als \acs{HID}-Gerät von \acs{HID}-Host wahrgenommen zu werden. Das Profil baut dabei auf der USB \acs{HID} Spezifikation auf. \cite[S.~9]{bluetoothHOGP}
 
 Das \acf{HOGP} benötigt weitere Profile und Dienste, welche auf einem \acs{HID}-Gerät implementiert sein müssen. Dazu zählen das \acs{GATT}, der Batteriedienst, der Geräteinformationsdienst, das Scan Parameters Profil und der \acs{HID} Dienst. Dabei ist zu beachten, dass auf einem \acs{HID}-Gerät ein oder mehrere Instanzen des \acs{HID}-Dienstes, ein oder mehrere Instanzen des Batteriedienstes, sowie nur eine Instanz des Gerätinformationsdienstes und optional eine Instanz des Scan Parameters Dienstes vorhanden sein darf. \cite[S.~9, S.~11]{bluetoothHOGP} In Abbildung \ref{fig:hidservices} sind alle benötigten und optionalen Dienste grafisch dargestellt. Optionale Dienste werden dabei durch eine gestrichelte Linie angedeutet.
 
@@ -310,7 +310,7 @@ Dieser Dienst stellt einen \acs{GATT}-Client Informationen über den Hersteller 
 Der Dienst muss als primärer Dienst gestartet werden und muss das \textit{PNP-ID} Merkmal enthalten. \cite[S.~14f.]{bluetoothHOGP}
 
 \subsubsection{Scan Parameters Profil}
-Mittels diesem optionalen Profil beziehungsweise Dienst, stellt ein \acs{GATT}-Server einen \acs{GATT}-Client Informationen zur Verfügung, die die Geräte unterstützen bei der Verwaltung von Verbindungszeitüberschreitungen und den Advertising Paketen. Durch diese Informationen kann der Stromverbrauch sowie die Wiederverbindungslatenz optimiert werden. \cite[S.~6]{bluetoothScan}
+Mittels diesem optionalen Profil beziehungsweise Dienst, stellt ein \acs{GATT}-Server einen \acs{GATT}-Client Informationen zur Verfügung, die die Geräte unterstützen bei der Verwaltung von Verbindungszeitüberschreitungen und den Advertising-Paketen. Durch diese Informationen kann der Stromverbrauch sowie die Wiederverbindungslatenz optimiert werden. \cite[S.~6]{bluetoothScan}
 
 \subsection{Bluetooth-Stacks}
 
@@ -318,7 +318,7 @@ Damit die Verwendung von Bluetooth auf dem verwendeten Mikrocontroller einfacher
 
 Bluedroid ist ein von Broadcom Corporation bis 2012 entwickelter Bluetooth-Stack welcher unter der Apache Lizenz steht \cite{bluedroidlizenz}. Dieser Bluetooth-Stack wird von Google seit der Android Version 4.2 als Bluetooth Stack verwendet \cite{lwnBluedroid}. Heutzutage wird dieser Bluetooth-Stack weiterhin unter Android verwendet, aber ist nun unter den Namen Fluoride zu finden \cites{aospFluoride}{anachaoFluoride}.
 
-Apache NimBLE ist ein Open Source \ac{BLE}-Stack, welcher vollständig der Bluetooth~5 Spezifikation konform ist \cite{docnimble} und Bestandteil des Apache Mynewt project ist \cite{gitnimble}.
+Apache NimBLE ist ein Open Source \ac{BLE}-Stack, welcher vollständig der Bluetooth~5 Spezifikation konform ist \cite{docnimble} und Bestandteil des \textit{Apache Mynewt project} ist \cite{gitnimble}.
 
 
 \section{Übertragungsprotokolle am Fernbedienungsmodulschacht}
@@ -384,7 +384,7 @@ Ein Paket hat eine maximale Größe von 64~Byte und besteht aus fünf Teilen, we
 Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon ist in Tabelle \ref{table:crsfAdressen} zu sehen.
 
 \begin{longtable}[c]{|l|l|}
-    \caption{Auschnitt aus den vorhandenen CRSF-Geräteadressen \cite{cleanflightCrsfP}}
+    \caption{Ausschnitt aus den vorhandenen CRSF-Geräteadressen \cite{cleanflightCrsfP}}
     \label{table:crsfAdressen}\\
     \hline
     \textbf{Empfängergerät} & \textbf{Adresse}\\
@@ -417,7 +417,7 @@ Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon is
 
 Im Paketlängenfeld wird die Größe des Pakets in Byte angegeben, wobei das Typenfeld und das Datenfeld in die Größe des Pakets mit einfließen. \cite{cleanflightCrsf}
 
-Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest definiert. Ein Auschnitt möglicher Typen ist in Tabelle \ref{table:crsfTyp} zu finden.
+Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest definiert. Ein Ausschnitt möglicher Typen ist in Tabelle \ref{table:crsfTyp} zu finden.
 
 \begin{longtable}[c]{|l|l|}
     \caption{Vordefinierte CRSF Datentypen \cite{cleanflightCrsfP}}
@@ -451,7 +451,7 @@ Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest definiert. Ein 
     Multikopterflugmodus & 0x21 \\
 \end{longtable}
 
-Der Datenteil eines Pakets wird in 16 Kanäle aufgeteilt. Jeder Kanal ist dabei 11~Bit groß. Der Wertebreich pro Kanal liegt zwischen 172 und 1811. \cite{cleanflightCrsf}
+Der Datenteil eines Pakets wird in 16 Kanäle aufgeteilt. Jeder Kanal ist dabei 11~Bit groß. Der Wertebereich pro Kanal liegt zwischen 172 und 1811. \cite{cleanflightCrsf}
 
 Die CRC-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite{cleanflightCrsf}. Das Gerneratorpolynom lautet dafür: 0xD5 \cite{cleanflightCRC}
 
@@ -459,7 +459,7 @@ Die CRC-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite
 
 Das SBUS-Protokoll ist ein invertiertes (hohes Spannungsniveau = logisch niedrig \cite{sigrokSBus}) serielles Protokoll, über eine Leitung mit einer Symbolrate von 100000~Baud. Die Daten werden dabei im 8E2-Format übertragen. Die Länge eines SBUS-Pakets beträgt 25~Byte mit welchem 18 Kanäle übertragen werden. \cite{BolderFlight}
 
-Das Interval zum versenden von SBUS-Paketen kann in OpenTX zwischen 6~ms und 40~ms frei eingestellt werden. Der Aufbau eines Pakets ist in Tabelle \ref{table:sbusPaket} zu sehen.
+Das Intervall zum Versenden von SBUS-Paketen kann in OpenTX zwischen 6~ms und 40~ms frei eingestellt werden. Der Aufbau eines Pakets ist in Tabelle \ref{table:sbusPaket} zu sehen.
 
 \begin{longtable}[c]{|p{3cm}|p{12cm}|}
     \caption{Paketaufbau von SBUS \cite{BolderFlight}}
@@ -505,7 +505,7 @@ Für die Synchronisation zwischen Sender und Empfänger gibt es Lücken innerhal
 
 Das MULTI-Prokoll wird für die Kommunikation zwischen einer Fernsteuerung auf der OpenTX läuft und einem 2,4~GHz Erweiterungsmodul verwendet. Mittels diesem Protokoll wird zum einen das Erweiterungsmodul konfiguriert und zum anderen werden die Daten der 16 zu übertragenden Kanäle an das Erweiterungsmodul geschickt. \cites{langerTransmitter}{langerMultiprotocol}
 
-Die Übertragung findet dabei seriell mittels dem 8E2-Format statt und mit einer Symbolrate von 100000~Baud. In Version~1 ist die Länge eines Pakets 26~Byte. In Version~2 ist die Länge eines Pakets zwischen 27 und 36~Byte groß. \cite{langerMultiprotocol}. In Tabelle \ref{table:mutliPaket} ist der Aufbau eines MULTI-Pakets dargestellt.
+Die Übertragung findet dabei seriell mittels des 8E2-Formats statt und mit einer Symbolrate von 100000~Baud. In Version~1 ist die Länge eines Pakets 26~Byte. In Version~2 ist die Länge eines Pakets zwischen 27 und 36~Byte groß. \cite{langerMultiprotocol}. In Tabelle \ref{table:mutliPaket} ist der Aufbau eines MULTI-Pakets dargestellt.
 
 \begin{longtable}[c]{|p{2cm}|p{13cm}|}
     \caption{Paketaufbau von MULTI \cite{langerMultiprotocol}}
@@ -532,13 +532,13 @@ Die Übertragung findet dabei seriell mittels dem 8E2-Format statt und mit einer
     
     0 & Paketkopf mit der Angabe welche Art von Daten übermittelt werden. \\
     \hline
-    1 & Das zu verwendende Protokoll, welches das Erweiterungsmodul zum versenden der Daten verwenden soll. \\
+    1 & Das zu verwendende Protokoll, welches das Erweiterungsmodul zum Versenden der Daten verwenden soll. \\
     \hline
     2 & Informationen über den Verbindungszustand zwischen dem Erweiterungsmodul und einem Empfänger sowie das zu verwendende Subprotokoll. \\
     \hline
-    3 & Optionale Protokollauswahl, welche nicht verdefiniert ist. \\
+    3 & Optionale Protokollauswahl, welche nicht vordefiniert ist. \\
     \hline
-    4 - 25 & Daten der Kanäle oder die Daten welche bei einen Paketausfall versendet werden. \\
+    4 - 25 & Daten der Kanäle oder die Daten, welche bei einem Paketausfall versendet werden. \\
     \hline
     26 & Weitere Protokollinformationen und Telemetriedaten. \\
     \hline
@@ -546,12 +546,16 @@ Die Übertragung findet dabei seriell mittels dem 8E2-Format statt und mit einer
 \end{longtable}
 
 \section{Mikrocontroller ESP}
-mehrere Kerne; Pins; Kommunikationsmöglichkeiten; CE z
-Zertifizierung (da Antenne schon vorhanden muss nicht erneut zertifiziert werden)
+\todo[inline]{TODO: Mikrocontroller ESP}
+%mehrere Kerne; Pins; Kommunikationsmöglichkeiten; CE z
+%Zertifizierung (da Antenne schon vorhanden muss nicht erneut zertifiziert werden)
 
 \section{FreeRTOS}
-sheduling und Kommunikation zwischen Tasks, interrupts und priorisierung
+\todo[inline]{TODO: FreeRTOS}
+%Scheduling und Kommunikation zwischen Tasks, Interrupts und Priorisierung
 
 \section{BITMAP Schriftarten}
+\todo[inline]{TODO: BITMAP Schriftarten}
 
 \section{libevdev}
+\todo[inline]{TODO: libevdev}

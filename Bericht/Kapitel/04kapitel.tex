@@ -1,18 +1,18 @@
 %!TEX root = ../Studienarbeit.tex
 
 \chapter{Umsetzung}
+\todo[inline]{TODO: Umsetzung}
+%Zu Beginn soll auf Basis eines ESPRESSIF ESP32-WROOM-32-Entwicklerboards die Kommunikation zum Endgerät als BLE-HID-Gerät entwickelt werden. Als nächster Schritt wird die Kommunikation mit
+%der Multicopterfernbedienung über den vorhandenen Modulschacht implementiert. Sobald beide Kommunikationsschnittstellen einzeln funktionsfähig sind, sollen diese im darauffolgenden Schritt in einem
+%Gesamtsystem zusammengeführt werden. Als letzter Schritt soll die gesamte benötigte Hardware auf eine Platine gebaut werden und für das Modul ein 3D-gedrucktes Gehäuse hergestellt werden.
+%Das ESP32-WROOM-32-Modul soll für die BLE-Kommunikation verwendet werden, da es ein kostengünstiges und nach CE zertifiziertes Modul ist. Die Authentifizierung an den Endgeräten soll als HID erfolgen, da dadurch keine zusätzlichen Treiber entwickelt werden müssen und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
 
-Zu Beginn soll auf Basis eines ESPRESSIF ESP32-WROOM-32-Entwicklerboards die Kommunikation zum Endgerät als BLE-HID-Gerät entwickelt werden. Als nächster Schritt wird die Kommunikation mit
-der Multicopterfernbedienung über den vorhandenen Modulschacht implementiert. Sobald beide Kommunikationsschnittstellen einzeln funktionsfähig sind, sollen diese im darauffolgenden Schritt in einem
-Gesamtsystem zusammengeführt werden. Als letzter Schritt soll die gesamte benötigte Hardware auf eine Platine gebaut werden und für das Modul ein 3D-gedrucktes Gehäuse hergestellt werden.
-Das ESP32-WROOM-32-Modul soll für die BLE-Kommunikation verwendet werden, da es ein kostengünstiges und nach CE zertifiziertes Modul ist. Die Authentifizierung an den Endgeräten soll als HID erfolgen, da dadurch keine zusätzlichen Treiber entwickelt werden müssen und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
+%Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss.
+%Bluetooth-Profile und benötigte HID-struktur.
+%Datenaustausch esp und fernbedienung.
+%Tasks am ESP erklären wie die priorisiert sind und interrupts.
+%Display erklären und wie dort geschrieben werden kann.
+%PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
+%Case-design erklären und was dort beachtet wurde.
 
-Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss.
-Bluetooth-Profile und benötigte HID-struktur.
-Datenaustausch esp und fernbedienung.
-Tasks am ESP erklären wie die priorisiert sind und interrupts.
-Display erklären und wie dort geschrieben werden kann.
-PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
-Case-design erklären und was dort beachtet wurde.
-
-Empfohlen wird für BLE-only andwendung NimBLE zu verwenden, da dieser eine größere Codegröße hat und weniger Speicher zur laufzeit benötigt. Weshalb für diese Arbeit NimBLE verwendet wird. \cite{espidfBluetoothStack}
+%Empfohlen wird für BLE-only andwendung NimBLE zu verwenden, da dieser eine größere Codegröße hat und weniger Speicher zur laufzeit benötigt. Weshalb für diese Arbeit NimBLE verwendet wird. \cite{espidfBluetoothStack}
