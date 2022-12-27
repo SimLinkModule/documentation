@@ -108,9 +108,9 @@ Schlussendlich können mittels Padding-Bits die enthaltenen Datenfelder byteorie
 
 \subsection{Allgemein}
 
-Bluetooth ist ein Kurzstreckenkommunikationssystem, bei welchen die Hauptmerkmale auf Robustheit, einen geringen Stromverbrauch und geringe Kosten gelegt wurde. Bluetooth wir in zwei Kategorien aufgeteilt. Die erste Kategorie ist \ac{BBR}. Die zweite Kategorie ist \ac{BLE}. Beide Kategorien beinhalten dabei Mechanismen, um Bluetooth-Geräte zu entdecken, einen Verbindungsaufbau durchzuführen sowie eine Verbindung herzustellen. Das Augenmerk bei \ac{BLE} Produkten liegt dabei auf einen niedrigen Stromverbrauch, was durch eine geringere Datenrate und eine geringere Einschaltdauer während den Datenaustausch als bei \ac{BBR} realisiert wird. Die Übertragungsrate bei \ac{BLE} in der physikalischen Schicht beträgt 2~MB/s. Zu beachten ist, dass ein Bluetooth-Controller entweder \ac{BLE}, \ac{BBR} oder beide Bluetooth-Kategorien unterstützen kann. \cite[S.~187]{bluetoothCore}
+Bluetooth ist ein Kurzstreckenkommunikationssystem, bei welchem die Hauptmerkmale auf Robustheit, einen geringen Stromverbrauch und geringe Kosten gelegt wurde. Bluetooth wird in zwei Kategorien aufgeteilt. Die erste Kategorie ist \ac{BBR}. Die zweite Kategorie ist \ac{BLE}. Beide Kategorien beinhalten dabei Mechanismen, um Bluetooth-Geräte zu entdecken, einen Verbindungsaufbau durchzuführen sowie eine Verbindung herzustellen. Das Augenmerk bei \ac{BLE} Produkten liegt dabei auf einem niedrigen Stromverbrauch, was durch eine geringere Datenrate und eine geringere Einschaltdauer während des Datenaustauschs als bei \ac{BBR} realisiert wird. Die Übertragungsrate bei \ac{BLE} in der physikalischen Schicht beträgt 2~MB/s. Zu beachten ist, dass ein Bluetooth-Controller entweder \ac{BLE}, \ac{BBR} oder beide Bluetooth-Kategorien unterstützen kann. \cite[S.~187]{bluetoothCore}
 
-Die Übertragungsfrequenz von \ac{BLE} liegt im lizenzfreien 2.4~GHz \acf{ISM}-Band von 2402~MHz bis 2480~MHz \cites[S.~4]{siliconBLE}[S.~190]{bluetoothCore}. Das Frequenzband ist in 40 physikalische Kanäle mit jeweils einer Bandbreite von 2~MHz aufgeteilt, wie in Abbildung \ref{fig:frequenzbandBLE} zu sehen ist \cite[S.~190]{bluetoothCore}. Drei dieser 40 physikalischen Kanäle sind für das sogenannte Advertising vorhanden ()\cite[S.~190]{bluetoothCore}, welches für die Geräteentdeckung, den Verbindungsaufbau und für das Broadcasting von Nachrichten vorhanden ist \cite[S.~4]{siliconBLE}. Die restlichen Kanäle sind für eine allgemeine Datenübertragung vorhanden \cite[S.~190]{bluetoothCore}. Zusätzlich zu der Aufteilung des Frequenzbandes in Kanäle werden Kanäle in Zeiteinheiten aufgeteilt, welche Events genannt werden \cite[S.~190]{bluetoothCore}. Daten werden in Paketen innerhalb eines Events übertragen. Zusätzlich wird bei der Übertragung von Daten Frequenzhopping betrieben, welches zu Beginn jedes Events stattfindet \cite[S.~190f.]{bluetoothCore}. 
+Die Übertragungsfrequenz von \ac{BLE} liegt im lizenzfreien 2.4~GHz \acf{ISM}-Band von 2402~MHz bis 2480~MHz \cites[S.~4]{siliconBLE}[S.~190]{bluetoothCore}. Das Frequenzband ist in 40 physikalische Kanäle mit jeweils einer Bandbreite von 2~MHz aufgeteilt, wie in Abbildung \ref{fig:frequenzbandBLE} zu sehen ist \cite[S.~190]{bluetoothCore}. Drei dieser 40 physikalischen Kanäle sind für das sogenannte Advertising vorhanden \cite[S.~190]{bluetoothCore}, welches für die Geräteentdeckung, den Verbindungsaufbau und für das Broadcasting von Nachrichten vorhanden ist \cite[S.~4]{siliconBLE}. Die restlichen Kanäle sind für eine allgemeine Datenübertragung dar \cite[S.~190]{bluetoothCore}. Zusätzlich zu der Aufteilung des Frequenzbandes in Kanäle werden Kanäle in Zeiteinheiten aufgeteilt, welche Events genannt werden \cite[S.~190]{bluetoothCore}. Daten werden in Paketen innerhalb eines Events übertragen. Zusätzlich wird bei der Übertragung von Daten Frequenzhopping betrieben, welches zu Beginn jedes Events stattfindet \cite[S.~190f.]{bluetoothCore}. 
 
 \begin{figure}[h]
 \centering
@@ -119,13 +119,13 @@ Die Übertragungsfrequenz von \ac{BLE} liegt im lizenzfreien 2.4~GHz \acf{ISM}-B
 \label{fig:frequenzbandBLE}
 \end{figure}
 
-Die Kompatibilität zwischen Bluetooth-Geräten wird durch sogenannte Profile sichergestellt. Profile beschreiben dafür Funktionen und Eigenschaften von jeder Schicht im Bluetoothsystem \cite[S.~277]{bluetoothCore}. Ebenso werden die benötigten Nachrichten und Prozeduren für die verwendeten Profile durch die Bluetooth \ac{SIG} spezifiziert \cite[S.~1241]{bluetoothCore}.
+Die Kompatibilität zwischen Bluetooth-Geräten wird durch sogenannte Profile sichergestellt. Profile beschreiben Funktionen und Eigenschaften von jeder Schicht im Bluetoothsystem \cite[S.~277]{bluetoothCore}. Die benötigten Nachrichten und Prozeduren für die verwendeten Profile werden durch die Bluetooth \ac{SIG} spezifiziert \cite[S.~1241]{bluetoothCore}.
 
-Bluetooth-Geräten werden unterschiedliche Rollen zugewiesen welche entweder Observer, Broadcaster, Central oder Peripheral sein können. Ein Gerät mit der Rolle Broadcaster verschickt Advertising-Pakete und ein Gerät welches nur Advertising-Pakete empfangen kann hat die Observer Rolle. So kann eine einseitige Kommunikation zwischen Geräten mittels Advertising-Paketen erfolgen. Eine andere Art der Kommunikation ist mittels einer Verbindung bei dem das Initiatorgerät eine Verbindungsanfrage eines Broadcastergeräts annimmt. Daraufhin bekommt das Initiatorgerät die Rolle Central und das Gerät welches ursprünglich in der Rolle Broadcaster war, die Rolle Peripherial. Anzumerken ist, dass ein Gerät zu jeder Zeit mehrere Rollen unterstützen kann, welche jedoch alle der Bluetooth-Controller unterstützen muss. \cite[S.~190f., S.~278, S.~1246ff.]{bluetoothCore}
+Bluetooth-Geräten werden unterschiedliche Rollen zugewiesen welche entweder Observer, Broadcaster, Central oder Peripheral sein können. Ein Gerät mit der Rolle Broadcaster verschickt Advertising-Pakete und ein Gerät, welches nur Advertising-Pakete empfangen kann, hat die Observer Rolle. So kann eine einseitige Kommunikation zwischen Geräten mittels Advertising-Paketen erfolgen. Eine andere Art der Kommunikation ist mittels einer Verbindung, bei dem das Initiatorgerät eine Verbindungsanfrage eines Broadcastergeräts annimmt. Daraufhin bekommt das Initiatorgerät die Rolle Central und das Gerät, welches ursprünglich in der Rolle Broadcaster war, die Rolle Peripherial. Anzumerken ist, dass ein Gerät zu jeder Zeit mehrere Rollen unterstützen kann, welche jedoch alle der Bluetooth-Controller unterstützen muss. \cite[S.~190f., S.~278, S.~1246ff.]{bluetoothCore}
 
 \subsection{Benötigte Komponenten eines \ac{BLE}-Geräts}
 
-Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen damit es laut Bluetooth \ac{SIG} \ac{BLE} kompatibel ist. In Abbildung \ref{fig:blestack} sind die benötigten Funktionen und deren Zusammenspiel durch ein Schichtenmodell dargestellt. Die Funktionen können dabei in einen Hostteil und einen Controllerteil aufgeteilt werden. Im Hostteil befinden sich die Funktionen \ac{L2CAP}, \ac{GAP}, \ac{ATT}, \ac{GATT}, \ac{SDP} und \ac{SMP}. Im Controllerteil befinden sich die Funktionen \ac{PHY} und \ac{LL}. Die Kommunikation zwischen den Hostteil und dem Controllerteil finden mittels des \ac{HCI} statt \cite[S.~1735]{bluetoothCore}. \cite[S.~193]{bluetoothCore}
+Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen, damit es laut Bluetooth \ac{SIG} \ac{BLE} kompatibel ist. In Abbildung \ref{fig:blestack} sind die benötigten Funktionen und deren Zusammenspiel durch ein Schichtenmodell dargestellt. Die Funktionen können dabei in einen Hostteil und einen Controllerteil aufgeteilt werden. Im Hostteil befinden sich die Funktionen \ac{L2CAP}, \ac{GAP}, \ac{ATT}, \ac{GATT}, \ac{SDP} und \ac{SMP}. Im Controllerteil befinden sich die Funktionen \ac{PHY} und \ac{LL}. Die Kommunikation zwischen den Hostteil und dem Controllerteil findet mittels des \ac{HCI} statt \cite[S.~1735]{bluetoothCore}. \cite[S.~193]{bluetoothCore}
 
 \begin{figure}[h]
     \centering
@@ -137,29 +137,29 @@ Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen damit es laut Bl
 In den nachfolgenden Unterkapiteln werden die wichtigsten Informationen jeder benötigten Funktion von \ac{BLE} beschrieben.
 
 \subsubsection{\acf{PHY}}
-Die physikalische Schicht in \ac{BLE} ist zum Verschicken und erhalten von Paketen über eines der physikalischen Funkkanäle verantwortlich. \cite[S.~209]{bluetoothCore}
+Die physikalische Schicht in \ac{BLE} ist zum Verschicken und Erhalten von Paketen über eines der physikalischen Funkkanäle verantwortlich. \cite[S.~209]{bluetoothCore}
 
 \subsubsection{\acf{LL}}
-Die Verbindungsschicht im \ac{BLE}-System besteht aus mehreren Komponenten. Eine Komponente ist für die Erstellung, Modifizierung und das Freigeben von logischen Verbindungen zuständig. Eine weitere Komponente ist für das Kodieren und Dekodieren von Bluetooth Paketen zuständig. Auch gibt es eine Komponente welche für die Datenflusskontrolle, die Datenbestätigung und für die erneute Übertragung von Paketen zuständig ist. Die letzten Komponenten in der Verbindungsschicht ist für den Zugriff auf das Radiomedium zuständig. Dafür gibt es einen Scheduler, welcher Zeitschlitze des physikalischen Mediums an die höherliegenden Dienste verteilt. \cite[S.~207f.]{bluetoothCore}
+Die Verbindungsschicht im \ac{BLE}-System besteht aus mehreren Komponenten. Eine Komponente ist für die Erstellung, Modifizierung und das Freigeben von logischen Verbindungen zuständig. Eine weitere Komponente ist für das Kodieren und Dekodieren von Bluetooth Paketen zuständig. Es gibt eine weitere Komponente, welche für die Datenflusskontrolle, die Datenbestätigung und für die erneute Übertragung von Paketen zuständig ist. Die letzten Komponenten in der Verbindungsschicht sind für den Zugriff auf das Radiomedium zuständig. Dafür gibt es einen Scheduler, welcher Zeitschlitze des physikalischen Mediums an die höherliegenden Dienste verteilt. \cite[S.~207f.]{bluetoothCore}
 
 \subsubsection{\acf{HCI}}
 Das \acl{HCI} stellt die Möglichkeit bereit, dass der Hostteil die Funktionen des Controllerteil erreichen kann. Die Übertragung des \ac{HCI} kann dabei wahlweise mittels USB, UART oder anderen Bussystemen stattfinden. \cite[S.~1735f.]{bluetoothCore}
 
 \subsubsection{\acf{L2CAP}}
-Das \acl{L2CAP} ist die Schicht im \ac{BLE}-Stack, welches eine kanalbasierte Abstraktion zu den Applikationen und Diensten der höheren Schichten bereitgestellt. Diese Schicht kümmert sich zusätzlich, um die Segmentierung, den Zusammenbau, das Multi- und Demultiplexing von Daten auf einer beziehungsweise mehreren logischen Verbindungen. \cite[S.~195, S.~1013]{bluetoothCore}
+Das \acl{L2CAP} ist die Schicht im \ac{BLE}-Stack, welches eine kanalbasierte Abstraktion zu den Applikationen und Diensten der höheren Schichten bereitstellt. Diese Schicht kümmert sich zusätzlich um die Segmentierung, den Zusammenbau, das Multi- und Demultiplexing von Daten auf einer, beziehungsweise mehreren, logischen Verbindungen. \cite[S.~195, S.~1013]{bluetoothCore}
 
 \acl{L2CAP} baut dabei auf dem Konzept von logischen Kanälen auf, wobei jeder Endpunkt eines logischen Kanals einen eindeutigen \ac{CID} hat \cite[S.~1021]{bluetoothCore}. Die logischen Kanäle werden über logische Verbindungen der \ac{LL}-Schicht übertragen \cite[S.~1013]{bluetoothCore}.
 
 \subsubsection{\acf{GAP}}
-Das \acl{GAP} beschreibt die Basisfunktionalitäten welche ein \ac{BLE}-Gerät benötigt \cite[S.~207]{bluetoothCore}. Dabei werden alle, in diesem Kapitel vorgestellten Schichten als Mindestanforderung aufgelistet und alle benötigten Fähigkeiten die eine \ac{BLE}-Rolle enthalten muss \cite[S.~277f., S.~1241]{bluetoothCore}. 
+Das \acl{GAP} beschreibt die Basisfunktionalitäten, welche ein \ac{BLE}-Gerät benötigt \cite[S.~207]{bluetoothCore}. Dabei werden alle in diesem Kapitel vorgestellten Schichten als Mindestanforderung aufgelistet und alle benötigten Fähigkeiten, die eine \ac{BLE}-Rolle enthalten muss \cite[S.~277f., S.~1241]{bluetoothCore}. 
 
-Weitere wichtige Eigenschaften die in \ac{GAP} definiert sind, sind zum einen die Bluetooth-Geräteadressen. Die Geräteadresse wird verwendet, um ein Bluetooth-Gerät eindeutig zu identifizieren. Eine weitere Eigenschaft, welche in \ac{GAP} definiert wird, ist der Gerätename. Dieser Name ist eine benutzerfreundliche Zeichenfolge der an entfernten Geräten angezeigt wird. Der Gerätename kann bis zu 248~Byte lang sein und sollte in UTF-8 kodiert sein. Es muss davon ausgegangen werden, dass ein Gerät nur die ersten 40 Zeichen auswerten kann. \cite[S.~1251ff.]{bluetoothCore}
+Weitere wichtige Eigenschaften, die in \ac{GAP} definiert sind, sind zum einen die Bluetooth-Geräteadressen. Die Geräteadresse wird verwendet, um ein Bluetooth-Gerät eindeutig zu identifizieren. Eine weitere Eigenschaft, welche in \ac{GAP} definiert wird, ist der Gerätename. Dieser Name ist eine benutzerfreundliche Zeichenfolge die an entfernten Geräten angezeigt wird. Der Gerätename kann bis zu 248~Byte lang sein und sollte in UTF-8 kodiert sein. Es muss davon ausgegangen werden, dass ein Gerät nur die ersten 40 Zeichen auswerten kann. \cite[S.~1251ff.]{bluetoothCore}
 
-Damit eine Verfolgung von Geräteadressen minimiert werden kann, gibt es in \ac{BLE} zwei Arten von Geräteadressen. Zum einen eine sich verändernde öffentliche Adresse, welche an allen \ac{BLE}-Geräte verschickt wird. Zum anderen gibt es sich nicht verändernde private Adressen, welche von Geräten ausgerechnet werden können, welche schon einmal eine Verbindung mit einem bestimmten Gerät aufgebaut hatten. Damit können Geräte, welche schon einmal mit einem anderen Gerät verbunden waren, überprüfen, ob es sich um ein bereits bekanntes Gerät handelt. \cite[S.~19]{siliconBLE}
+Damit eine Verfolgung von Geräteadressen minimiert werden kann, gibt es in \ac{BLE} zwei Arten von Geräteadressen. Zum einen eine sich verändernde öffentliche Adresse, welche an alle \ac{BLE}-Geräte verschickt wird. Zum anderen gibt es sich nicht verändernde private Adressen, welche von Geräten, die schon einmal eine Verbindung mit einem bestimmten Gerät aufgebaut hatten, ausgerechnet werden können. Somit kann eine Überprüfung des Gegengeräts stattfindet. \cite[S.~19]{siliconBLE}
 
 Auch wird in \ac{GAP} beschrieben, wie der Bluetooth-Pin für eine Authentifizierung zweier Geräte im Verbindungsmodus aufgebaut sein muss. Die Pin soll sechs Zeichen lang sein und aus Ziffern bestehen. \cite[S.~1253]{bluetoothCore}
 
-Zu guter Letzt, beschreibt \ac{GAP} noch die verschieden Sicherheitsmodi, welche durch die verschiedenen \ac{BLE}-Rollen implementiert sein müssen \cite[S.~1337]{bluetoothCore}.
+Als letzten Bestandteil beschreibt \ac{GAP} die verschieden Sicherheitsmodi, welche durch die verschiedenen \ac{BLE}-Rollen implementiert sein müssen \cite[S.~1337]{bluetoothCore}.
 
 \subsubsection{\acf{SDP}}
 \ac{SDP} stellt die Möglichkeit bereit, die verfügbaren Dienste und die zugehörigen Merkmale eines Bluetooth-Geräts für entfernte Geräte sichtbar zu machen \cite[S.~1173]{bluetoothCore}. Dabei pflegt das Gerät, welches \ac{SDP} bereitstellt, eine Liste aller Dienste und Merkmale des Geräts \cite[S.~1177]{bluetoothCore}.
@@ -344,7 +344,7 @@ Die Gesamtlänge eines Pakets beträgt 22,5~ms mit inkludierter Pause. Die Pulse
 \subsection{CRSF}
 Das CRSF-Protokoll verwendet eine Eindrahtleitung für eine halbduplex \ac{UART}-Verbindung. Über diese Verbindung sendet der Master alle 6~ms ein Paket. Zwischen den Paketen des Masters kann der Slave den Master optional antworten. Optional zu Beginn eines Pakets gibt es ein Synchronisationsbyte mit den Daten 0xC8. \cites{cleanflightCrsf}{cleanflightCrsfP}
 
-Die Symbolrate beträgt 420000~Baud bei einer 8N1 Übertragung, womit die Übertragungsrate 46~KByte/s entspricht. Die Übertragung findet invertiert statt und Daten werden im Big Endian-Format übertragen. \cite{cleanflightCrsf}
+Die Symbolrate beträgt 420000~Baud bei einer 8N1 Übertragung, womit die Übertragungsrate 46~KByte/s entspricht. Die Übertragung findet invertiert statt (hohes Spannungsniveau = logisch niedrig \cite{sigrokSBus}) und Daten werden im Big Endian-Format übertragen. \cite{cleanflightCrsf}
 
 Ein Paket hat eine maximale Größe von 64~Byte und besteht aus fünf Teilen, welche in Tabelle \ref{table:crsfPaket} zu sehen sind. \cite{cleanflightCrsf}
 
@@ -457,7 +457,7 @@ Die CRC-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite
 
 \subsection{SBUS}
 
-Das SBUS-Protokoll ist ein invertiertes (hohes Spannungsniveau = logisch niedrig \cite{sigrokSBus}) serielles Protokoll, über eine Leitung mit einer Symbolrate von 100000~Baud. Die Daten werden dabei im 8E2-Format übertragen. Die Länge eines SBUS-Pakets beträgt 25~Byte mit welchem 18 Kanäle übertragen werden. \cite{BolderFlight}
+Das SBUS-Protokoll ist ein invertiertes serielles Protokoll, welches über eine Leitung mit einer Symbolrate von 100000~Baud übertragen wird. Die Daten werden dabei im 8E2-Format übertragen. Die Länge eines SBUS-Pakets beträgt 25~Byte, mit welchem 18 Kanäle übertragen werden. \cite{BolderFlight}
 
 Das Intervall zum Versenden von SBUS-Paketen kann in OpenTX zwischen 6~ms und 40~ms frei eingestellt werden. Der Aufbau eines Pakets ist in Tabelle \ref{table:sbusPaket} zu sehen.
 
@@ -503,7 +503,7 @@ Für die Synchronisation zwischen Sender und Empfänger gibt es Lücken innerhal
 
 \subsection{MULTI}
 
-Das MULTI-Prokoll wird für die Kommunikation zwischen einer Fernsteuerung auf der OpenTX läuft und einem 2,4~GHz Erweiterungsmodul verwendet. Mittels diesem Protokoll wird zum einen das Erweiterungsmodul konfiguriert und zum anderen werden die Daten der 16 zu übertragenden Kanäle an das Erweiterungsmodul geschickt. \cites{langerTransmitter}{langerMultiprotocol}
+Das MULTI-Prokoll wird für die Kommunikation zwischen einer Fernsteuerung, auf der OpenTX läuft, und einem 2,4~GHz Erweiterungsmodul verwendet. Mittels dieses Protokolls wird zum einen das Erweiterungsmodul konfiguriert und zum anderen werden die Daten der 16 zu übertragenden Kanäle an das Erweiterungsmodul geschickt. \cites{langerTransmitter}{langerMultiprotocol}
 
 Die Übertragung findet dabei seriell mittels des 8E2-Formats statt und mit einer Symbolrate von 100000~Baud. In Version~1 ist die Länge eines Pakets 26~Byte. In Version~2 ist die Länge eines Pakets zwischen 27 und 36~Byte groß. \cite{langerMultiprotocol}. In Tabelle \ref{table:mutliPaket} ist der Aufbau eines MULTI-Pakets dargestellt.
 
