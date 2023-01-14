@@ -1,18 +1,52 @@
 %!TEX root = ../Studienarbeit.tex
 
 \chapter{Umsetzung}
-\todo[inline]{TODO: Umsetzung}
-%Zu Beginn soll auf Basis eines ESPRESSIF ESP32-WROOM-32-Entwicklerboards die Kommunikation zum Endgerät als BLE-HID-Gerät entwickelt werden. Als nächster Schritt wird die Kommunikation mit
-%der Multicopterfernbedienung über den vorhandenen Modulschacht implementiert. Sobald beide Kommunikationsschnittstellen einzeln funktionsfähig sind, sollen diese im darauffolgenden Schritt in einem
-%Gesamtsystem zusammengeführt werden. Als letzter Schritt soll die gesamte benötigte Hardware auf eine Platine gebaut werden und für das Modul ein 3D-gedrucktes Gehäuse hergestellt werden.
-%Das ESP32-WROOM-32-Modul soll für die BLE-Kommunikation verwendet werden, da es ein kostengünstiges und nach CE zertifiziertes Modul ist. Die Authentifizierung an den Endgeräten soll als HID erfolgen, da dadurch keine zusätzlichen Treiber entwickelt werden müssen und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
 
-%Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss.
-%Bluetooth-Profile und benötigte HID-struktur.
-%Datenaustausch esp und fernbedienung.
-%Tasks am ESP erklären wie die priorisiert sind und interrupts.
-%Display erklären und wie dort geschrieben werden kann.
-%PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
-%Case-design erklären und was dort beachtet wurde.
+\section{Softwareentwicklung}
 
+\section{Auswahl der Mikrocontrollers}
+%Das ESP32-WROOM-32-Modul soll für die BLE-Kommunikation verwendet werden, da es ein kostengünstiges und nach CE zertifiziertes Modul ist.
+
+\subsection{Auswahl des Bluetooth-Stacks}
 %Empfohlen wird für BLE-only andwendung NimBLE zu verwenden, da dieser eine größere Codegröße hat und weniger Speicher zur laufzeit benötigt. Weshalb für diese Arbeit NimBLE verwendet wird. \cite{espidfBluetoothStack}
+
+\subsection{Kommunikationsprotokoll zwischen dem Mikrocontroller und dem Endgerät}
+%Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
+%verwendete services und charakteristiks aufschreiben
+%clients können sich subscriben damit diese neue Daten des Moduls automatisch bekommen
+%finale Hid Datenstrukur anzeigen --> 8 analoge Kanäle und 8 digitale Kanäle --> Wertebereich musste angepasst werden
+%rpa bei bluetooth erklären
+%unterschied zwischen bonding und pairing ble
+%verschiedene maßnahmen für encrypting aufschreiben und ausgewählte aufschreiben
+%GAP events erklären
+%auch schreiben, dass die pflichangaben für BLE unter apple gefolgt wurden
+\subsection{Kommunikationsprotokoll zwischen der Multikopterfernsteuerungen und dem Mikrocontroller}
+%schreiben warum crsf gewählt
+%schreiben wie es umgesetzt wurde auf dem ESP mittels dem driver und wie der driver funktioniert
+%Wie die Datenstruktur ausgelesen wird --> die ersten 3 bit überprüft und die länge
+%crc prüfung hinzugefügt
+%Daten werden in einen globalen Strukt gelagert --> struct aufzeigen
+%Daten werden ausgewertet wenn der UART Buffer voll ist oder ein gewisser Timeout zwischen gesendet daten stattgefunden hat
+\subsection{Statusausgabe des Mikrocontrollers mittels eines OLED-Displays}
+%Display erklären und wie dort geschrieben werden kann.
+%I2C verwendet
+
+\subsection{Kombination aller Softwarekomponenten}
+%Datenaustausch mittels globale Variablen
+%Aufgabenausführung am ESP erklären
+    %--> Display wird im Code ausgeführt
+    %--> Buttonklick via Interrupts
+    %--> BLE Task
+    %--> Ermittlung des Spannungslevels mittels ADC und Timer
+    %--> Auslesen des CRSF Task
+
+
+
+\section{Platinenentwurf}
+%PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
+%sektionen des PCB erklären
+%schreiben das sich an die Referenzdesing von folgenden Quellen gehalten wurde: Liste von Quellen finden
+
+\section{Gehäuseerstellung}
+%besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck
+%3d cad datein des gehäuses einfügen
