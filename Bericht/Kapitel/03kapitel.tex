@@ -545,18 +545,65 @@ Die Übertragung findet dabei seriell mittels des 8E2-Formats statt und mit eine
     27 - 35 & Weitere Möglichkeiten zur Protokolldefinition. \\
 \end{longtable}
 
-\section{Mikrocontroller ESP32}
-%mehrere Kerne; Pins; Kommunikationsmöglichkeiten; CE Kennzeichnung
-%Zertifizierung (da Antenne schon vorhanden muss nicht erneut zertifiziert werden)
+\section{Mikrocontroller ESP32 und Zertifizierungen}
+Der Mikrocontroller ESP32 ist eine von Espressif Systems vertriebene integrierte Schaltung, welche sowohl als Chip, Platinenmodul als auch Entwicklungsplatine erworben werden kann \cites{espressifModules}{espressifDevKit}{espressifSoC}. Die Besonderheit dieses Mikrocontrollers ist die integrierte Unterstützung von 2,4~GHz \acs{WLAN} und Bluetooth, sowie die vorhandene Zweikern-\acs{CPU} in einigen Modellen \cites{espressifGetStarted}[S.~8]{espressifTechnicalReference}[S.~24]{espressifTechnicalReference}. Die Kernde des Mikrocontrollers basieren auf den Xtensa 32-Bit LX6 Kernen mit einer Frequenz bis zu 240~MHz, welche die Harvard Architektur verwenden und von TSMC mittels dem 40~nm Verfahren hergestellt werden \cites{espressifGetStarted}[S.~9]{espressifTechnicalReference}[S.~8]{espressifTechnicalReference}[S.~24]{espressifTechnicalReference}. Weitere Komponenten welche der Mikrocontroller besitzt sind eine Fließkommaeinheit, Hardwarebeschleunigung für kryptografische Verfahren, 12-Bit \ac{SAR} \ac{ADC}, programmierbare \acfp{GPIO} mit kunfigurierbaren Pull-Up und Pull-Down Widerständen, \ac{I2C}, \ac{UART} und weitere Schnittstellen \cites[S.~10f.]{espressifTechnicalReference}[S.~23]{espressifTechnicalReference}[S.~34]{espressifTechnicalReference}. Die Entwicklung des ESP32 findet mittels dem Entwicklungsframework \ac{ESP-IDF} statt \cites{espressifGetStarted}{espressifIDF}. Viele der durch die Espressif Systems angebotenen Platinenmodule sind nach der \ac{FCC} \cite{fccApproval} und \ac{CE} regulatorisch zertifiziert \cite{espressifCertificates}.
+
+Die \ac{FCC} stellt verpflichetende Richtlinien für elektronische Geräte in den vereinigten Staaten von Amerika berit, welche zum Ziel haben die Interferenz zwischen elektronischen Geräten zu minimieren und die Geräte für den Endnutzer sicher zu gestalten. Falls das \ac{FCC}-Zeichen auf einen Endprodukt vorhanden ist, ist dieses Produkt nach \ac{FCC}-Vorgaben konform. \cite{fccApproval}
+
+Ebenso gibt es für die europäische Union Richtlinien, welche für Radio-Equipment für Endkunden gelten \cites{europeanCEMarking}{europeanRED}. Diese Regulairen sind in der \ac{RED} festgeschrieben und können durch Hersteller des Produktes selbständig durchgeführt werden und ermächtigt, nach erfolgreichen Prüfungen, den Hersteller zur Anbringung des \ac{CE}-Zeichens \cite[S.~14]{europeanFunkanalagen}. Beachtet werden muss bei der \ac{CE}-Zertifizierung, dass die ESP32 Platinenmodulzertifizierung nur für das Modul alleinstehend gültig ist und in Verbindung mit einer weiteren Platine eine erneute Zertifizierung stattfinden muss \cite{naumannCE}.
 
 \section{FreeRTOS}
 \todo[inline]{TODO: FreeRTOS}
 %Scheduling und Kommunikation zwischen Tasks, Interrupts und Priorisierung, Queue erklären und das für Interrupts extra funktionen verwenden werden müssen welche interrupt save sind
 
-\section{BITMAP Schriftarten}
-%schreiben wie normalerweise Text dargestellt wird und die alternative als Bitmap --> weniger ressourcen für die Textdarstellung
-\todo[inline]{TODO: BITMAP Schriftarten}
+\section{Darstellung von Glyphen auf einem Monitor}
+Hauptsächlich gibt es drei Verfahren wie Zeichen auf einem Monitor dargestellt werden können.
 
-\section{libevdev}
-%schreiben was Libevdev unter linux macht --> muss nicht all zu viel sein
-\todo[inline]{TODO: libevdev}
+Zunächst sind Raster- beziehungsweise Bitmap-Schriftarten zu nennen \cite{microsoftFonts}. Rasterschriftarten stellen dier erste Generation von digitalen Schriftarten dar, da diese eine geringe Rechenleistung benötigten. Das Verfahren zur Definition einzelner Glyphen ist, dass jedes Zeichen ein Rechteck on Pixeln zugeordnet wird und jeder Pixel fest mit einen Farbwert vordefiniert wird. Ein effiziente Art diese Art von Glypen abzuspeichern ist es, die Glyphen in Arrays von Bytes abzulegen, indem jedes Byte eine Zeile oder eine Spalte des Pixelrasters darstellt wie in Abbildung \ref{fig:bitmapFontArray} zu sehen ist \cite{sansonFont}. Der Vorteil von Raster-Schriftarten liegt dabei in der geringen Rechenleistung zur Darstellung einer Glyphe als auch inder guten Optimierung der Glyphen für eine bestimmten Schriftgröße. Die Nachteile bei Raster-Schriftarten sind jedoch, dass Glypen für eine bestimmte Schriftgröße und Monitorauflösung definiert sind und dadurch geräteabhängig sind. Werden mehrere Größen und Monitorauflösungen benötigt wird viel Speicherplatz pro Schriftart benötigt. \cites{strizverFont}{microsoftFonts}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{bitmap_font}
+    \caption{Speichern der Glyphe \textit{U} spaltenweise in einem Array aus Bytes; abgewandelt von \cite{sansonFont}}
+    \label{fig:bitmapFontArray}
+\end{figure}
+
+Die zweite Art von Schriftarten sind die Vektor-Schriftarten. Dabei werden einzelne Glypen als Sammlung von Vektoren dargestellt und Kurven werden durch Polynome approximiert \cites{microsoftFonts}[S.~24]{hersheyFont}. Dadurch können die Glyphen skaliert werden und sind dadurch geräteunabhängig und benötigen weniger Speicherplatz als Raster-Schriftarten \cites{strizverFont}{microsoftFonts}. Jedoch ist die Umwandlung für die Darstellung am Monitor langsamer und rechenintensiver \cites{microsoftFonts}{microsoftTrueType}.\\
+Die Umwandlung von Vekotr-Schriftarten erfolgt in zwei Schritten. Der erste Schritt ist die Generierung der Umrandung der Glyphen aus den Schriftartdaten. Der zweite Schritt ist die Konvertierung der Umrandungen in einzelne Pixeln zum Anzeigen an einem Monitor, indem berechnet wird ob ein Pixel innerhalb oder auserhalb der Umrandung liegt. \cite{strizverFont}
+Bei diesem Umwandlungsverfahren können jedoch ungewollte Artefakte in den Glypen enstehen, wie in Abbilung \ref{fig:bitmapFontArray} zu sehen ist. Bei bestimmten Monitorauflösungen oder Schriftgrößen kann es auftreten, dass die Umrandung der Glpyhen nur Teilweise Pixel einschließen und dadurch die Pixel verwendet werden oder auch nicht und dadurch Glyphen schwerer lesbar werden.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.25\textwidth]{vector_font}
+    \caption{Umwandlung einer Vektor-Schriftart zur Darstellung an einem Monitor; abgewandelt von \cite{strizverFont}}
+    \label{fig:vectorFont}
+\end{figure}
+
+Die letzte Art von Schriftarten sind die Truetype- beziehungsweise Opentype-Schriftarten. Diese bauen auf dem Verfahren der Vektor-Schriftarten auf und erweitern die Glyphenspeicherung um Kurven und zusätzliche Hinweise, um Optimierungen während der Umwandlung zu Pixeln bereitzustellen. \cite{microsoftFonts}
+
+In Abbildung \ref{fig:fontDifference} sind die unterschiedlichen Schriftartenspeicherverfahren nebeneinandergestellt.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{font-difference}
+    \caption{Gegenüberstellung der Schriftartenspeicherverfahren}
+    \label{fig:fontDifference}
+\end{figure}
+
+\section{Eingabeereignisbehandlung unter Linux in Bezug auf Gamepads und Joysticks}
+Unter Linuxsystemen gibt es zwei Möglichkeiten die Ereignisse von Gamepads und Joysticks abzufragen. Zum einen die Joystick Treiber \ac{API}. Diese ist nur noch im Linuxkernel aus Kompatibilitätsgründen für ältere Software enthalten und sollte nicht mehr für neue Projekte verwendet werden. Zum anderen gibt es das sogenannte \ac{evdev} \cite{pavlikInput}, welches unter anderen die Joystick Treiber \ac{API} ersetzt, sowie einen größeren Funktionionsumfang bietet. \ac{evdev} stellt unter Linux die präferierte Schnittstelle für den Zugriff auf Eingabeereignisse dar. \cites{ragnarJoystick}{pavlikUserspaceAPI}
+
+\ac{evdev} ist eine generische Eingabeereignisschnittstelle für Programme im Userspace, sowie für Konsumenten im Kernel, welche Ereignisse von Eingabegeräten benötigen. Eingabeereignisse werden dabei alc C-Struktur dargestellt und haben den Aufbau wie in Quellcode \ref{lst:evdevStruct} zu sehen ist. Das erste Ereigniselemnt ist der Zeitstempel wann das Ereignis im Kernel aufgetreten ist. Als zweites Element befindet sich der Typ des Ereignisses. Der Typ hat beispielsweise für einen Tastendruck den Wert \textit{EV\_KEY}. Das nächste Element ist der Ereigniscode, welcher unter allen Prozessorarchitekturen gleich und hardwareunabhängig ist. Eine vollständige Liste aller Ereigniscodes ist unter Quelle \cite{linuxInputEvents} zu finden. Das letzte Element eines Ereignisses ist der Ereigniswert, welcher unterschiedliche Bedeutungen hat abhängig vom Ereignistyp. Beispielsweise ist der Wertebereich bei einem Knopfdruck von \textit{0} bis \textit{3}. Der Wert textit{0} stellt dabei ein loslassen der Taste dar und der Wert \textit{1} das drücken einer Taste. Der Wert \textit{3} stellt das automatische erneute Drücken einer Taste dar, bei längeren Tastendruck. \cites{pavlikInput}{pavlikUserspaceAPI}
+
+\begin{lstlisting}[caption=C-Strukuraufbau eines Eingabeereignisses von evdev \cite{pavlikInput}, label={lst:evdevStruct}, style=generalStyle]
+struct input_event {
+    struct timeval time;
+    unsigned short type;
+    unsigned short code;
+    unsigned int value;
+};
+\end{lstlisting}
+
+Um den Umgang mit \ac{evdev}-Kernelgeräten in der Programmiersprache C zu vereinfachen, gibt es die Bibliothek \textit{libevdev}. Diese abstrahiert den Zugriff auf die sogenannte \ac{evdev} \ac{IOCTL} \cite{ldpIOCTL} und verhindert damit den direkten Zugriff auf \acp{IOCTL}. Diese Bibliothek stellt das Bindeglied zwischen dem Linux-Kernel und dem Programm, welches die Bibliothek verwendet dar. \cites{freedesktopLibevdevDoc}{freedesktopLibevdev}
+
+\ac{IOCTL} ist unter Linux der meist verwendete Weg, um zwischen Programmen und Gerätetreibern zu interagieren. Die Interaktion findet dabei durch character devices, block devices, Sockets oder auch spezielle Dateideskriptoren statt. \cite{linuxIOCTL}
