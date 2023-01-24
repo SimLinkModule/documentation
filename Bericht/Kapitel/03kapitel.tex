@@ -575,9 +575,14 @@ Eine Besonderheit von Tasks ist, dass diese normalerweise für immer ausgeführt
     }
 \end{lstlisting}
 
-Wie in Abbildung ... zu sehen ist, gibt es vier verschiedene Taskzustände. Zum einen den Running-Zustand, welcher Eintritt, wenn der Task ausgeführt wird. Die restlichen Zustände werden unter den sogennanten Not-Running-Zustand zusammengefasst. Diese treten auf, wenn ein Task entweder nicht für den Scheduler vorhanden ist (Suspended-Zustand), der Task auf ein Event wartet (Blocked-Zustand) oder ein Task auf die Ausführung wartet (Ready-Zustand). \cites[S.~55]{barryFreeRTOS}[S.~65f.]{barryFreeRTOS}
+Wie in Abbildung \ref{fig:taskStates} zu sehen ist, gibt es vier verschiedene Taskzustände. Zum einen den Running-Zustand, welcher Eintritt, wenn der Task ausgeführt wird. Die restlichen Zustände werden unter den sogennanten Not-Running-Zustand zusammengefasst. Diese treten auf, wenn ein Task entweder nicht für den Scheduler vorhanden ist (Suspended-Zustand), der Task auf ein Event wartet (Blocked-Zustand) oder ein Task auf die Ausführung wartet (Ready-Zustand). \cites[S.~55]{barryFreeRTOS}[S.~65f.]{barryFreeRTOS}
 
-\todo[inline]{Bild hinzufügen}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{task_states}
+    \caption{Taskzustände und deren Übergänge; angepasst von \cite[S.~67]{barryFreeRTOS}}
+    \label{fig:taskStates}
+\end{figure}
 
 Der sogenannte Idle-Task ist ein spezieller Task, welcher in FreeRTOS verwendet wird, wenn es keinen Task im Running-Zustand gibt. Dies hat den Hintergrund, dass in FreeRTOS immer ein Task im Running-Zustand vorhanden sein muss, was durch den Idle-Task realisiert wird. Der Idle-Task hat dabei die niedrigste Priorität, damit dieser Task von allen anderen Tasks verdrängt werden kann. \cite[S.~76]{barryFreeRTOS}
 
