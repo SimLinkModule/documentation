@@ -3,14 +3,16 @@
 \chapter{Umsetzung}
 
 \section{Softwareentwicklung}
+In diesen Abschnitt werden einige Kernkomponenten der Software detaillierter dargestellt und die Auswahl des Mikrocontrollers beschrieben.
 
 \subsection{Auswahl der Mikrocontrollers}
-%Das ESP32-WROOM-32-Modul soll für die BLE-Kommunikation verwendet werden, da es ein kostengünstiges und nach CE zertifiziertes Modul ist.
+Als Mikrocontroller wird das ESP32-WROOM-32E-Modul verwendet. Dies hat mehrere Gründe, welche nachfolgend zu finden sind.
+Als erster Grund, welcher für die Verwendung des ESP32 spricht, ist die große Beliebtheit des Mikrocontrollers in Hobbyprojekten und daraus folgernd eine große Community die bei Problemen in der Entwicklung unterstützen kann \cites{redditESP32}{esp32Forum}. Ebenfalls ist eine gute Dokumentation der \ac{ESP-IDF} durch Kommentare im Sourcecode, sowie durch Beispielprogramme gegeben. Als weiterer Grund für die Verwendung des ESP32 spricht, die Unterstützung mehrerer Bluetooth-Stacks, welche in Kapitel \ref{section:bluetoothStacks} beschrieben sind. Als letzter Grund ist noch die Verfügbarkeit der Mikrocontroller in kompakten Hardwaremodulen, in denen alle benötigen Hauptkomponenten für den Betrieb des Mikrocontrollers enthalten sind, wie Kondensatoren, Widerständen und in manchen Modulen ebenso die benötigte Antenne für den Betrieb von Bluetooth oder \acs{WLAN} \cite[S.~14]{espressifHardwareDesignGuidelines}. Auch haben die ESP32-Module meist eine CE-Zertifizierung, wie in Kapitel \ref{section:esp32Explained} beschrieben ist und dadurch könnte das entwickelte Fernsteuerungsmodul vereinfacht für den Vertieb zertifiziert werden. Trotz den vorhandenen Funktionsumfang und Ökosystem ist das ESP32-Modul kostengünstig und im Bereich um 5~€ zu erwerben \cite{espressifModules}.
 
 \subsection{Auswahl des Bluetooth-Stacks}
-%Empfohlen wird für BLE-only andwendung NimBLE zu verwenden, da dieser eine größere Codegröße hat und weniger Speicher zur laufzeit benötigt. Weshalb für diese Arbeit NimBLE verwendet wird. \cite{espidfBluetoothStack}
+Als Bluetooth-Stack für den ESP32 wird der Open Source \ac{BLE}-Stack Apache NimBLE verwendet. Dies hat den Hintergrund, dass die Kommunikation ausschließlich zwischen dem Fernsteuerungserweiterungsmodul und Endgeräten mittels \ac{BLE} erfolgen soll. Für diesen Einsatzzweck wird die Verwendung von Apache NimbLE empfholen, da dieser kompakter in der Codegröße ist und weniger Speicher zur laufzeit benötigt \cite{espidfBluetoothStack}.
 
-\subsection{Kommunikationsprotokoll zwischen dem Mikrocontroller und dem Endgerät}
+\subsection{Kommunikation zwischen dem Mikrocontroller und dem Endgerät}
 %Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
 %verwendete services und charakteristiks aufschreiben
 %clients können sich subscriben damit diese neue Daten des Moduls automatisch bekommen
@@ -32,6 +34,7 @@
 %I2C verwendet
 
 \subsection{Kombination aller Softwarekomponenten}
+Als Programmiersprache wird C verwendet
 %Datenaustausch mittels globale Variablen
 %Aufgabenausführung am ESP erklären
     %--> Display wird im Code ausgeführt
@@ -46,7 +49,8 @@
 %PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
 %sektionen des PCB erklären
 %schreiben das sich an die Referenzdesing von folgenden Quellen gehalten wurde: Liste von Quellen finden
+% Im Anhag die Schematic aller PCBs einfügen.
 
 \section{Gehäuseerstellung}
 %besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck
-%3d cad datein des gehäuses einfügen
+%3d cad dateien des gehäuses einfügen
