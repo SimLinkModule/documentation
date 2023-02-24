@@ -7,12 +7,13 @@ In diesen Abschnitt werden einige Kernkomponenten der Software detaillierter dar
 
 \subsection{Auswahl der Mikrocontrollers}
 Als Mikrocontroller wird das ESP32-WROOM-32E-Modul verwendet. Dies hat mehrere Gründe, welche nachfolgend zu finden sind.
-Als erster Grund, welcher für die Verwendung des ESP32 spricht, ist die große Beliebtheit des Mikrocontrollers in Hobbyprojekten und daraus folgernd eine große Community die bei Problemen in der Entwicklung unterstützen kann \cites{redditESP32}{esp32Forum}. Ebenfalls ist eine gute Dokumentation der \ac{ESP-IDF} durch Kommentare im Sourcecode, sowie durch Beispielprogramme gegeben. Als weiterer Grund für die Verwendung des ESP32 spricht, die Unterstützung mehrerer Bluetooth-Stacks, welche in Kapitel \ref{section:bluetoothStacks} beschrieben sind. Als letzter Grund ist noch die Verfügbarkeit der Mikrocontroller in kompakten Hardwaremodulen, in denen alle benötigen Hauptkomponenten für den Betrieb des Mikrocontrollers enthalten sind, wie Kondensatoren, Widerständen und in manchen Modulen ebenso die benötigte Antenne für den Betrieb von Bluetooth oder \acs{WLAN} \cite[S.~14]{espressifHardwareDesignGuidelines}. Auch haben die ESP32-Module meist eine CE-Zertifizierung, wie in Kapitel \ref{section:esp32Explained} beschrieben ist und dadurch könnte das entwickelte Fernsteuerungsmodul vereinfacht für den Vertieb zertifiziert werden. Trotz den vorhandenen Funktionsumfang und Ökosystem ist das ESP32-Modul kostengünstig und im Bereich um 5~€ zu erwerben \cite{espressifModules}.
+Als erster Grund, welcher für die Verwendung des ESP32 spricht, ist die große Beliebtheit des Mikrocontrollers in Hobbyprojekten und daraus folgernd eine große Community die bei Problemen in der Entwicklung unterstützen kann \cites{redditESP32}{esp32Forum}. Ebenfalls ist eine gute Dokumentation der \ac{ESP-IDF} durch Kommentare im Sourcecode, sowie durch Beispielprogramme gegeben. Als weiterer Grund für die Verwendung des ESP32 spricht, die Unterstützung mehrerer Bluetooth-Stacks, welche in Kapitel \ref{section:bluetoothStacks} beschrieben sind. Als letzter Grund ist noch die Verfügbarkeit der Mikrocontroller in kompakten Hardwaremodulen, in denen alle benötigen Hauptkomponenten für den Betrieb des Mikrocontrollers enthalten sind, wie Kondensatoren, Widerständen und in manchen Modulen ebenso die benötigte Antenne für den Betrieb von Bluetooth oder \acs{WLAN} \cite[S.~14]{espressifHardwareDesignGuidelines}. Auch haben die ESP32-Module meist eine CE-Zertifizierung, wie in Kapitel \ref{section:esp32Explained} beschrieben ist und dadurch könnte das entwickelte Fernsteuerungsmodul vereinfacht für den Vertrieb zertifiziert werden. Trotz den vorhandenen Funktionsumfang und Ökosystem ist das ESP32-Modul kostengünstig und im Bereich um 5~€ zu erwerben \cite{espressifModules}.
 
 \subsection{Auswahl des Bluetooth-Stacks}
-Als Bluetooth-Stack für den ESP32 wird der Open Source \ac{BLE}-Stack Apache NimBLE verwendet. Dies hat den Hintergrund, dass die Kommunikation ausschließlich zwischen dem Fernsteuerungserweiterungsmodul und Endgeräten mittels \ac{BLE} erfolgen soll. Für diesen Einsatzzweck wird die Verwendung von Apache NimbLE empfholen, da dieser kompakter in der Codegröße ist und weniger Speicher zur laufzeit benötigt \cite{espidfBluetoothStack}.
+Als Bluetooth-Stack für den ESP32 wird der Open Source \ac{BLE}-Stack Apache NimBLE verwendet. Dies hat den Hintergrund, dass die Kommunikation ausschließlich zwischen dem Fernsteuerungserweiterungsmodul und Endgeräten mittels \ac{BLE} erfolgen soll. Für diesen Einsatzzweck wird die Verwendung von Apache NimbLE empfohlen, da dieser kompakter in der Codegröße ist und weniger Speicher zur Laufzeit benötigt \cite{espidfBluetoothStack}.
 
 \subsection{Kommunikation zwischen dem Mikrocontroller und dem Endgerät}
+Für die Übermittlung der Daten zwischen dem Mikrocontroller zu einem Endgerät wird \ac{BLE} verwendet, indem die Daten mittels \ac{HOGP} verpackt werden. \ac{BLE} wird verwendet, da es sich besser für eine mobile Anwendung eignet -- beschrieben in Kapitel \ref{section:bluetoothGenerall} --, da die Multikopterfernsteuerung und das Erweiterungsmodul mittels dem selben Akku betrieben werden. Als Datenformat wird aufbauend auf \ac{BLE} \ac{HID} verwendet, da es 
 %Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
 %verwendete services und charakteristiks aufschreiben
 %clients können sich subscriben damit diese neue Daten des Moduls automatisch bekommen
@@ -22,35 +23,64 @@ Als Bluetooth-Stack für den ESP32 wird der Open Source \ac{BLE}-Stack Apache Ni
 %verschiedene maßnahmen für encrypting aufschreiben und ausgewählte aufschreiben
 %GAP events erklären
 %auch schreiben, dass die pflichangaben für BLE unter apple gefolgt wurden
+
 \subsection{Kommunikationsprotokoll zwischen der Multikopterfernsteuerungen und dem Mikrocontroller}
-%schreiben warum crsf gewählt
-%schreiben wie es umgesetzt wurde auf dem ESP mittels dem driver und wie der driver funktioniert
-%Wie die Datenstruktur ausgelesen wird --> die ersten 3 bit überprüft und die länge
-%crc prüfung hinzugefügt
-%Daten werden in einen globalen Strukt gelagert --> struct aufzeigen
-%Daten werden ausgewertet wenn der UART Buffer voll ist oder ein gewisser Timeout zwischen gesendet daten stattgefunden hat
+Als Kommunikationsprotokoll zwischen der Multikopterfernsteuerung und des Mikrocontroller wird CRSF verwendet. Dies hat den Hintergrund, dass wie in Kapitel \ref{section:communicationsProtocollsRemote} das CRSF-Protokoll die höchste Übertragungsrate hat und dabei die geringste Menge an nicht verwendeten Daten versendet, da das Protokoll leicht durch die Geräteadressen und Datentypenidentifikatoren gefiltert werden kann.
+
+Da CRSF die Daten mittels einer \ac{UART}-Verbindung übertragt, findet das Auslesen der CRSF-Daten mittels dem Mikrocontroller durch einen sogenannten Treiber statt. Durch den \ac{UART}-Treiber werden vorhandene \ac{UART}-Interrupt abstrahiert und durch eine \ac{API} bereitgestellt, wodurch die Kommunikation mittels \ac{UART} vereinfacht wird \cite{espUARTDriver}. Die \ac{UART}-Interrupt sind definiert, das empfange Daten erst verarbeitet werden, wenn entweder der interne \ac{UART}-Buffer voll ist oder ein definierter Timeout zwischen empfangenen Bytes entsteht.
+
+Die Auswertung der empfangenen Daten ist in zwei Teile gegliedert. Im ersten Teil findet eine Überprüfung der Geräteadresse (muss 0xEE sein), der Länge der übermittelten Daten und des übermittelten Datentyps statt (muss 0x16 sein). Wenn all diese Werte stimmen findet die Überprüfung der \ac{CRC}-Prüfsumme statt, um festzustellen ob alle Kanaldaten gültig sind. Im zweiten Teil, werden alle Kanaldaten zunächst ausgelesen und darauf im Wertebereich angepasst, damit der vollständige Wertebereich des \ac{HID}-Reports verwendet wird. Dafür werden die analogen Kanaldaten auf einen Wertebereich von 0 bis 2047 erweitert und digitale Kanaldaten wie zum beispiel bei Knöpfen bis zu einen Wert von 992 als logisch 0 und ab einen Wert von 993 als logisch 1 gewertet. Nach Anpassung des Wertebereichs werden die Daten in einer globalen Datensturktur abgelegt, welche in Quellcode \ref{lst:channelDataStruct} zu sehen ist. Falls dabei eine Änderung zwischen alten und aktuellen Wert festegellt wird, wird veranlasst, dass die Daten per \ac{BLE} an das Endgerät versendet werden. Anzumerken ist, dass wenn es ein Problem während der Auswertung stattfindet, dass komplette Paket verschmissen wird und auf ein neues Paket gewartet wird.
+
+\begin{lstlisting}[caption=C-Strukuraufbau der aufbereiteten Kanaldaten, label={lst:channelDataStruct}, style=generalStyle]
+    typedef struct ChannelDataStruct{
+        uint16_t roll;        //roll = x
+        uint16_t pitch;       //pitch = y
+        uint16_t aux3;        //aux3 = z
+        uint16_t yaw;         //yaw = rx
+        uint16_t aux1;        //aux1 = rz
+        uint16_t throttle;    //throttle = ry
+        uint16_t aux4;        //aux4 = slide
+        uint16_t aux2;        //aux2 = slide
+        uint8_t buttons;      //buttons = aux12(b8) .. aux5(b1)
+    } ChannelDataStruct;
+\end{lstlisting}
+
 \subsection{Statusausgabe des Mikrocontrollers mittels eines OLED-Displays}
-%Display erklären und wie dort geschrieben werden kann.
+%Display erklären und wie dort geschrieben werden kann. --> Bild dafür hinzufügen
 %I2C verwendet
 
 \subsection{Kombination aller Softwarekomponenten}
 Als Programmiersprache wird C verwendet
 %Datenaustausch mittels globale Variablen
+    %--> Einen Ablaufbplan hinzufüen, wie neue Daten an das Endgerät weiterversendet werden
+
 %Aufgabenausführung am ESP erklären
     %--> Display wird im Code ausgeführt
     %--> Buttonklick via Interrupts
     %--> BLE Task
     %--> Ermittlung des Spannungslevels mittels ADC und Timer
-    %--> Auslesen des CRSF Task
+    %--> Auslesen des CRSF durch Task
 
 
 
 \section{Platinenentwurf}
+% Schreiben, dass 3 Platinen verwendet wurden, damit die Konstruktion des ersten Prototypen einfacher ist
+% Bilder der 3 fertigen Platinen machen
 %PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
 %sektionen des PCB erklären
 %schreiben das sich an die Referenzdesing von folgenden Quellen gehalten wurde: Liste von Quellen finden
 % Im Anhag die Schematic aller PCBs einfügen.
+% ESD Protection durch Dioden am Connector zur Fernsteuerung
+% Button sind entprellt --> Beachtet werden muss, dass es an Boot-Button nicht möglich ist, da Kondensator den Pin beim Start auf logisch 0 setzt und dadurch immer beim ersten Starten der Mikrocontroller in Flashmode geht
 
 \section{Gehäuseerstellung}
-%besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck
-%3d cad dateien des gehäuses einfügen
+%besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck (Überhänge können nur mit Stützstrukturen gedruckt werden)
+    %--> Tasterknopf so hergestellt, dass es in einen Teil mitgedruckt werden kann --> Flexibilät wird erzeugt durch verjüngung der Verbindung zwischen Tastenkopf und Gehäuse
+        %--> Bild hinzufügen wie es im inneren Aussieht mit der Verjüngung
+        %--> Kone ist dafür noch da damit der tieferliegende Taster ohne zutiefen eindrücken (angenehmes Tastengefühl) betätigt werden kann
+    %--> Bild von einen Gewindeeinsatz machen und einfügen --> Wahrscheinlich eher unbekannt
+    %--> Aufteilung der unteren hälfte damit diese mit möglichst wenig stütztrukturen auskommt und die qualität des Verbinders zur Fernsteuerung eine gute qualität hat
+    %--> Unteres teil kann entweder nur zusammengeschraubt werden, oder empfohlen zu verkleben, damit Teil stabiler ist
+    %--> Weiter Halterungen mussten gedruckt werden, da die Connector-Platine sehr nah an der Außenwand des Gehäuse liegt und daher keine Gewindeeinsätze darunter plaziert werden können
+%damit platinen und Gehäuse festgeschraubt werden kann, wurden in das Gehäuse gewindeeinsätze eingelegt
+%3d cad dateien des gehäuses einfügen --> FSTL verwenden --> Vielleicht alle 3-Objekte übereinander fliegen lassen so wie sie zusammengebaut würden und screenshot dann von der Seite

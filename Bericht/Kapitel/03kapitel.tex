@@ -5,6 +5,7 @@
 \section{\acf{HID}}
 
 \subsection{Allgemein}
+\label{section:bluetoothGenerall}
 Das USB Protokoll kann Geräte beim Starten beziehungsweise beim Einstecken an ein Computersystem automatisch konfigurieren. Dafür werden Geräte in Klassen eingeteilt. Jede Klasse definiert dabei wie das gewöhnliche Verhalten und die verwendeten Protokolle der Geräte der Klasse sind. Eine dieser Klassen in USB ist die \ac{HID} Klasse. Der primäre Einsatzzweck für Geräte in der \acs{HID} Klasse ist die Bedienung von Computern durch Menschen. Beispiele für solche Geräte sind: Tastaturen, Mäuse, Joysticks, Barcodeleser und auch Simulationsgeräte. \cite[S.~1f.]{usbHIDS}
 
 Informationen eines USB-Geräts für ein Computersystem werden in Segmente, auch Deskriptoren genannt, des ROMs des jeweiligen USB-Geräts abgespeichert. Ein Gerät, welches zur \acs{HID}-Klasse gehört, hat wie in Abbildung \ref{fig:hiddeskriptoren} zu sehen ist, drei Deskriptoren. Zunächst einmal den \acs{HID} Deskriptor, welcher alle weiteren benötigten Deskriptoren für USB-\acs{HID}-Geräte auflistet. Der zweite optionale Deskriptor ist der physikalische Deskriptor, welcher nicht genauer in dieser Arbeit betrachtet wird. Er stellt Informationen an das System bereit, wie einzelne Teile des \acs{HID}-Geräts von einem Menschen bedient werden sollen. Der letzte Deskriptor ist der Report Deskriptor. Mittels dieses Deskriptors wird die Struktur der übermittelten Daten zwischen dem Rechnersystem und dem \acs{HID}-Gerät beschrieben. \cite[S.~4f.]{usbHIDS}
@@ -323,6 +324,7 @@ Apache NimBLE ist ein Open Source \ac{BLE}-Stack, welcher vollständig mit der B
 
 
 \section{Übertragungsprotokolle am Fernbedienungsmodulschacht}
+\label{section:communicationsProtocollsRemote}
 
 Die Multikopter-Fernsteuerungssoftware OpenTX bietet eine Vielzahl von verschiedenen Übertragungsmöglichkeiten zwischen der Fernsteuerung und den Modulen im Modulschacht. Die unterstützten Übertragungsmöglichkeiten sind hierbei: \ac{PPM}, ACCST(D12, D8, LR12)\cite{liangRCProtocols}, DSM, MULTI, ein Protokoll für R9M-Erweiterungsmodule \cite{frskyr9m} und SBUS. \cite{opentxsetup}
 
@@ -379,7 +381,7 @@ Ein Paket hat eine maximale Größe von 64~Byte und besteht aus fünf Teilen, we
     \hline
     3-62 & Daten & maximal 60\\
     \hline
-    63 & CRC-Feld & 1\\
+    63 & \ac{CRC}-Feld & 1\\
 \end{longtable}
 
 Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon ist in Tabelle \ref{table:crsfAdressen} zu sehen.
@@ -416,7 +418,7 @@ Die Geräteadressen sind im CRSF-Protokoll vordefiniert. Ein Ausschnitt davon is
     CRSF Multikopterplatine & 0x8C \\
 \end{longtable}
 
-Im Paketlängenfeld wird die Größe des Pakets in Byte angegeben, wobei das Typenfeld, das Datenfeld und das CRC-Feld in die Größe des Pakets mit einfließen. \cite{cleanflightCrsf}
+Im Paketlängenfeld wird die Größe des Pakets in Byte angegeben, wobei das Typenfeld, das Datenfeld und das \ac{CRC}-Feld in die Größe des Pakets mit einfließen. \cite{cleanflightCrsf}
 
 Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest definiert. Ein Ausschnitt möglicher Typen ist in Tabelle \ref{table:crsfTyp} zu finden.
 
@@ -454,7 +456,7 @@ Im CRSF-Protokoll werden ebenso wie die Adressen, die Typen fest definiert. Ein 
 
 Der Datenteil eines Pakets wird in 16 Kanäle aufgeteilt. Jeder Kanal ist dabei 11~Bit groß. Der Wertebereich pro Kanal liegt zwischen 172 und 1811. \cite{cleanflightCrsf}
 
-Die CRC-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite{cleanflightCrsf}. Das Gerneratorpolynom lautet dafür: 0xD5 \cite{cleanflightCRC}
+Die \ac{CRC}-Bildung erfolgt über das Typenfeld und das Datenfeld eines Pakets \cite{cleanflightCrsf}. Das Gerneratorpolynom lautet dafür: 0xD5 \cite{cleanflightCRC}
 
 \subsection{SBUS}
 
