@@ -13,8 +13,8 @@ Als erster Grund, welcher für die Verwendung des ESP32 spricht, ist die große 
 Als Bluetooth-Stack für den ESP32 wird der Open Source \ac{BLE}-Stack Apache NimBLE verwendet. Dies hat den Hintergrund, dass die Kommunikation ausschließlich zwischen dem Fernsteuerungserweiterungsmodul und Endgeräten mittels \ac{BLE} erfolgen soll. Für diesen Einsatzzweck wird die Verwendung von Apache NimbLE empfohlen, da dieser kompakter in der Codegröße ist und weniger Speicher zur Laufzeit benötigt \cite{espidfBluetoothStack}.
 
 \subsection{Kommunikation zwischen dem Mikrocontroller und dem Endgerät}
-Für die Übermittlung der Daten zwischen dem Mikrocontroller zu einem Endgerät wird \ac{BLE} verwendet, indem die Daten mittels \ac{HOGP} verpackt werden. \ac{BLE} wird verwendet, da es sich besser für eine mobile Anwendung eignet -- beschrieben in Kapitel \ref{section:bluetoothGenerall} --, da die Multikopterfernsteuerung und das Erweiterungsmodul mittels dem selben Akku betrieben werden. Als Datenformat wird aufbauend auf \ac{BLE} \ac{HID} verwendet, da es 
-%Schreiben warum hid profil, da dafür kein Treiber geschrieben werden muss und ebenso die Zertifizierung durch Endgeräthersteller entfällt wie beispielsweise bei Apple.
+Für die Übermittlung der Daten zwischen dem Mikrocontroller zu einem Endgerät wird \ac{BLE} verwendet, indem die Daten mittels \ac{HOGP} verpackt werden. \ac{BLE} wird verwendet, da es sich besser für eine mobile Anwendung eignet -- beschrieben in Kapitel \ref{section:bluetoothGenerall} --, da die Multikopterfernsteuerung und das Erweiterungsmodul mittels dem selben Akku betrieben werden. Als Datenformat wird \ac{HID} verwendet, da es dadurch möglich ist ohne speziell entwickelten Treibern die Daten am Endgerät auzuwerten und dadurch der Datenaustausch zwischen dem Modul und vielen Endgeräten sichergestellt werden kann \cite{microsoftHID}.
+
 %verwendete services und charakteristiks aufschreiben
 %clients können sich subscriben damit diese neue Daten des Moduls automatisch bekommen
 %finale Hid Datenstrukur anzeigen --> 8 analoge Kanäle und 8 digitale Kanäle --> Wertebereich musste angepasst werden
