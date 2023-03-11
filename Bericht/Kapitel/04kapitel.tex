@@ -132,21 +132,15 @@ Wie in den Anforderungen in Kapitel \ref{section:softwareRequirement} und in Kap
 Zur Darstellung von Text am Display erfolgt mittels einer Bitmap-Schriftart, da die Art von Schriftarten für eine gute lesbarkeit auf dem kleinen Display optimiert werden kann. Alle Zeichen der Schriftart werden dafür in einem zweidimensionalen Array abgelegt und weisen eine Höhe von 14 und eine Breite von 9 Pixeln auf. Zu Umwandlung von Zeichenketten in Glyphen sind zustätzliche Hilfunktionen implementiert. Die Darstellung von Inhalt auf dem Display erfolgt in zwei Schritten. Im ersten Schritt werden alle Pixelinformationen in einen lokalen Buffer des ESP32 zwischen gespeichert. Der Buffer hat eine Größe von 492~Byte, wo jedes Bit ein Pixel des Displays repräsentiert. Im zweiten Schritt wird der lokale Puffer mittels \ac{I2C} an das Display übertragen und dargestellt. Die Aufteilung in zwei Schritte hat den Vorteil, dass dem ESP32 immer der aktuelle Zustand des Displays bekannt ist und dass das Anzeigen von Elementen am Display einfacher ist, wenn immer der komplette Inhalt des Displays ausgetauscht wird, statt einige Regionen.
 
 \subsection{Kombination aller Softwarekomponenten}
-Als Programmiersprache wird C verwendet
-%Datenaustausch mittels globale Variablen
-    %--> Einen Ablaufbplan hinzufüen, wie neue Daten an das Endgerät weiterversendet werden
+Die Software der Studienarbeit ist in der Programmiersprache C geschrieben, da eine Vielzahl an Bibliotheken sowie Beispielprogramme in C geschrieben sind \cite{espressifIDF}, wodurch die Integration von eigenen Code einfacher erfolgen kann. Zur Verwaltung von Threads auf dem Mikrocontroller wird FreeRTOS als Echtzeitkernel verwendet. Die finale Software des Mikrocontroller besteht aus fünf Komponenten. Die erste Komponente, welche in einen FreeRTOS-Task läuft, ist die Software welche sich komplett um die \ac{BLE}-Kommunikation und dem \ac{BLE}-Verbindungsaufbau kümmert. Die zweite Komponente, welche ebenso in einen FreeRTOS-Task läuft, kümmert sich um das einlesen und verarbeiten von CRSF-Daten, welche von der Multikopterfernsteuerung verschickt werden. Die dritte Komponente, welche als FreeRTOS Software Timer integriert ist, kümmert sich um die Bestimmung des akutellen Akkustands. Hierfür wird mittels eines intetegrierten \ac{ADC} des ESP32 die akutelle Spannung des Multikopterfernsteuerungsakkus bestimmt und in einen Prozentwert zwischen 0 und 100 umgeweandelt, damit der Akkustand mittels \ac{BLE} an das Endgerät weitergeschickt wird. Die nächste Komponente der ESP32-Software ist für das Abfangen von Tasteneingaben zuständig. Das Erkennen von Tasteneingaben erfolgt dabei mittels FreeRTOS-Interrupts und die Weitergabe an die parallel laufenden Task mittels FreeRTOS-Queues. Die letzte Softwarekomponente des ESP32, ist für die Steuerung des Displays vorhanden. Da Anzeigeänderungen am Display nur selten erfolgen und schnell abgearbeitet werden, werden die Displayhilfsfunktionen innerhalb der zwei vorhandenen Tasks ausgeführt. Da der ESP32-Mikrocontroller über zwei Kerne verfügt, werden beide vorhandenen Tasks jeweils fest auf einen Kern zugewiesen, um das Blockieren zwischen den einzelnen Softwarekomponenten zu verringern.
 
-%Aufgabenausführung am ESP erklären
-    %--> Display wird im Code ausgeführt
-    %--> Buttonklick via Interrupts
-    %--> BLE Task
-    %--> Ermittlung des Spannungslevels mittels ADC und Timer
-    %--> Auslesen des CRSF durch Task
+Für den Datenaustausch zwischen dem CRSF-Task, welche die Daten der Fernsteuerung verarbeitet, und dem \ac{BLE}-Task, welcher die Daten an das Endgerät weiterschickt, werden globale Variablen zur Speicherung der Multikopterfernsteuerungsdaten verwendet. Zur Mitteilung, wenn neue Daten von der Fernsteuerung ausgewertet wurden, wird zwei bereits vorhandene Funktionen verwendet. Zum einen die Funktion \textit{ble\_hs\_mbuf\_from\_flat}. Mit dieser Funktion werden die Fernsteuerungsdaten in den internen \ac{BLE}-Buffer geschrieben. Zum anderen die Funktion \textit{ble\_gattc\_notify\_custom}, womit die Daten durch den \ac{BLE}-Task automatisch an das Endgerät versendet werden.
 
-
+Für weitere Details ist der komplette Sourcecode öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/ModuleSoftware}
 
 \section{Platinenentwurf}
-% Schreiben, dass 3 Platinen verwendet wurden, damit die Konstruktion des ersten Prototypen einfacher ist
+Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfreundlich verwendet werden kann, sind alle Elektronikkomponenten in drei Platinen integriert. Die Aufteilung in drei Platinen fand statt, da während des Platinenentwurfs noch nicht der finalen Aufbau des Gehäuses bekannt war und für eine größere Flexibilität während der Gehäuseerstellung gesorgt hat.
+
 % Bilder der 3 fertigen Platinen machen
 %PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
 %sektionen des PCB erklären
@@ -154,6 +148,9 @@ Als Programmiersprache wird C verwendet
 % Im Anhag die Schematic aller PCBs einfügen.
 % ESD Protection durch Dioden am Connector zur Fernsteuerung
 % Button sind entprellt --> Beachtet werden muss, dass es an Boot-Button nicht möglich ist, da Kondensator den Pin beim Start auf logisch 0 setzt und dadurch immer beim ersten Starten der Mikrocontroller in Flashmode geht
+Der Entwurf der Platinen erfolgte in der kostenlosen und Open Source Software KiCad statt \cite{aboutkicad}. Die Produktion und die Bestückung des Großteils aller Elektronikkomponenten fand durch das Unternehmen \href{https://jlcpcb.com/}{JLCPCB} statt.
+
+Für weitere Details sind alle Platinenentwürfe öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/PCB}
 
 \section{Gehäuseerstellung}
 %besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck (Überhänge können nur mit Stützstrukturen gedruckt werden)
@@ -165,4 +162,10 @@ Als Programmiersprache wird C verwendet
     %--> Unteres teil kann entweder nur zusammengeschraubt werden, oder empfohlen zu verkleben, damit Teil stabiler ist
     %--> Weiter Halterungen mussten gedruckt werden, da die Connector-Platine sehr nah an der Außenwand des Gehäuse liegt und daher keine Gewindeeinsätze darunter plaziert werden können
 %damit platinen und Gehäuse festgeschraubt werden kann, wurden in das Gehäuse gewindeeinsätze eingelegt
+%schreiben, dass Gewindeeinsatz hinzugefügt wurde damit auch öfters die Platinen ein und ausgebaut werden können, da nicht direkt in das Plastik geschraubt wird, wodurch schnell die Gewindegänge sich sonst abnutzen
 %3d cad dateien des gehäuses einfügen --> FSTL verwenden --> Vielleicht alle 3-Objekte übereinander fliegen lassen so wie sie zusammengebaut würden und screenshot dann von der Seite
+%schreiben das es mittels eines FDM 3d Druckers gedruckt wurde und PLA
+
+Für die Erstellung der Gehäusebestandteile wurde die kostenlose und Open Source Software OpenSCAD verwendet \cite{aboutOpenScad}. 
+
+Für weitere Details alle 3D-Modelle öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/Shell}
