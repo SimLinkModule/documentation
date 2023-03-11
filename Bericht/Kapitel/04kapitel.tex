@@ -124,11 +124,10 @@ Wie in den Anforderungen in Kapitel \ref{section:softwareRequirement} und in Kap
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.4\textwidth]{ppm}
+    \includegraphics[width=.7\textwidth]{ssd1306}
     \caption{Verarbeitung eines Datenstreams für die Darstellung auf dem Erweiterungsmoduldisplay; abgewandelt von \cite[S.~37]{ssd1306}}
     \label{fig:ssd1306PixelControl}
 \end{figure}
-%Display erklären und wie dort geschrieben werden kann. --> Bild dafür hinzufügen
 
 Zur Darstellung von Text am Display erfolgt mittels einer Bitmap-Schriftart, da die Art von Schriftarten für eine gute lesbarkeit auf dem kleinen Display optimiert werden kann. Alle Zeichen der Schriftart werden dafür in einem zweidimensionalen Array abgelegt und weisen eine Höhe von 14 und eine Breite von 9 Pixeln auf. Zu Umwandlung von Zeichenketten in Glyphen sind zustätzliche Hilfunktionen implementiert. Die Darstellung von Inhalt auf dem Display erfolgt in zwei Schritten. Im ersten Schritt werden alle Pixelinformationen in einen lokalen Buffer des ESP32 zwischen gespeichert. Der Buffer hat eine Größe von 492~Byte, wo jedes Bit ein Pixel des Displays repräsentiert. Im zweiten Schritt wird der lokale Puffer mittels \ac{I2C} an das Display übertragen und dargestellt. Die Aufteilung in zwei Schritte hat den Vorteil, dass dem ESP32 immer der aktuelle Zustand des Displays bekannt ist und dass das Anzeigen von Elementen am Display einfacher ist, wenn immer der komplette Inhalt des Displays ausgetauscht wird, statt einige Regionen.
 
