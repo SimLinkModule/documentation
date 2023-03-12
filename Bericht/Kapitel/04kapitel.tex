@@ -139,7 +139,14 @@ Für den Datenaustausch zwischen dem CRSF-Task, welche die Daten der Fernsteueru
 Für weitere Details ist der komplette Sourcecode öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/ModuleSoftware}
 
 \section{Platinenentwurf}
-Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfreundlich verwendet werden kann, sind alle benötigten Elektronikkomponenten in drei Platinen integriert. Durch die Aufteilung der Elektronikkomponenten auf drei Platinen ist es möglich während der Gehäuseerstellung eine größtmögliche Flexibilität zu haben. In Abbildung ... ist die Platine, welche zur Verbindung zur Multikopterfernsteuerung dient, zu sehen. In Abbildung ... ist die Hauptplatine zu sehen, welche die Spannungsregulierung, den ESP32-Mikrocontroller und eine Buchse für das Programmieren des ESP32-Mikrocontrollers enthält. Die dritte Platine, die alle Eingabe- und Ausgabeelemente enthält, ist in Abbildung ... zu sehen.
+Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfreundlich verwendet werden kann, sind alle benötigten Elektronikkomponenten in drei Platinen integriert, welche in Abbildung \ref{fig:pcbs} zu sehen sind. Durch die Aufteilung der Elektronikkomponenten auf drei Platinen ist es möglich während der Gehäuseerstellung eine größtmögliche Flexibilität zu haben. \textit{Platine 1} dient zur Verbindung zwischen Multikopterfernsteuerung und dem ESP32. \textit{Platine 2} ist die Hauptplatine, welche die Spannungsregulierung, den ESP32-Mikrocontroller und Logik für Beschreiben des ESP32. \textit{Platine 3} enthält alle Eingabe- und Ausgabeelemente für Benutzerinteraktionen.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.7\textwidth]{pcbs}
+    \caption{Platinen des Erweiterungsmoduls}
+    \label{fig:pcbs}
+\end{figure}
 
 % Bilder der 3 fertigen Platinen machen
 %PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
@@ -148,7 +155,7 @@ Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfre
 % ESD Protection durch Dioden am Connector zur Fernsteuerung
 % Button sind entprellt --> Beachtet werden muss, dass es an Boot-Button nicht möglich ist, da Kondensator den Pin beim Start auf logisch 0 setzt und dadurch immer beim ersten Starten der Mikrocontroller in Flashmode geht
 
-Die vollständigen Schaltpläne aller Platinen sind im Anhang ... bis ... zu finden.
+Die vollständigen Schaltpläne aller Platinen sind im Anhang in Abbildung \ref{fig:mainPCB}, \ref{fig:ioPCB} und  \ref{fig:connectorPCB} zu finden.
 
 Der Entwurf der Platinen erfolgte in der kostenlosen und Open Source Software KiCad statt \cite{aboutkicad}. Die Produktion und die Bestückung des Großteils aller Elektronikkomponenten fand durch das Unternehmen \href{https://jlcpcb.com/}{JLCPCB} statt.
 
