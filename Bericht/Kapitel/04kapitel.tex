@@ -136,6 +136,7 @@ Die Software der Studienarbeit ist in der Programmiersprache C geschrieben, da e
 
 Für den Datenaustausch zwischen dem CRSF-Task, welche die Daten der Fernsteuerung verarbeitet, und dem \ac{BLE}-Task, welcher die Daten an das Endgerät weiterschickt, werden globale Variablen zur Speicherung der Multikopterfernsteuerungsdaten verwendet. Zur Mitteilung, wenn neue Daten von der Fernsteuerung ausgewertet wurden, wird zwei bereits vorhandene Funktionen verwendet. Zum einen die Funktion \textit{ble\_hs\_mbuf\_from\_flat}. Mit dieser Funktion werden die Fernsteuerungsdaten in den internen \ac{BLE}-Buffer geschrieben. Zum anderen die Funktion \textit{ble\_gattc\_notify\_custom}, womit die Daten durch den \ac{BLE}-Task automatisch an das Endgerät versendet werden.
 
+\subsection{Weiterführende Informationen}
 Für weitere Details ist der komplette Sourcecode öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/ModuleSoftware}
 
 \section{Platinenentwurf}
@@ -148,18 +149,63 @@ Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfre
     \label{fig:pcbs}
 \end{figure}
 
-% Bilder der 3 fertigen Platinen machen
-%PCB-Design erklären. (Erklären für was die zonen sind und was beachtet werden musste, batterie auslesen, esd schutz, usb zu serial, schutzschaltung strom, Spannungsregulierung Datenleitungen)
-%sektionen des PCB erklären
-%schreiben das sich an die Referenzdesing von folgenden Quellen gehalten wurde: Liste von Quellen finden
-% ESD Protection durch Dioden am Connector zur Fernsteuerung
-% Button sind entprellt --> Beachtet werden muss, dass es an Boot-Button nicht möglich ist, da Kondensator den Pin beim Start auf logisch 0 setzt und dadurch immer beim ersten Starten der Mikrocontroller in Flashmode geht
+\subsection{Teilschaltungen}
+Nachfolgend sind einige Bestandteile der Schaltungen der Platinen genauer erklärt.
 
-Die vollständigen Schaltpläne aller Platinen sind im Anhang in Abbildung \ref{fig:mainPCB}, \ref{fig:ioPCB} und  \ref{fig:connectorPCB} zu finden.
+\subsubsection{Spannungsregulierung}
+Die Schaltung des Erweiterungsmoduls benötigt eine Spannungsregulierung, da der ESP32-Mikrocontroller mit 3,3~V betrieben wird. Die verfügbaren Spannungen durch die Mulikopterfernsteuerung liegen bei einen konstanten Wert zwischen 6~V und 12~V. Ebenso ist es möglich die Schaltung mittels der integrierten Programmierbuchse zu betreiben, bei dem die Spannung 3~V beziehungsweise 5~V sein. Zur Spannungsregulierung wird ein \ac{LDO} \ac{IC} verwendet, welcher eine Spannung höher als 3,3~V auf eine konstante Spannung von 3,3~V regelt. Zu sehen ist die benötigte Schaltung in Abbildung \ref{fig:spannungsRegulierung}. Zusätzlich enthält die Schaltung im gereglten Spannungskreis eine \acs{LED}, womit hingewiesen wird, ob eine Stromzufuhr zum ESP32-Mikrocontroller vorhanden ist.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{spannungsRegulierung}
+    \caption{Spannungsregulierung des Erweiterungsmoduls}
+    \label{fig:spannungsRegulierung}
+\end{figure}
+
+\subsubsection{ESP32 Programmierlogik}
+Die Programmierung des ESP32-Mikcrocontroller findet mittels einer seriellen Verbindung zum ESP32 statt. Da viele Rechner keine serielle Buchse mehr enthalten, wird zur Programmierung des ESP32 eine USB-zu-Seriell-Programmierplatine verwendet. Alternativ könnte ein USB-zu-Seriell-Converter \ac{IC} direkt auf der finalen Platine hinzugefügt werden, was jedoch für die einmalige Programmierung unnötige Kosten und verschwendeten Platz auf der Platine mit sich führen würde. Die verfügbare ESP32-Programmiersoftware für Desktoprechner verfügt über die Option automatisch den ESP32-Mikrocontroller in einen Programmiermodus zu starten. Dafür verwendet die Software zwei Statusleitungen einer seriellen Verbindung. Zum einen die \textit{Data Terminal Ready}-Leitung und zum anderen die \textit{Request To Send}-Leitung. Zusätzlich zu den zwei Statusleitungen werden noch zwei Transitoren benötigt -- zu sehen in Abbildung \ref{fig:autoFlash} --, um die Kontakte \textit{EN} und \textit{Boot} des ESP32 zu setzen. Wenn am Kontakt \textit{EN} ein Pegel von 3,3~V anliegt ist der ESP32 lauffähig und bei einen Pegel von 0~V findet keine Ausführung auf dem ESP32 statt. Mit dem Kontakt \textit{Boot} kann während des Starts des ESP32 festgelegt werden, ob der ESP32 in den normalen Ausführungsmodus (Pegel 3,3V~) startet oder in den Programmiermodus (Pegel 0,0~V). Der maximale Spannungspegel der seriellen Verbindung muss 3,3~V betragen.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{autoFlash}
+    \caption{ESP32 Programmierlogik}
+    \label{fig:autoFlash}
+\end{figure}
+
+\subsubsection{Tastenentprellung}
+Die Tasten der Platine sind mittels internen Pull-Up Widerständen -- 45K Ohm -- mit dem ESP32-Mikrocontroller verbunden. Durch den Pull-Up Widerstand liegt bei nicht betätigung des Tasters eine Spannung von 3,3~V am Kontakt des ESP32 an. Wenn nun ein Taster betätigt wird, wird die Spannung am Kontakt auf 0~V gezogen, wobei zu beginn es zu Sprüngen zwischen 0~V und 3,3~V kommt, bis sich Schlussendlich die Spannung bei 0~V einregelt. Um dieses Verhalten zu verhindern und der Taster immer eindeutige Werte bereitstellt muss der Knopf entprellt werden. Eine Möglichkeit ist, mittels eines parallel plazierten Kondensators zu kompensieren \cite{debounceButton}. In Abbildung \ref{fig:buttonDebounce} ist der Schaltungsaufbau zum Entprellen der Taster zu sehen. Jedoch ist in der Abbildung der Pull-Up Widerstand nicht zu sehen, da er fester Bestandteil des ESP32 ist und daher nicht im Schaltplan mit eingezeichnet werden muss.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{buttonDebounce}
+    \caption{Tastenentprellung durch Hardware}
+    \label{fig:buttonDebounce}
+\end{figure}
+
+Beachtet werden muss, dass der Taster zum manuellen Starten des ESP32 im Programmiermodus nicht durch diese Hardwareschaltung entprellt werden darf, da beim Verbinden des Erweiterungsmoduls mit Strom der \textit{Boot}-Pin auf 0~V liegt, bis der Kondensator aufgeladen ist. Das hat zur Folge, dass der ESP32 beim ersten Start nach der Verbindung mit Strom immer in den Programmiermodus landet und im Nachhinein neugestartet werden müsste ohne die Stromverbindung zu trennen.
+
+\subsubsection{\acf{ESD}-Schutz}
+Um zu vermeiden, dass durch elektrostatische Aufladung des Körpers das Erweiterungsmodul beschädigt wird, wenn die Buchse zur Fernsteuerung angefasst wird, müssen diese Kontakte zusätzlich geschützt werden. Dies erfolgt durch die Zener-Dioden, welche in Gegenrichtung auf 0~V gelegt werden und in Abbildung \ref{fig:esdProtection} zu sehen sind. Die Zener-Dioden sind so dimensioniert, dass ab einer Spannung die größer als 12~V an der Spannungsversorgung oder größer als 3,3~V an der Datenleitung ist durch die Zenerdiode auf 0~V geleitet wird.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{esdProtection}
+    \caption{\ac{ESD}-Schutzschaltung}
+    \label{fig:esdProtection}
+\end{figure}
+
+\subsection{Referenzschaltungen}
+Damit Fehler während des Schaltungsentwurfs vermieden werden und die Anzahl von Prototypenversionen minimiert werden kann, sind die Schaltungen der Platinen auf Referenzdesings bereits vorhandenen Platinen aufgebaut, welch in nachfolgender List stehen.
+\begin{itemize}
+    \item \acs{OLED}-Schaltplan von ShenZhen QDtech Co. LTD; Stand: 24.~Juli~2019
+    \item ESP32\_DevKitc\_V4-Schaltplan von Espressif Systems (Shanghai Co., Ltd.); Stand: 7.~Juni~2018
+    \item Produktspezifikation des OEL Display Module von Allvision technology Inc.; Version: B
+\end{itemize}
+
+\subsection{Weiterführende Informationen}
 Der Entwurf der Platinen erfolgte in der kostenlosen und Open Source Software KiCad statt \cite{aboutkicad}. Die Produktion und die Bestückung des Großteils aller Elektronikkomponenten fand durch das Unternehmen \href{https://jlcpcb.com/}{JLCPCB} statt.
 
-Für weitere Details sind alle Platinenentwürfe öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/PCB}
+Die vollständigen Schaltpläne aller Platinen sind im Anhang in Abbildung \ref{fig:mainPCB}, \ref{fig:ioPCB} und  \ref{fig:connectorPCB} zu finden und weitere Details aller Platinenentwürfe sind öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/PCB}
 
 \section{Gehäuseerstellung}
 %besonderheiten des Gehäuses aufzeigen --> im bezug auf 3d druck (Überhänge können nur mit Stützstrukturen gedruckt werden)
@@ -175,6 +221,7 @@ Für weitere Details sind alle Platinenentwürfe öffentlich unter folgenden Lin
 %3d cad dateien des gehäuses einfügen --> FSTL verwenden --> Vielleicht alle 3-Objekte übereinander fliegen lassen so wie sie zusammengebaut würden und screenshot dann von der Seite
 %schreiben das es mittels eines FDM 3d Druckers gedruckt wurde und PLA
 
+\subsection{Weiterführende Informationen}
 Für die Erstellung der Gehäusebestandteile wurde die kostenlose und Open Source Software OpenSCAD verwendet \cite{aboutOpenScad}. 
 
-Für weitere Details alle 3D-Modelle öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/Shell}
+Weitere Details aller 3D-Modelle sind öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/Shell}
