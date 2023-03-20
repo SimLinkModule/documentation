@@ -140,7 +140,14 @@ Für den Datenaustausch zwischen dem CRSF-Task, welche die Daten der Fernsteueru
 Für weitere Details ist der komplette Sourcecode öffentlich unter folgenden Link zu finden:\\ \url{https://github.com/SimLinkModule/ModuleSoftware}
 
 \section{Platinenentwurf}
-Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfreundlich verwendet werden kann, sind alle benötigten Elektronikkomponenten in drei Platinen integriert, welche in Abbildung \ref{fig:pcbs} zu sehen sind. Durch die Aufteilung der Elektronikkomponenten auf drei Platinen ist es möglich während der Gehäuseerstellung eine größtmögliche Flexibilität zu haben. \textit{Platine 1} dient zur Verbindung zwischen Multikopterfernsteuerung und dem ESP32. \textit{Platine 2} ist die Hauptplatine, welche die Spannungsregulierung, den ESP32-Mikrocontroller und Logik für Beschreiben des ESP32. \textit{Platine 3} enthält alle Eingabe- und Ausgabeelemente für Benutzerinteraktionen.
+Damit der vorhandene Testaufbau auf Steckbrettern kompakt, mobil und benutzerfreundlich verwendet werden kann, sind alle benötigten Elektronikkomponenten in drei Platinen integriert, welche in Abbildung \ref{fig:pcbs} zu sehen sind. Durch die Aufteilung der Elektronikkomponenten auf drei Platinen ist es möglich während der Gehäuseerstellung eine größtmögliche Flexibilität zu haben. \textit{Platine 1} dient zur Verbindung zwischen Multikopterfernsteuerung und dem ESP32. Zu sehen ist die Pinbelegung des Fernsteuerungsmodulschachts in Abbildung \ref{fig:pinoutController}. \textit{Platine 2} ist die Hauptplatine, welche die Spannungsregulierung, den ESP32-Mikrocontroller und Logik für Beschreiben des ESP32. \textit{Platine 3} enthält alle Eingabe- und Ausgabeelemente für Benutzerinteraktionen.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.6\textwidth]{pinoutController}
+    \caption{Pinbelegung des Fernsteuerungsmodulschachts; abgewandelt von \cite{liteModulePinout}}
+    \label{fig:pinoutController}
+\end{figure}
 
 \begin{figure}[h]
     \centering
