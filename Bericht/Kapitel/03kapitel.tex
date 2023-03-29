@@ -10,9 +10,9 @@ Das USB Protokoll kann Geräte beim Starten beziehungsweise beim Einstecken an e
 
 Informationen eines USB-Geräts für ein Computersystem werden in Segmente, auch Deskriptoren genannt, des ROMs des jeweiligen USB-Geräts abgespeichert. Ein Gerät, welches zur \acs{HID}-Klasse gehört, hat wie in Abbildung \ref{fig:hiddeskriptoren} zu sehen ist, drei Deskriptoren. Zunächst einmal den \acs{HID} Deskriptor, welcher alle weiteren benötigten Deskriptoren für USB-\acs{HID}-Geräte auflistet. Der zweite optionale Deskriptor ist der physikalische Deskriptor, welcher nicht genauer in dieser Arbeit betrachtet wird. Er stellt Informationen an das System bereit, wie einzelne Teile des \acs{HID}-Geräts von einem Menschen bedient werden sollen. Der letzte Deskriptor ist der Report Deskriptor. Mittels dieses Deskriptors wird die Struktur der übermittelten Daten zwischen dem Rechnersystem und dem \acs{HID}-Gerät beschrieben. \cite[S.~4f.]{usbHIDS}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[height=.3\textwidth]{hiddeskriptoren}
+    \includegraphics[height=.25\textwidth]{hiddeskriptoren}
     \caption{\acs{HID} Deskriptorenhierarchie; abgewandelt von \cite[S.~4]{usbHIDS}}
     \label{fig:hiddeskriptoren}
 \end{figure}
@@ -29,7 +29,7 @@ Alle Elemente eines Report Deskriptors lassen sich in drei Gruppen einordnen. Zu
 
 Die Einsatzzwecke der drei Gruppen stehen folgendermaßen in Beziehung. Mittels eines Hauptelements wird ein Datenfeld definiert. Durch globale und lokale Elemente werden erstellten Datenfeldern Definitionen hinzugefügt. Dabei gelten lokale Elemente nur für das nächst kommende Hauptelement. Globale Elemente gelten im Gegensatz dazu so lange, bis das globale Element durch ein anderes globales Element überschrieben wird. Dadurch ist es möglich Datenstrukturen wie in Abbildung \ref{fig:reportdeskriptorexample} zu erstellen. \cite[S.~24]{usbHIDS}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.25\paperheight]{reportdeskriptorexample}
     \caption{Beispielhafte Verwendung von Elementen, um eine Datenstruktur zu definieren; abgewandelt von \cite[S.~24]{usbHIDS}}
@@ -113,7 +113,7 @@ Bluetooth ist ein Kurzstreckenkommunikationssystem, bei welchem die Hauptmerkmal
 
 Die Übertragungsfrequenz von \ac{BLE} liegt im lizenzfreien 2.4~GHz \acf{ISM}-Band von 2402~MHz bis 2480~MHz \cites[S.~4]{siliconBLE}[S.~190]{bluetoothCore}. Das Frequenzband ist in 40 physikalische Kanäle mit jeweils einer Bandbreite von 2~MHz aufgeteilt, wie in Abbildung \ref{fig:frequenzbandBLE} zu sehen ist \cite[S.~190]{bluetoothCore}. Drei dieser 40 physikalischen Kanäle sind für das sogenannte Advertising vorhanden \cite[S.~190]{bluetoothCore}, welches für die Geräteentdeckung, den Verbindungsaufbau und für das Broadcasting von Nachrichten vorhanden ist \cite[S.~4]{siliconBLE}. Die restlichen Kanäle sind für eine allgemeine Datenübertragung dar \cite[S.~190]{bluetoothCore}. Zusätzlich zu der Aufteilung des Frequenzbandes in Kanäle werden Kanäle in Zeiteinheiten aufgeteilt, welche Events genannt werden \cite[S.~190]{bluetoothCore}. Daten werden in Paketen innerhalb eines Events übertragen. Zusätzlich wird bei der Übertragung von Daten Frequenzhopping betrieben, welches zu Beginn jedes Events stattfindet \cite[S.~190f.]{bluetoothCore}. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[height=.3\textwidth]{frequenzband}
 \caption{Frequenzband mit Kanälen von \ac{BLE}; abgewandelt von \cite[S.~4]{siliconBLE}}
@@ -128,9 +128,9 @@ Bluetooth-Geräten werden unterschiedliche Rollen zugewiesen welche entweder Obs
 
 Ein \ac{BLE}-Gerät benötigt einen Mindestumfang an Funktionen, damit es laut Bluetooth \ac{SIG} \ac{BLE} kompatibel ist. In Abbildung \ref{fig:blestack} sind die benötigten Funktionen und deren Zusammenspiel durch ein Schichtenmodell dargestellt. Die Funktionen können dabei in einen Hostteil und einen Controllerteil aufgeteilt werden. Im Hostteil befinden sich die Funktionen \ac{L2CAP}, \ac{GAP}, \ac{ATT}, \ac{GATT}, \ac{SDP} und \ac{SMP}. Im Controllerteil befinden sich die Funktionen \ac{PHY} und \ac{LL}. Die Kommunikation zwischen den Hostteil und dem Controllerteil findet mittels des \ac{HCI} statt \cite[S.~1735]{bluetoothCore}. \cite[S.~193]{bluetoothCore}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.25\paperheight]{blestack}
+    \includegraphics[width=.22\paperheight]{blestack}
     \caption{Benötigte Komponenten eines \acs{BLE}-Geräts; abgewandelt von \cite[S.~203, S.~1245]{bluetoothCore}}
     \label{fig:blestack}
 \end{figure}
@@ -188,7 +188,7 @@ Anzumerken ist, dass jedes Attribut, welches in \ac{ATT} vorhanden ist, entweder
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.20\paperheight]{gattstructure}
+    \includegraphics[width=.18\paperheight]{gattstructure}
     \caption{\acs{GATT} Hierarchie; abgewandelt von \cite[S.~281]{bluetoothCore}}
     \label{fig:gattstructure}
 \end{figure}
@@ -339,7 +339,7 @@ Für die vorhandenen Übertragungsprotokolle ACCST, DSM und für das Protokoll d
 
 Die Gesamtlänge eines Pakets beträgt 22,5~ms mit inkludierter Pause. Die Pulse haben dabei eine Länge zwischen 0,7~ms bis 1,7~ms. \cite{opentxppm}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{ppm}
     \caption{Darstellung einzelner Kanäle im Zeitverlauf bei \acs{PPM}; abgewandelt von \cite{hornppm}}
