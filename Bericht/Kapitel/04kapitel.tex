@@ -224,7 +224,9 @@ Alle Schaltpläne der Erweiterungsmodulplatinen sind im Anhang in den Abbildung 
 Die Platinen sind dabei mit der kostenlosen Open Source Software KiCad \cite{aboutkicad} entwickelt worden und die Produktion und die Bestückung der meisten Elektronikkomenten fand durch das Unternehmen \href{https://jlcpcb.com/}{JLCPCB} statt.
 
 \section{Gehäuseerstellung}
-Damit die entworfenen Platinen im Modulschacht der Fernsteuerung fest und kompakt befestigt werden können, gibt es ein entworfenes Kunststoffgehäuse für Modulschächte des Typs Lite, welches im Anhang in Abbildung als Explosionszeichnung \ref{fig:shellPartsExplosion} zu sehen ist. Das Hauptaugenmerk in der Entwurfsphase lag dabei darin, dass möglichst wenig Stützstrukturen für einen Druck mittels eines \ac{FDM}-3D-Druckers benötigt werden. Dies hat den Hintergrund, dass die Oberflächen, an denen Stützstrukturen anliegen, häufig größere Nachbearbeitung benötigt und auch die Druckqualität an diesen Stellen schlechter ist. Um ohne Stützstrukturen auszukommen müssen Überhänge im Modell vermieden werden, da der 3D-Drucker nur ausgehend von der Druckgrundplatte aus drucken kann. Falls Überhänge benötigt werden muss entweder das Modell in mehrere Teilmodelle aufgeteilt werden, welche dann einzeln ohne Stützstrukturen gedruckt werden können (Zu sehen in Abbildung \ref{fig:overhangCut}). Anderseits können Überhänge gedruckt werden, wenn das Modell integrierte Stützstrukturen hat, welche einen kleineren Winkel als 45 Grad zur Druckgrundplatte aufweisen (Zu sehen in Abbildung \ref{fig:overhangStruct}).
+Damit die entworfenen Platinen fest und kompakt im Modulschacht (Typ: Lite) der Fernsteuerung befestigt werden können, ist zusätzlich ein Kunststoffgehäuse entwickelt worden, welches mittels eines \ac{FDM}-3D-Druckers. Alle benötigten Komponenten, des Gehäuses, sind im Anhang als Explosionszeichnung in Abbildung \ref{fig:shellPartsExplosion} zu sehen.
+
+Der Fokus im Gehäuseentwurf lag darin, das Gehäuse zu drucken, dass eine möglichst geringe Nachbearbeitung der Oberfläche nötig ist. Eine Nachbearbeitung der Oberfläche, beim 3D-Druck mit dem \ac{FDM}-Verfahren, wird hauptsächlich an Oberflächen benötigt, welche mittels Stützstrukturen gedruckt werden. Um Stützstrukturen im Druck zu vermeiden, sollte auf Überhänge im Modell verzichtet werden. Diese Einschränkung geht aus dem \ac{FDM}-Verfahren hervor, da nur ausgehend vom Druckbrett des 3D-Druckers gedruckt werden kann. Falls jedoch nicht auf Überhänge verzichtet werden kann, gibt es zwei bekannte Möglichkeiten, um auf Stützstrukturen zu verzichten. Eine Möglichkeit ist das Modell in mehrere Teilmodelle aufzuteilen, welche einzeln ohne Stützstrukturen gedruckt werden können. Zu sehen ist dieses Verfahren in Abbildung \ref{fig:overhangCut}. Die zweite Möglichkeit ist, Stützstrukturen in das Modell zu integrieren. Diese Stützstrukturen, sollten wie in Abbildung \ref{fig:overhangStruct} zu sehen ist, einen Winkel zwischen 45 und 90 Grad zum Druckbrett haben.
 
 \begin{figure}[h]
     \centering
@@ -240,7 +242,7 @@ Damit die entworfenen Platinen im Modulschacht der Fernsteuerung fest und kompak
     \label{fig:overhangStruct}
 \end{figure}
 
-Zur Befestigung der Platinen und des Gehäusedeckels mit dem Gehäuse, sind Löcher für Gewindeeinsätze an allen benötigten Stellen integriert. Dadurch hat das Gehäuse Gewindegänge aus Messing, wodurch alle Schrauben ohne Einschränkungen öfter rein und herausgedreht werden können, da nicht auf Gewindegang aus Kunststoff geachtet werden muss, welcher leicht beim Festschrauben und Überdrehen von Schrauben beschädigt werden könnte. Zu sehen sind alle Messinggewindeeinsätze des Gehäuses in Abbildung \ref{fig:pcbMounts}.
+Zur Befestigung aller Komponenten im Kunststoffgehäuse sind mehrere Gewindeeinsätze aus Messing integriert. Dies bietet den Vorteil, dass die einzelnen Komponenten des Erweiterungsmoduls mehrfach ein und ausgebaut werden können, da integrierte Gewindegänge im Kunststoffgehäuse leicht überdreht und dadurch beschädigt werden können. Zu sehen sind alle benötigten Messinggewindeeinsätze des Gehäuses in Abbildung \ref{fig:pcbMounts}.
 
 \begin{figure}[h]
     \centering
@@ -249,7 +251,9 @@ Zur Befestigung der Platinen und des Gehäusedeckels mit dem Gehäuse, sind Löc
     \label{fig:pcbMounts}
 \end{figure}
 
-Sodass der Deckel des Gehäuses mit den Schienen für den Modulschacht und den Befestigungen der Platinen ohne Stützstrukturen gedruckt werden kann, ist der Deckel in zwei Modelle aufgeteilt. Beide Modell sollten für höhere Stabilität nach dem Druck mittels Kleber verbunden werden. Zur Befestigung der Platine für die Verbindung zwischen Multikopterfernsteuerung und dem Mikrocontroller gibt es weitere gedruckte Halterungen. Dies ist nötig, da die Platine sehr nah an der Gehäuseaußenkante liegen muss, um eine Verbindung mit dem Stecker der Fernsteuerung herstellen zu können. Zu sehen sind alle eingebauten Platinen in Abbildung \ref{fig:moduleAssembly}, sowie die Position der Modulbuchse zur Verbindung mit der Mulikopterfernsteuerung.
+Da der Gehäusedeckel, sowohl auf einer Seite Befestigungen für die Platinen hat und auf der gegenüberliegenden Seite die Schienen des Modulschachts sich befinden, ist dieses 3D-Modell in zwei Teilmodelle aufgeteilt. Dies ist nötig, um sowohl ohne Stützstrukturen auszukommen als auch die filigran Schienen mit einer guten Qualität drucken zu können. Für eine höhere Stabilität des Gehäusedeckels sollten die Teilmodelle nach dem Druck mittels Kleber verbunden werden.
+
+Damit die Platine mit der Modulbuchse im Gehäuse befestigt werden kann, werden weitere Halterungen benötigt. Dies ist nötig, da die Platine sehr nah an der Gehäuseaußenkante liegen muss, um eine Verbindung mit dem Stecker der Fernsteuerung herstellen zu können. Zu sehen sind die eingebauten Platinen in Abbildung \ref{fig:moduleAssembly}, sowie die Position der Modulbuchse für die Verbindung mit der Multikopterfernsteuerung.
 
 \begin{figure}[h]
     \centering
@@ -258,7 +262,7 @@ Sodass der Deckel des Gehäuses mit den Schienen für den Modulschacht und den B
     \label{fig:moduleAssembly}
 \end{figure}
 
-Zum Schutz der Taster und um die Tastendruckfläche zu vergrößern, sind Knöpfe im Gehäuse integriert. Zu beachten ist, dass nur Knöpfe im Gehäuse für die Tasten auf der Platine mit \acs{OLED}-Display enthalten sind, da diese nur vom Benutzer des Erweiterungsmoduls, während dem normalen Betrieb betätigt werden sollen. Die integrierten Knöpfe des Gehäuses und das Gehäuse selbst sind dabei ein Bauteil und benötigen daher keinen Zusammenbau nach dem Druck. Da durch die Integration in das Gehäuse der Knopf bewegbar gemacht werden muss, gibt es eine Verjüngung im Verbindungsstück zwischen Knopf und Gehäuse. Zu sehen ist der Knopf mit Verbindungsstück zum Gehäuse in Abbildung \ref{fig:buttonShell}. Wie ebenso im Querschnitt des Knopfes zu sehen ist, enthält der Knopf einen konischen Zylinder. Dieser ist vorhanden zum einen vorhanden, um die Tastendruckfläche des kleinen Platinentasters zu vergrößern. Zum anderen, um die Lücke zwischen Platine und Gehäuse zu überbrücken, da die Platine nicht direkt am Gehäuse befestigt werden kann.
+Zum Schutz und zur Vergrößerung der Tastendruckfläche der Taster der Eingabe- und Ausgabeplatine, ist ein Schutz der Taster im Gehäuse integriert. Dieser Schutz und das Erweiterungsmodulgehäuse bilden dabei ein Bauteil, wodurch kein zusätzlicher Zusammenbau benötigt wird. Jedoch muss dafür das Verbindungsstück zwischen Tastenschutz und dem Gehäuse flexibel entworfen werden. Dies ist möglich, indem die Schichtdicke des Verbindungsstücks dünn genug ist, damit der Kunststoff biegsam wird. Zu sehen ist der Tastenschutz mit Verbindungsstück in Abbildung \ref{fig:buttonShell}. Zusätzlich ist in Abbildung \ref{fig:buttonShell} zu sehen, dass ein konischer Zylinder auf dem Tastenschutz vorhanden ist, womit die Tastendruckfläche vergrößert wird und Lücke zwischen der befestigten Platine und dem Erweiterungsmodulgehäuse zu überbrücken.
 
 \begin{figure}[h]
     \centering
@@ -268,7 +272,7 @@ Zum Schutz der Taster und um die Tastendruckfläche zu vergrößern, sind Knöpf
 \end{figure}
 
 \subsection{Weiterführende Informationen}
-In Abbildung \ref{fig:moduleComplete} ist das fertig zusammengebaute Erweiterungsmodul zu sehen. Der Entwurf fand dabei in der kostenlosen und Open Source Software OpenSCAD statt \cite{aboutOpenScad}. Alle Modelle sind öffentlich unter \url{https://github.com/SimLinkModule/Shell} auffindbar.
+In Abbildung \ref{fig:moduleComplete} ist das vollständig montierte Gehäuse mit eingebauten Platinen zu sehen.
 
 \begin{figure}[h]
     \centering
@@ -276,3 +280,5 @@ In Abbildung \ref{fig:moduleComplete} ist das fertig zusammengebaute Erweiterung
     \caption{Zusammengebautes Erweiterungsmodul}
     \label{fig:moduleComplete}
 \end{figure}
+
+Der Entwurf des Gehäuses fand in der kostenlosen und Open Source Software OpenSCAD \cite{aboutOpenScad} statt. Die zugehörigen Projektdateien sind öffentlich unter folgenden Link auffindbar: \url{https://github.com/SimLinkModule/Shell}
