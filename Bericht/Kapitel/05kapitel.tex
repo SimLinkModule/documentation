@@ -7,10 +7,22 @@
 In diesen Abschnitt der Studienarbeit soll der definierte Aufgabenumfang von Kapitel \ref{section:Aufgabenstellung} mit dem realisierten Umfang verglichen werden und gegebenenfalls vorhandene Einschränkungen erläutert werden.
 
 \subsection{Softwareentwicklung}
-%ios problem, dass es nicht geht --> Trotz der Aussagen auf der Website von Apple Mfi und dem Vergleich mit einen XBox Controller, welcher per BLE mit iOS verbunden wird und funktioniert konnte keine Verbindung hergestellt werden. Dies ist auch unter folgender Quelle zu sehen, dass es nicht wie auf der Website klingt zu machen ist. https://github.com/lemmingDev/ESP32-BLE-Gamepad/issues/50#issuecomment-862770124 --> iOS verbindet sich mit dem Modul und submitted zu den HID daten aber es werden die Daten nicht weitergegeben.
-%auch schreiben, dass das orqa modul gekauft wurde, da es vermeindlich auf unter ios kompatibel ist --> funktioniert auch nicht unter ios bzw. es wurde auch nicht als controller erkannt
-%auch schreiben, dass mit xbox controller und switch controller die HCI daten auf einen idevice verglichen worden sind. Sowohl beim Pairing, erneuter Verbindungsaufbau und auch Advertising Pakete
-% Switch Controller versendet HID-Daten mittels Bluetooth Classic --> konnte nicht für den Vergleich verwendet werden
+Die Anforderungen an die Software des Erweiterungsmoduls sind in Kapitel \ref{section:softwareRequirement} aufgelistet und werden alle nacheinander in diesem Unterkapitel mit der finalen Umsetzung verglichen.
+
+Die erste Anforderung ist die Unterstützung der Kommunikation des Erweiterungsmoduls mit Endgeräten auf denen das Betriebssystem Android, Windows, Linux oder iOS/iPadOS läuft. Getestet wurde das Erweiterungsmodul mit allen gennanten Betriebssystemen unter einer Betriebssystemversion und einer Simulatorsoftware. Getestet wurde das Erweiterungsmodul unter Android Version 10 und der Simulatorsoftware \textit{FPV.SkyDive}, dabei konnte der vollständige Funktionsumfang nachgewiesen werden. Unter Windows 11 mit der Simulatorsoftware \textit{Velocidrone} konnte ebenso der vollständige Funktionsumfang des Erweiterungsmoduls nachgewiesen werden. Als Linux-Betriebssystem wurde \textit{Pop! OS 22.04 LTS} mit der Simulatorsoftware \textit{Velocidrone} verwendet. Dort konnte gleichermaßen der vollständige Funktionsumfang nachgewiesen werden. Für die Überprüfung des Funktionsumfangs des Erweiterungsmoduls mit iOS/iPadOS 16.3.1 wurde die Simulatorsoftware \textit{FPV.SkyDive} verwendet. Dort konnte keine Funktionsfähigkeit nachgewiesen werden. Jedoch findet unter iOS/iPadOS ein Verbindungsaufbau zwischen dem Erweiterungsmodul und dem Engerät statt und ebenfalls werden die Daten vom Erweiterungsmodul empfangen. Nachgewiesen werden kann dies mit der Software \textit{packetLogger} und \textit{libimobiledevice}. Für weitere Untersuchungen wurde ebenfalls ein vorhandender, mit iOS/iPadOS kompatibler, Nintendo Switch-Controller herangezogen und betrachtet wie der Kommunikationsaustausch dort stattfindet. Dabei stellt sich heraus, dass der Nintendo Switch-Controller mittels \ac{BBR} arbeitet und die Daten nicht mittels \ac{BLE} übertragt. Wie in Quelle \cite{lemmingDevESP32Comment} beschrieben ist, müssen \ac{BLE}-Gamecontroller doch durch das \ac{MFi}-Programm zertifiziert werden und ein zusätzliches Hardwaremodul enthalten muss.
+
+Die zweite Anforderung an die Software ist, dass die Kommunikation zwischen dem Erweiterungsmodul und den Endgeräten mittels \ac{BLE} erfolgen und sich das Erweiterungsmodul als HID-Gerät authentifizieren soll. Diese Umsetzung dieser Anforderung ist in Kapitel \ref{section:bluetoothStackSelection} und \ref{section:communicationModuleDevice} beschrieben.
+
+Die dritte Anforderung 
+
+%ANFORDERUNGEN
+%Kommunikation mittels BLE und authentifizierung als HID-Gerät
+%kommunikation zwischen Fernsteuerung und ERweiterungsmodul durch den Modulschacht
+    %vorhandenes Protkoll verwenden --> openTX abspaltung muss CRSF unterstützen, dann sollte es funktionieren --> TBS TANGO 2 mit FreedomTX Version TBS-1.3.0
+%Ein und Ausgabemöglichkeiten für die Verwendung des Moduls
+    %Statusnachrichten durch ein Display
+    %Leds für weitere Statusnachrichten
+%Bereitstellung des Akkustands für BLE-HID durch den ESP32
 
 %schreiben das es mit einer Fernsteuerung auf dem eine Abspaltung von OpenTX vorhanden ist funktioniert und ein Modulschacht hat
 %Die Kommunikation mittels BLE funktioniert auch; HID authentifizierung auch und es wird ein integriertes Protokoll von OPENTX verwendet
@@ -20,13 +32,11 @@ In diesen Abschnitt der Studienarbeit soll der definierte Aufgabenumfang von Kap
 
 %es musst in der Software keine LED ansteuerung stattfinden, da alle Statusmeldungen eindeutig über das Display angezeigt werden konnte. Es wurden nur eine LED verwendet um anzuzeigen, dass ein Stromfluss vorhanden ist in der Schaltung (rein in hardware).
 
-%Schauen ob das Gerät unter Linux, Android, Windows, iOS funktioniert. Schauen ob die Kommunikation mit dem Kontroller funktioniert. --> Wo funktioniert als kabelloser Joystick
-
 \subsection{Platinenentwurf}
-%Platine enthält Mikrocontroller und spannungsregulierung, Button und Display sowie LED für die Ein und Ausgabe vorhanden
+Die Anforderungen an die entworfenen Platinen des Erweiterungsmoduls sind in Kapitel \ref{section:pcbRequirement} aufgelistet und beschreiben, dass die Platine alle benötigten Elektronikkomponenten für das Erweiterungsmodul, welche im prototypischen Steckbrettaufbau vorhanden sind enthalten muss. Zusätzlich sollte die Platine möglichst kompakt sein, damit die Platine an der Multikopterfernsteuerung verwendet werden kann ohne das diese während des Steuerns von Multikoptern stört. Diese Anforderungen wurden alle in den Platinen, welche in Kaptiel \ref{section:pcbImplementation} vorgestellt worden, umgesetzt. Die Platine enthält den ESP32-Mikrocontroller, die benötigte Spannungsregulierung für alle Elektronikkomponenten sowie Taster, ein Display und eine LED für die Interaktion mit dem Benutzer des Erweiterungsmoduls. Zusätzlich enthält die externe Platinenbuchse einen Schutz vor \ac{ESD} und eine Logik für die komfortablere Programmierung des ESP32-Mikrocontrollers.
 
 \subsection{Gehäuseerstellung}
-%Gehäuse passt in Lite-Schacht; Gehäuse kann mit minimaler Anzahl von Stützstrukturen gedruckt werden --> Nur 4 Stück die ohne Aufwand entfernt werden können und keine Nachbearbeitung nach dem 3D-Druck erfordern
+Die Anforderungen an das Erweiterungsmodulgehäuse sind in Kapitel \ref{section:caseRequirement} aufgelistet und umfassen den Entwurf eines Kunststoffgehäuses, welches für Modulschächte des Typs \textit{Lite} verwendet werden kann und möglichst ohne Nachbearbeitung verwendet werden kann. All diese Anforderungen sind im entworfenen Gehäuse von Kapitel \ref{section:caseImplementation} umgesetzt. Das vorgestellte Gehäsue ist für Erweiterungsmodulschächte des Typs \textit{Light} und kann mit vier Stützstruckturen gedruckt werden. Ebenfalls müssen nach dem Entfernen der Stützstruckturen ohne Nachbearbeitung der Oberflächen verwendet werden, da die Stützstruckturen in einen nicht sichtbaren Bereich des Gehäuses verwendet werden.
 
 \section{Gegenüberstellung \acs{BLE}-Modul und USB-Verbindung}
 
@@ -34,8 +44,20 @@ In diesen Abschnitt der Studienarbeit soll der definierte Aufgabenumfang von Kap
 %Test zunächst mit servo probiert, um nicht an Platine direkt arbeiten zu müssen. Jedoch ist der Delay nicht in einen glaubwürdigen bereich, da zu lang.
 %Eine Studie gefunden, bei dem optokoppler verwendet wurden, und verschiedene Geräte getestet wurde als vergleichswert verwendbar.
 %Dadurch neuer Versuchsaufbau mit optokoppler. Schauen ob es in einen bereich mit den restlichen ist und wie viel schlechter es wurde.
+%Schreiben das mit evdev ermittelt wird und welche latenzen im System vorhanden sind --> Bild dafür hinzufügen
 
 %Bild von alter Haltung mit dem Servo zeigen
+%Bild von der Schaltung noch machen in KiCad
 
 \subsection{Auswertung}
 %Vielleicht gaußverteilung darstellen und werte dafür raussrechnen. Schreiben dass x mal getestet wurde.
+%Vergleich mit der anderen arbeit aus regensburg gegenüberstellen.
+%Berechnen was für eine Strecke geflogen wird in 30ms. Geschwindigkeit von Renndrohnen und normalen drohnen ausrechnen. Dabei jedoch schreiben, dass es in relation gesehen werden muss, dass pro neuen Signal nur immer von relativen Anpassungen der Flugbahn ausgegangen werden muss und nicht von 
+%Auch noch schreiben, dass die Testperson (ein Hobbiedrohnenpilot) keinen merkbaren unterschied zwischen einer USB-Verbindung und BLE-Verbindung ausmachen konnte im Simulator.
+%Schreiben wieso diese zusätzliche Latenz zu stande kommt und die ausreißer.
+    %-nicht jedes CRSF für die Tastenstellungen
+    %-Übertragungsrate von BLE
+    %-Doppelte Umwandlung in verschiedene Protokolle
+%auch sollten die einzelnen ausgefallenen Pakete oder die nach 100ms nicht all zu fehlerbehaftet gesehen werden, da sich ständig werte ändern während der flug einer drohne und nicht nur ein einziges signal sich ändert wodurch viel häufiger die alle Controller-Daten an das Endgerät gesendet werden
+%schreiben wieso es so spikes an gewissen stellen gibt
+    %-Ist von der Pollingrate von BLE und USB abhängig
