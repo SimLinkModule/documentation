@@ -27,7 +27,7 @@ Die Anforderungen an die entworfenen Platinen des Erweiterungsmoduls sind in Kap
 Die Anforderungen an das Erweiterungsmodulgehäuse sind in Kapitel \ref{section:caseRequirement} aufgelistet und umfassen den Entwurf eines Kunststoffgehäuses, welches für Modulschächte des Typs \textit{Lite} ist und möglichst ohne Nachbearbeitung verwendet werden kann. All diese Anforderungen sind im entworfenen Gehäuse von Kapitel \ref{section:caseImplementation} realisiert worden. Das entworfene Gehäuse ist für Erweiterungsmodulschächte des Typs \textit{Lite} und kann mit vier Stützstrukturen gedruckt werden. Da diese an nicht sichtbaren Bereichen des Gehäuses benötigt werden, entfällt die Nachbearbeitung der Oberflächen.
 
 \section{Gegenüberstellung \acs{BLE}-Modul und USB-Verbindung}
-Um zu überprüfen, ob das \ac{BLE}-Erweiterungsmodul eine bemerkbare Latenz für die Weitergabe einzelner Eingaben aufweist, wurden nachfolgend beschriebene Versuchsaufbauten zur Auswertung verwendet.
+Ein wichtiges Merkmal von Fernsteuerung während der Verwendung im Simulator als auch mit einem reellen Multikopter stellt die Latenz zwischen der Eingabe eines Signals bis zur Verarbeitung an der Gegenstelle dar. Um die Latenz zu bestimmen wird der nachfolgend beschriebene Versuchsaufbau verwendet.
 
 \subsection{Versuchsaufbau}
 %Test zunächst mit servo probiert, um nicht an Platine direkt arbeiten zu müssen. Jedoch ist der Delay nicht in einen glaubwürdigen bereich, da zu lang.
