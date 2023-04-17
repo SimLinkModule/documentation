@@ -60,14 +60,42 @@ Für die Ausführung der Latenzmesssoftware wird der Einplatinencomputer Raspber
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\textwidth]{optoTestStation}
-    \caption{Schaltplan des Versuchsaufbaus zur bestimmung der Latenz mittels eines Optokopplers; abgewandelt von \cites{wimmerLatenzStation}[S.~8]{LTV817}[S.~12]{LTV817}}
+    \caption{Schaltplan des Versuchsaufbaus zur bestimmung der Latenz mittels eines Optokopplers; abgewandelt von \cites{wimmerLatenzStation}[S.~8; S.~12]{LTV817}}
     \label{fig:optoTestStation}
 \end{figure}
 
 \subsection{Auswertung}
-%Dadurch neuer Versuchsaufbau mit optokoppler. Schauen ob es in einen bereich mit den restlichen ist und wie viel schlechter es wurde.
-%Vielleicht gaußverteilung darstellen und werte dafür raussrechnen. Schreiben dass x mal getestet wurde.
-%Vergleich mit der anderen arbeit aus regensburg gegenüberstellen.
+Sowohl für die Auswertung der USB-Latenz als auch für die Auswertung der \ac{BLE}-Latenz erfolgten jeweils 5000 Versuchsdurchläufe. Die Versuchsergebnisse werden dabei als Schwarmplot dargestellt, indem jede Messung als eigenständiger Punkt dargestellt wird \cite[S.~7]{wimmerLatenzStation}. Dadurch können die Versuchsergebnisse dieser Arbeit gut mit den Ergebnissen aus Quelle \cite{wimmerLatenzStation} verglichen werden, da dort die Ergebnisse im selben Format bereitgestellt werden. 
+
+\subsubsection{USB-Latenz}
+In Abbildung \ref{fig:latencyUSBAll} sind alle 5000 Durchläufe des Versuchsdurchlaufs als Schwarmplot dargestellt. Während des Versuchsdurchlaufs wurden alle 5000 Tastenbefehle an der Fernsteuerung durch den Einplatinencomputer als Eingabeereigniss erkannt. Der Latenzmittelwert aller Durchläufe liegt bei 9,16~ms und die Standardabweichung bei 2,26~ms. Durch diese Ergebnisse befindet sich die Latenz mittels der USB-Verbindung der Multikopterfernsteuerung im Vergleich zu den getesten Eingabegeräten von Quelle \cite{wimmerLatenzStation} zu den 50~\% mit einer geringeren Latenz.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{latencyUSBAll}
+    \caption{Latenz aller Versuchsdurchläufe mittels USB-Verbindung}
+    \label{fig:latencyUSBAll}
+\end{figure}
+
+\subsubsection{\ac{BLE}-Latenz}
+Von allen 5000 Versuchsdurchläufen mittels der \ac{BLE}-Verbindung konnten am Einplatinencomputer sieben Eingabeereignisse nicht erkannt werden. Von allen erkannten Durchläufen lag dabei der Latenzmittelwert bei 52,22~ms und die Standardabweichung bei 97,32~ms. Die Standardabweichung hat dabei einen großen Wert, da wie in Abbildung \ref{fig:latencyBLEAll} zu sehen ist 267 Messergebnisse außerhalb von 100~ms liegen und dadurch der Versuchsergebnissbereich eine große Spreizung aufweist. Werden jedoch die Messergebnisse größer 100~ms herausgerechnet liegt der Latenzmittelwert bei 30,00~ms und die Standardabweichung bei 7,68~ms, wie in Abbildung \ref{fig:latencyBLElt100} zu sehen ist. In nachfolgenden Kapitel ist beschrieben, warum Messergebnisse größer 100~ms in der Praxis vernachlässigt werden können. Jedoch gehört in beiden Fällen die \ac{BLE}-Verbindung des Fernsteuerungserweiterungsmodul zu den Eingabegeräten der Quelle \cite{wimmerLatenzStation} zu einen der langsamsten Eingabegeräten.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{latencyBLEAll}
+    \caption{Latenz aller Versuchsdurchläufe mittels \ac{BLE}-Verbindung}
+    \label{fig:latencyBLEAll}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{latencyBLElt100}
+    \caption{Latenz aller Versuchsdurchläufe die kleiner 100~ms sind mittels \ac{BLE}-Verbindung}
+    \label{fig:latencyBLElt100}
+\end{figure}
+
+\subsubsection{Ergebnisse}
+%Ergebnisse erläutern
 %Berechnen was für eine Strecke geflogen wird in 30ms. Geschwindigkeit von Renndrohnen und normalen drohnen ausrechnen. Dabei jedoch schreiben, dass es in relation gesehen werden muss, dass pro neuen Signal nur immer von relativen Anpassungen der Flugbahn ausgegangen werden muss und nicht von 
 %Auch noch schreiben, dass die Testperson (ein Hobbiedrohnenpilot) keinen merkbaren unterschied zwischen einer USB-Verbindung und BLE-Verbindung ausmachen konnte im Simulator.
 %Schreiben wieso diese zusätzliche Latenz zu stande kommt und die ausreißer.
@@ -77,3 +105,4 @@ Für die Ausführung der Latenzmesssoftware wird der Einplatinencomputer Raspber
 %auch sollten die einzelnen ausgefallenen Pakete oder die nach 100ms nicht all zu fehlerbehaftet gesehen werden, da sich ständig werte ändern während der flug einer drohne und nicht nur ein einziges signal sich ändert wodurch viel häufiger die alle Controller-Daten an das Endgerät gesendet werden
 %schreiben wieso es so spikes an gewissen stellen gibt
     %-Ist von der Pollingrate von BLE und USB abhängig
+% schreiben, warum man die Messergebnisse im Bereich > 100ms vernachlässigen kann
