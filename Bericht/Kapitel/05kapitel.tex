@@ -27,15 +27,39 @@ Die Anforderungen an die entworfenen Platinen des Erweiterungsmoduls sind in Kap
 Die Anforderungen an das Erweiterungsmodulgehäuse sind in Kapitel \ref{section:caseRequirement} aufgelistet und umfassen den Entwurf eines Kunststoffgehäuses, welches für Modulschächte des Typs \textit{Lite} ist und möglichst ohne Nachbearbeitung verwendet werden kann. All diese Anforderungen sind im entworfenen Gehäuse von Kapitel \ref{section:caseImplementation} realisiert worden. Das entworfene Gehäuse ist für Erweiterungsmodulschächte des Typs \textit{Lite} und kann mit vier Stützstrukturen gedruckt werden. Da diese an nicht sichtbaren Bereichen des Gehäuses benötigt werden, entfällt die Nachbearbeitung der Oberflächen.
 
 \section{Gegenüberstellung \acs{BLE}-Modul und USB-Verbindung}
-Ein wichtiges Merkmal von Fernsteuerung während der Verwendung im Simulator als auch mit einem reellen Multikopter stellt die Latenz zwischen der Eingabe eines Signals bis zur Verarbeitung an der Gegenstelle dar. Um die Latenz zu bestimmen wird der nachfolgend beschriebene Versuchsaufbau verwendet.
+Ein wichtiges Merkmal von Fernsteuerung während der Verwendung im Simulator als auch mit einem reellen Multikopter stellt die Latenz zwischen der Eingabe an der Fernsteuerung bis zur Verarbeitung an der Gegenstelle dar. Um diese Latenz zu bestimmen wird in nachfolgenden Abschnitt der verwendete Versuchsaufbau beschrieben und darauffolgend die Ergebnisse ausgewertet und mit weiteren Computereingabegeräten verglichen.
 
 \subsection{Versuchsaufbau}
-%Test zunächst mit servo probiert, um nicht an Platine direkt arbeiten zu müssen. Jedoch ist der Delay nicht in einen glaubwürdigen bereich, da zu lang.
+Zur Bestimmung der Latenz der Fernsteuerung muss ein Versuchsaufbau erstellt werden, mit welchen sowohl der Zeitpunkt der Tastenbetätigung als auch der Zeitpunkt des Eingabeereignisses im Betriebssystem gemessen werden kann. Zusätzlich sollte der Versuchsaufbau funktionieren ohne das eine Änderung an der vorhandenen Multikopterfernsteuerung gemacht werden muss.
+
+Ein Versuchsaufbau der ohne Änderung der Multikopterfernsteuerung auskommt ist, dass mittels eines Computerprogramms eine Person aufgefordert wird eine bestimmte Taster an der Fernsteuerung schnellstmöglich zu bestimmten Zeitpunkten bestätigt und die Zeit zwischen der Aufforderung durch das Computerprogramm und dem Zeitpunkt des Eingabeereignisses gemessen wird. Dieses Verfahren hat jedoch den Nachteil, dass in jeder Messung noch die Reaktionszeit der Person inbegriffen ist und in jedem Durchlauf unterschiedlich sein kann. Dadurch sind die Testergebnisse nicht repräsentativ und dieser Ansatz nicht weiter verfolgt.
+
+Ein weiteres Verfahren, welches ohne Veränderungen an der Multikopterfernsteuerung auskommt, ist eine angepasste Version des vorhergehenden Ansatzes. Dabei wird der Tastendruck durch eine Person, durch einen Tastendruck mittels eines Servos ausgetauscht. Der Servo kann dann durch das Computerprogramm eigenständig angesteuert werden. Zur Befästigung des Servos an der Fernsteuerung muss zusätzlich eine Stützstruktur entwickelt werden, womit der Servo bei jeden Versuchsdurchlauf an der optimalen Position zum Betätigen des Tasters liegt. Zu sehen ist dieser Versuchsaufbau in Abbildung \ref{fig:servoTestStation}. Die Latenz in diesem Verfahren kann dadurch bestimmt werden, indem zunächst der Zeitpunkt für den Befehl des Tastenloslassen durch des Servos protokolliert wird. Im darrauffolgenden Schritt muss noch der Zeitpunkt des Eingabeereignisses ermittelt werden und die Differnz beider Zeitpunkt stellt dabei die Latenz dar. Die Latenz in diesem Verfahren bei dem die Multikopterfernsteuerung mittels USB mit dem Testrechner verbunden ist, beträgt zirka 100~ms. Jedoch weicht die Latenz dieses Verfahren weit von den Ergebnissen der Arbeit, welche in Quelle \cite{wimmerLatenzStation} zu finden sind und realistische Werte bilden, ab. Die Abstand kommt zu Stande, da der Zeitpunkt des Tastenloslassen nur zum Beginn der Servo bewegung gelegt werden kann und dadurch die Bewegungszeit des Servos in jeder Messung mit inbegriffen ist. Deshalb wird dieses Versuchsverfahren ebenso nicht weiter verfolgt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\textwidth]{servoTestStation}
+    \caption{Stützstruktur für einen Versuchsaufbau zum Betätigen eines Fernsteuerungstasters mittels eines Servos}
+    \label{fig:servoTestStation}
+\end{figure}
+
+Für den finalen Versuchsaufbau wird als Grundlage, das Versuchsverfahren von der Arbeit in Quelle \cite{wimmerLatenzStation} verwendet. Dieses Verfahren ist jedoch nicht mehr ohne Veränderungen an der Multikopterfernsteuerung möglich. Die Betätigung eines Tasters der Fernsteuerung findet hierbei mittels eines Optokopplers statt.
+
+Ein Optokoppler ist ein Elektronikkompente mit welcher Signale galvanisch getrennt übertragen werden können \cite{elektronikKompendiumOptokoppler}. Das zu übertragende Signal wird dabei mittels einer \ac{LED} -- als Sendeelement -- und einer Fotodiode -- als Empfangselement -- übertragen, wodurch beide Teilschaltungen galvanisch getrennt sein können. Zu sehen ist das zugehörige Ersatzschaltbild eines Optokopplers in Abbildung \ref{fig:optocoupler}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\textwidth]{optocoupler}
+    \caption{Ersatzschaltbild eines Optokopplers; abgewandelt von \cite{altiumOptokoppler}}
+    \label{fig:optocoupler}
+\end{figure}
+
+Zur Bestimmung der Latenz für Eingabesignale, welche mittels USB oder \ac{BLE} übertragen werden, wird als Auswertungseinheit ein Raspberry Pi Model B+ 
+
+
 %Eine Studie gefunden, bei dem optokoppler verwendet wurden, und verschiedene Geräte getestet wurde als vergleichswert verwendbar.
 %Dadurch neuer Versuchsaufbau mit optokoppler. Schauen ob es in einen bereich mit den restlichen ist und wie viel schlechter es wurde.
 %Schreiben das mit evdev ermittelt wird und welche latenzen im System vorhanden sind --> Bild dafür hinzufügen
-
-%Bild von alter Haltung mit dem Servo zeigen
 %Bild von der Schaltung noch machen in KiCad
 
 \subsection{Auswertung}
