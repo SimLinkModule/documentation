@@ -95,14 +95,16 @@ Von allen 5000 Versuchsdurchläufen mittels der \ac{BLE}-Verbindung konnten am E
 \end{figure}
 
 \subsubsection{Ergebniserläuterung}
-%Ergebnisse erläutern
-%Berechnen was für eine Strecke geflogen wird in 30ms. Geschwindigkeit von Renndrohnen und normalen drohnen ausrechnen. Dabei jedoch schreiben, dass es in relation gesehen werden muss, dass pro neuen Signal nur immer von relativen Anpassungen der Flugbahn ausgegangen werden muss und nicht von 
-%Auch noch schreiben, dass die Testperson (ein Hobbiedrohnenpilot) keinen merkbaren unterschied zwischen einer USB-Verbindung und BLE-Verbindung ausmachen konnte im Simulator.
-%Schreiben wieso diese zusätzliche Latenz zu stande kommt und die ausreißer.
-    %-nicht jedes CRSF für die Tastenstellungen
-    %-Übertragungsrate von BLE
-    %-Doppelte Umwandlung in verschiedene Protokolle
+Zu Erkennen ist sowohl in dem USB- als auch in dem \ac{BLE}-Schwarmplot, dass es bestimmte Regionen gibt, an denen sich die Messergebnisse häufen. Dies liegt bei der USB-Verbindung daran, dass Eingabedaten durch das Endgerät in einem bestimmten Intervall abgefragt werden und keine Daten ausgehend durch das Eingabegerät versendet werden können \cites[S.~48f., S.~277ff.]{usb2Spec}[S.~5]{wimmerLatenzStation}. Dies ist unter einer \ac{BLE}-Verbindung nicht der Fall, da Änderungen der Werte eines Eingabegerätes an abonnierte Endgeräte selbständig verschicken kann \cite[S.~1516]{bluetoothCore}. Die größere Latenz durch das Erweiterungsmodul mit der \ac{BLE}-Verbindung hat mehrere Gründe.
+
+Der erste Grund ist, dass mehrfache Umwandlung zwischen unterschiedlichen Protokollen stattfinden muss bis das die Steuerungsbefehle der Fernsteuerung am Endgerät ankommen. Während bei der USB-Übertragung nur die Steuerungsdaten in ein USB-Paket umgewandelt werden müssen, muss bei der Übertragung mit dem Erweiterungsmodul zunächst die Steuerungsdaten in CRSF-Pakete umgewandelt werden und darauf folgernd die Daten im Erweiterungsmodul in BLE-Pakete umgewandelt werden, bevor diese vom Endgerät ausgewertet werden können.
+
+Als zweiter Grund ist zu nennen, dass nicht jedes CRSF-Paket, welches über den Modulschacht geschickt wird, Steuerungsdaten enthält, sondern wie in Kapitel \ref{section:crsfProtocol} beschrieben auch weitere Statusinformationen übertragen werden. Dadurch entsteht in diesem Schritt eine Latenz welche ein Vielfaches von 6~ms ist.
+
+Als letzter Grund ist noch zu nennen, dass das Übertragungsintervall zwischen dem Erweiterungsmodul und dem Endgerät dynamisch verhandelt werden kann. Dabei keine eine Stelle eine Anfrage zur Änderung der Verbindungsparameter an die Gegenstelle Schicken und diese erwidert oder lehnt diese ab. Dabei ist das Intervall für den minimalen Datenaustausch bei 7,6~ms. In der Erweiterungsmodulsoftware ist dieser minimale Intervallwert auf 11,25~ms gelegt, da dies der Grenzwert von Apple-Produkten ist, welcher aber nicht von den Endgeräten angenommen werden muss \cite[S.~188]{appleDesignGuide}. \cite{bleConnectionParameter}
+
 %auch sollten die einzelnen ausgefallenen Pakete oder die nach 100ms nicht all zu fehlerbehaftet gesehen werden, da sich ständig werte ändern während der flug einer drohne und nicht nur ein einziges signal sich ändert wodurch viel häufiger die alle Controller-Daten an das Endgerät gesendet werden
-%schreiben wieso es so spikes an gewissen stellen gibt
-    %-Ist von der Pollingrate von BLE und USB abhängig
-% schreiben, warum man die Messergebnisse im Bereich > 100ms vernachlässigen kann
+
+Durch die zusätzliche Latenz von 20,84~ms (Optimalfall) zu der USB-Verbindung wird bei der \ac{BLE}-Verbindung eine zusätzliche Distanz von ungefähr 0,75~m zurückgelegt, wenn eine Multikoptergeschwindigkeit von 130~km/h angenommen wird \cites{droneSpeed1}{droneSpeed2}{droneSpeed3}. Hierbei muss jedoch mit einbezogen werden, dass es sich zwischen zwei gesendeten Eingabesignalen nicht, um binäre Wertänderungen handelt, sondern meist an den Steuerknüppeln der Fernsteuerung nur kontinuierliche minimale Anpassungen sind, wodurch es nur zu relativen Anpassungen der Flugbahn führt. Auch finden große Änderungen der Steuerknüppelpositionen meist nicht bei solch hohen Geschwindigkeiten statt. Zusätzlich können sich auch Multikopterpiloten in gewisser Weise auf die vorhandene Latenz der Eingabe anpassen und dadurch die gewünschten Steuersignale nach kurzer Eingewöhnungsphase früher einleiten.
+
+Zuletzt ist noch zu schreiben, dass eine Testperson (Hobbydrohnenpilot), keinen merkbaren Unterschied zwischen der Steuerung des Simulators mittels einer USB- oder \ac{BLE}-Verbindung feststellen konnte.

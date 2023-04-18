@@ -347,6 +347,7 @@ Die Gesamtlänge eines Pakets beträgt 22,5~ms mit inkludierter Pause. Die Pulse
 \end{figure}
 
 \subsection{CRSF}
+\label{section:crsfProtocol}
 Das CRSF-Protokoll verwendet eine Eindrahtleitung für eine halbduplex \ac{UART}-Verbindung. Über diese Verbindung sendet der Master alle 6~ms ein Paket. Zwischen den Paketen des Masters kann der Slave den Master optional antworten. Optional zu Beginn eines Pakets gibt es ein Synchronisationsbyte mit den Daten 0xC8. \cites{cleanflightCrsf}{cleanflightCrsfP}
 
 Die Symbolrate beträgt 420000~Baud bei einer 8N1 Übertragung, womit die Übertragungsrate 46~KByte/s entspricht. Die Übertragung findet invertiert statt (hohes Spannungsniveau = logisch niedrig \cite{sigrokSBus}) und Daten werden im Big Endian-Format übertragen. \cite{cleanflightCrsf}

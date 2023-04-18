@@ -4,8 +4,20 @@
 \todo[inline]{TODO: Rekapitulation und Ausblick}
 %Rekapitulation
 %-Kurze zusammenfassung wie Arbeit in Teilbereiche aufgebaut wurde und was die ergebnisse davon sind
+    %-Teilbereiche: Softwareentwicklung, Gehäusedesign, Platinendesign und Validierung der Funktionen und Latenzauswertung
+    %-Softwareentwicklung: CRSF-Daten werden ausgewertet und mittels BLE an Endgerät verschickt durch ESP32. Zusätzliche Statusmitteilungen und eingabemöglichkeiten durch Buttons und OLED-Display
+    %-Gehäusedesign: Gehäuse mit geringer nachbearbeitung druckbar; Verwendbar für Lite-Modulschächte
+    %-Platinendesign: Platine in denen alle wichtigen Elektronikkomponenten für das Erweiterungsmodul enthalten ist; Mit zusätzlicher Logik für das einfache Programmieren des ESP32
+    %-Funktionsumfang: Größter Teil der ursprünglichen Anforderungen konnten umgesetzt werden. Größte Funktion die nicht umgesetzt worden konnte ist die Verwendung unter iOS-Geräten, da das Erweiterungsmodul in das Mfi programm aufgenommen werden müsste, was zustätzliche Kosten sind
+    %-Latenzauswertung die Latenz weißt im optimalfall eine Latenz von 30ms auf mit einer Standardabweichung von 7,68ms. Der optimalfall ist in Kaptitel ... beschrieben.
 %-Verbesserungen anbringen / Nachteile
+    %-gestiegene Latenz
+    %-Nur die nötigsten GAP-Evente ausgewertet
+    %-Für die eigenbenutzung ist die Platinen herstellung und bestückung zu teuer ungefähr 180$, jedoch kann man es auch in einer minimalen Version auch nur mit einen Entwicklungsboard verwenden die Software und einer Modulsteckerbuchse.
 %-Zusammenfassen, was jetzt möglich ist nach dieser Arbeit mit ergebnissen
+    %-Fernsteuerungsunabhängig, solange das CRSF-Protokoll über den Modulschacht übetragen wird
+    %-Open Source MIT Lizenz vorhandenes Erweiterungsmodul
+    %-BLE-HID-Controller für Simulatoren unter Linux, Windows und Android
 
 %Ausblick:
 %-Platine könnte kompakter hergestellt werden --> Indem die Connector- und main-platine kombiniert wird und auf der mainplatine der teil für den vereinfachten Flash weggelassen wird
