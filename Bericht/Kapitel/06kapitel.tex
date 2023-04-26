@@ -1,8 +1,7 @@
 %!TEX root = ../Studienarbeit.tex
 
 \chapter{Rekapitulation und Ausblick}
-\todo[inline]{TODO: Rekapitulation und Ausblick}
-%Rekapitulation
+\section{Rekapitulation}
 %-Kurze zusammenfassung wie Arbeit in Teilbereiche aufgebaut wurde und was die ergebnisse davon sind
     %-Teilbereiche: Softwareentwicklung, Gehäusedesign, Platinendesign und Validierung der Funktionen und Latenzauswertung
     %-Softwareentwicklung: CRSF-Daten werden ausgewertet und mittels BLE an Endgerät verschickt durch ESP32. Zusätzliche Statusmitteilungen und eingabemöglichkeiten durch Buttons und OLED-Display
@@ -10,19 +9,16 @@
     %-Platinendesign: Platine in denen alle wichtigen Elektronikkomponenten für das Erweiterungsmodul enthalten ist; Mit zusätzlicher Logik für das einfache Programmieren des ESP32
     %-Funktionsumfang: Größter Teil der ursprünglichen Anforderungen konnten umgesetzt werden. Größte Funktion die nicht umgesetzt worden konnte ist die Verwendung unter iOS-Geräten, da das Erweiterungsmodul in das Mfi programm aufgenommen werden müsste, was zustätzliche Kosten sind
     %-Latenzauswertung die Latenz weißt im optimalfall eine Latenz von 30ms auf mit einer Standardabweichung von 7,68ms. Der optimalfall ist in Kaptitel ... beschrieben.
-%-Verbesserungen anbringen / Nachteile
-    %-gestiegene Latenz
-    %-Nur die nötigsten GAP-Evente ausgewertet
-    %-Für die eigenbenutzung ist die Platinen herstellung und bestückung zu teuer ungefähr 180$, jedoch kann man es auch in einer minimalen Version auch nur mit einen Entwicklungsboard verwenden die Software und einer Modulsteckerbuchse.
-%-Zusammenfassen, was jetzt möglich ist nach dieser Arbeit mit ergebnissen
-    %-Fernsteuerungsunabhängig, solange das CRSF-Protokoll über den Modulschacht übetragen wird
-    %-Open Source MIT Lizenz vorhandenes Erweiterungsmodul
-    %-BLE-HID-Controller für Simulatoren unter Linux, Windows und Android
 
-%Ausblick:
-%-Platine könnte kompakter hergestellt werden --> Indem die Connector- und main-platine kombiniert wird und auf der mainplatine der teil für den vereinfachten Flash weggelassen wird
-%-Gehäuse kann niedriger hergestellt werden, wenn die Platine angepasst wird und der Stecker für die IO-PCB nicht nach oben wegsteht
-%-Display kann näher an das Gehäuse, wenn die Platine statt nur einseitig, beidseitg bestückt wird
-%-Es können weiter Kommunikationsprotokolle implementiert werden --> nur digitale für Analog müsste der Pin mit Mikrocontroller noch verbunden werden
-%-Es kann auch noch ein Adapter gebaut werden womit das light modul in einen normalen modulschaft verwendet werden kann
-%-Ausführlichere Hinweise können am Display angezeigt werden, da es noch mehr GAP-Events gibt welche aktuell nicht verwendet werden
+Anzumerken ist, dass die Latenz zwischen Multikopterfernsteuerung und einem Endgerät mittels des \ac{BLE}-Erweiterungsmoduls, im Vergleich zu der vorhandenen USB-Verbindung, angestiegen ist. Auch werden nur die nötigsten \ac{GAP}-Events durch das Erweiterungsmodul ausgewertet, wodurch hilfreiche Informationen vor dem Endnutzer verschwiegen werden. Zuletzt ist noch anzumerken, dass die Produktionskosten des Erweiterungsmoduls für die Eigenverwendung zu hoch ausfallen (ungefähr 180~€). Alternativ zur Produktion der Erweiterungsplatinen und dem 3D-Druck eines Gehäuse, kann auch ein ESP32-Entwicklungsboard und wenigen weiteren Elektronikkomponenten ebenso das Erweiterungsmodul nachgebaut werden. Hierdurch können die Kosten auf ungefähr 50~€ gesenkt werden. 
+
+Zusammenfassend ist mit dem entwickelten Erweiterungsmodul es nun möglich Multikopterfernsteuerungen modellunabhängig mit einem Endgerät mittels \ac{BLE} zu verbinden. Einschränkungen hierbei sind, dass die Multikopterfernsteuerung das CRSF-Protokoll für die Übertragung am Modulschacht unterstützt und dass das Betriebssystem des Endgeräts Windows, Linux oder Android ist. Außerdem ist die Software, der Platinenentwurf sowie das Gehäusedesign unter der open source Lizenz \textit{Apache-2.0} öffentlich zugänglich bereitgestellt.
+
+\section{Ausblick}
+Aufbauend auf den Ergebnissen dieser Arbeit, können weitere Anpassungen in den Bereichen Platinenentwurf, Gehäuseentwurf und Softwareentwicklung durchgeführt werden.
+
+Im Bereich des Platinenentwurfs können Anpassungen erfolgen, um die Platinen kleiner und kompakter gestalten zu können. Dafür kann zum einen die Verbindungsplatine zwischen der Multikopterfernsteuerung und dem Erweiterungsmodul in die Hauptplatine des Erweiterungsmoduls integriert werden. Zum anderen kann die Logik für die Programmierung des ESP32-Mikrocontroller entfallen, da diese Logik nur selten benötigt wird und der Start des Mikrocontrollers in den Programmiermodus auch manuell durchgeführt werden kann (siehe Kapitel \ref{section:pcbImplementation}). Zusätzlich kann die Platinengröße verringert werden, indem die benötigten Elektronikkomponenten beidseitig auf den Platinen angebracht werden.
+
+Im Bereich des Gehäuseentwurfs kann einerseits ein Adapter konstruiert werden, um das Erweiterungsmodul (Typ: Lite) für normale Modulschächte vorzubereiten. Zusätzlich wird hierfür eine Adapterplatine benötigt, welche das Buchsenlayout zwischen den verschiedenen Modulschachtarten wandelt. Andererseits können durch die erwähnten Platinenanpassungen das Gehäuse ebenso kompakter gestaltet werden, wodurch das \acs{OLED}-Display für eine bessere Lesbarkeit näher an der Gehäuseaußenkante angebracht werden kann.
+
+Im Bereich der Softwareentwicklung kann die Auswertung der verfügbaren \ac{GAP}-Events implementiert werden, um Benutzern des Erweiterungsmoduls weiterführende Informationen bereitzustellen. Ebenso können weitere Kommunikationsprotokolle zwischen der Multikopterfernsteuerung und dem Erweiterungsmodul implementiert werden, um weitere Fernsteuerungsmodelle zu unterstützen. Die Implementierung von digitalen Kommunikationsprotokolle ist ohne Hardwareanpassungen möglich. Jedoch muss für die Implementierung von analogen Kommunikationsprotokollen zusätzlich der analoge Pin des Modulschachts mit dem ESP32-Mikrocontroller verbunden werden.
