@@ -95,6 +95,7 @@ Von allen 5000 Versuchsdurchläufen mittels der \ac{BLE}-Verbindung konnten am E
 \end{figure}
 
 \subsubsection{Ergebniserläuterung}
+\label{section:resultExplanation}
 Zu Erkennen ist sowohl in dem USB- als auch in dem \ac{BLE}-Schwarmplot, dass es bestimmte Regionen gibt, an denen sich die Messergebnisse häufen. Dies liegt bei der USB-Verbindung daran, dass Eingabedaten durch das Endgerät in einem bestimmten Intervall abgefragt werden und keine Daten ausgehend durch das Eingabegerät versendet werden können \cites[S.~48f., S.~277ff.]{usb2Spec}[S.~5]{wimmerLatenzStation}. Dies ist unter einer \ac{BLE}-Verbindung nicht der Fall, da Änderungen der Werte eines Eingabegerätes an abonnierte Endgeräte selbständig verschicken kann \cite[S.~1516]{bluetoothCore}. Die größere Latenz durch das Erweiterungsmodul mit der \ac{BLE}-Verbindung hat mehrere Gründe.
 
 Der erste Grund ist, dass mehrfache Umwandlung zwischen unterschiedlichen Protokollen stattfinden muss bis das die Steuerungsbefehle der Fernsteuerung am Endgerät ankommen. Während bei der USB-Übertragung nur die Steuerungsdaten in ein USB-Paket umgewandelt werden müssen, muss bei der Übertragung mit dem Erweiterungsmodul zunächst die Steuerungsdaten in CRSF-Pakete umgewandelt werden und darauf folgernd die Daten im Erweiterungsmodul in BLE-Pakete umgewandelt werden, bevor diese vom Endgerät ausgewertet werden können.
