@@ -6,7 +6,7 @@
 In diesem Abschnitt der Studienarbeit wird die Auswahl des Mikrocontrollers erklärt und das Zusammenspiel der Softwarekomponenten sowie einige Kernkomponenten detaillierter beschrieben.
 
 \subsection{Auswahl der Mikrocontrollers}
-Als Mikrocontroller wird das kostengünstige ESP32-WROOM-32E-Modul -- zirka 5~€ \cite{espressifModules} -- verwendet, da es in Hobbyprojekten gern verwendet wird \cites{redditESP32}{esp32Forum}. Folglich gibt es eine große Community, die sich bei Problemen während der Entwicklung von Softwareprojekten austauschen kann \cites{redditESP32}{esp32Forum}. Die \ac{ESP-IDF} ist außerdem gut durch Kommentare im Sourcecode und durch Beispielprogramme dokumentiert. Ein weiterer Grund für die Verwendung des ESP32 ist, die Unterstützung mehrerer Bluetooth-Stacks, welche in Kapitel \ref{section:bluetoothStacks} beschrieben sind. Zuletzt ist noch anzumerken, dass der Mikrocontroller in kompakten Hardwaremodulen bezogen werden kann, in denen alle benötigten Elektronikkomponenten für den Betrieb des ESP32 enthalten sind. Dazu zählen unter anderen Kondensatoren, Widerstände und gegebenenfalls eine Antenne für den Betrieb von Bluetooth oder \acs{WLAN} \cite[S.~14]{espressifHardwareDesignGuidelines}. Die ESP32-Module besitzen auch meist eine CE-Zertifizierung, wie in Kapitel \ref{section:esp32Explained} beschrieben, womit das zu entwickelnde Fernsteuerungsmodul vereinfacht zertifiziert werden kann.
+Als Mikrocontroller wird das kostengünstige ESP32-WROOM-32E-Modul -- zirka 5~€ \cite{espressifModules} -- verwendet, da es in Hobbyprojekten gern verwendet wird \cites{redditESP32}{esp32Forum}. Folglich gibt es eine große Community, die sich bei Problemen während der Entwicklung von Softwareprojekten austauschen kann \cites{redditESP32}{esp32Forum}. Die \ac{ESP-IDF} ist außerdem gut durch Kommentare im Sourcecode und durch Beispielprogramme dokumentiert. Ein weiterer Grund für die Verwendung des ESP32 ist, die Unterstützung mehrerer Bluetooth-Stacks, welche in Kapitel \ref{section:bluetoothStacks} beschrieben sind. Zuletzt ist noch anzumerken, dass der Mikrocontroller in kompakten Hardwaremodulen bezogen werden kann, in denen alle benötigten Elektronikkomponenten für den Betrieb des ESP32 enthalten sind. Dazu zählen unter anderen Kondensatoren, Widerstände und gegebenenfalls eine Antenne für den Betrieb von Bluetooth und \acs{WLAN} \cite[S.~14]{espressifHardwareDesignGuidelines}. Die ESP32-Module besitzen auch meist eine CE-Zertifizierung, wie in Kapitel \ref{section:esp32Explained} beschrieben, womit das zu entwickelnde Fernsteuerungsmodul vereinfacht zertifiziert werden kann.
 
 \subsection{Auswahl des Bluetooth-Stacks}
 \label{section:bluetoothStackSelection}
@@ -197,7 +197,7 @@ Zu Beginn der Betätigung eines Tasters entstehen Schwingungen zwischen der Mass
     \label{fig:buttonDebounce}
 \end{figure}
 
-Der Taster, welcher für den manuellen Start des Programmiermodus, auf der Platine des Erweiterungsmoduls vorhanden ist, darf jedoch nicht durch eine Hardwareschaltung entprellt werden.  Während der Aufladungsphase des Kondensators liegt ansonsten die Spannung am ESP32-Kontakt \textit{Boot} nahe bei 0~V und der ESP32 wird ungewollt im Programmiermodus gestartet.
+Der Taster, welcher für den manuellen Start des Programmiermodus, auf der Platine des Erweiterungsmoduls vorhanden ist, darf jedoch nicht durch eine Hardwareschaltung entprellt werden.  Während der Aufladungsphase des Kondensators liegt ansonsten die Spannung am ESP32-Kontakt \textit{Boot} nahe bei 0~V und der ESP32 wird immer ungewollt im Programmiermodus gestartet.
 
 \subsubsection{\acf{ESD}-Schutz}
 \label{section:esdProtection}
@@ -245,7 +245,7 @@ Der Fokus beim Gehäuseentwurf liegt darin, das Gehäuse so zu drucken, dass ein
     \label{fig:overhangStruct}
 \end{figure}
 
-Zur Befestigung aller Komponenten im Kunststoffgehäuse sind mehrere Gewindeeinsätze aus Messing integriert. Dies bietet den Vorteil, dass die einzelnen Komponenten des Erweiterungsmoduls mehrfach ein- und ausgebaut werden können, ohne dass vorhandene integrierte Gewindegänge im Kunststoffgehäuse leicht überdreht und dadurch beschädigt werden. Zu sehen sind alle benötigten Messinggewindeeinsätze des Gehäuses in Abbildung \ref{fig:pcbMounts}.
+Zur Befestigung aller Komponenten im Kunststoffgehäuse sind mehrere Gewindeeinsätze aus Messing integriert. Dies bietet den Vorteil, dass die einzelnen Komponenten des Erweiterungsmoduls mehrfach ein- und ausgebaut werden können, ohne dass integrierte Gewindegänge im Kunststoffgehäuse leicht überdreht und dadurch beschädigt werden können. Zu sehen sind alle benötigten Messinggewindeeinsätze des Gehäuses in Abbildung \ref{fig:pcbMounts}.
 
 \begin{figure}[h]
     \centering
@@ -270,7 +270,7 @@ Zum Schutz und zur Vergrößerung der Tasterdruckfläche der Eingabe- und Ausgab
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{buttonShell}
-    \caption{Tasterschutz für Taster der Platine}
+    \caption{Tasterschutz für Taster des Erweiterungsmoduls}
     \label{fig:buttonShell}
 \end{figure}
 
